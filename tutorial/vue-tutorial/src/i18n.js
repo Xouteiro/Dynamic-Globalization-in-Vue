@@ -8,7 +8,6 @@ function loadLocaleMessages() {
   for (const idiom of idioms.Idioms) {
     locales.push({ [idiom.name]: idiom.vocabulary });
   }
-  console.log(locales);
   const messages = {};
   locales.forEach((lang) => {
     const key = Object.keys(lang);

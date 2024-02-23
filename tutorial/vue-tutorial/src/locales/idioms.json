@@ -5,12 +5,12 @@
       "name": "en",
       "vocabulary": {
         "Home": "Home",
-        "About": "test",
+        "About": "About",
         "Idiom": "Idiom",
         "Change": "Change",
         "pluralization": "Pluralization",
         "dateTime": "Date & Time",
-        "numbers": "Numbers",
+        "numbers": "12345",
         "home": {
           "header": "Vue i18n all examples",
           "$tfunction": "hello text in function without import",
@@ -28,7 +28,8 @@
         "about-sh": "Learn more @.lower:about-title",
         "about-para1": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt nobis sapiente quos officia vitae. Minus blanditiis doloremque error at consectetur magni nam voluptatem pariatur! Itaque deleniti delectus odio accusantium quas?",
         "about-para2": "Non eius beatae dolorum impedit enim repudiandae nulla ipsum animi. Ullam qui libero possimus aliquam, praesentium ipsam omnis, ab aut culpa reprehenderit odio sapiente ex molestias maiores? Temporibus, molestiae eum!",
-        "about-para3": "Consectetur illo nobis, nemo necessitatibus quos corporis voluptates enim totam itaque ratione et ad iste corrupti eaque ex quas commodi. Perspiciatis vel quo consectetur quas nulla explicabo harum ratione consequatur."
+        "about-para3": "Consectetur illo nobis, nemo necessitatibus quos corporis voluptates enim totam itaque ratione et ad iste corrupti eaque ex quas commodi. Perspiciatis vel quo consectetur quas nulla explicabo harum ratione consequatur.",
+        "key": "ss"
       }
     },
     {
@@ -38,6 +39,7 @@
         "Home": "الصفحة الرئيسية",
         "About": "معلومات عنا",
         "Idiom": "لغة",
+        "Change": "تغيير",
         "pluralization": "الجمع",
         "dateTime": "التاريخ والوقت",
         "numbers": "الأرقام",
