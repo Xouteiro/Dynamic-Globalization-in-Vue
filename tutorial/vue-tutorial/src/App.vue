@@ -4,7 +4,7 @@ import { useI18n } from "vue-i18n";
 import { ref } from "vue";
 import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 
-const { locale } = useI18n() 
+const { locale } = useI18n();
 let idiom = ref('en');
 let vocabulary = ref();
 let idiom_data: any;

@@ -17,7 +17,7 @@ watchEffect(() => {
   <div class="locale-switcher">
     <div class="locale-changer">
       <select v-model="$i18n.locale" style="padding: 5px 15px;font-size: 16px;">
-        <option
+        <option @click="console.log($i18n)"
           v-for="locale in $i18n.availableLocales"
           :key="`locale-${locale}`"
           :value="locale"
