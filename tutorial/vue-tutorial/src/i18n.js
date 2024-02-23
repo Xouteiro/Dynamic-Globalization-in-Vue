@@ -22,9 +22,10 @@ function loadLocaleMessages() {
   });
   return messages;
 }
-export default createI18n({
+const i18n = createI18n({
   locale: "en",   // set initial locale
   fallbackLocale: "en",
   legacy: false, // false for Composition API
-  messages: loadLocaleMessages(), 
+  messages:  loadLocaleMessages(),  //preenche $i18.availableLocales com as linguagens disponíveis
 });
+export default i18n;
