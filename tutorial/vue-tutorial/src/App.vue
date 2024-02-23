@@ -9,6 +9,7 @@ let idiom = ref('en');
 let vocabulary = ref();
 let idiom_data: any;
 let word = ref<string>('');
+let key = ref<string>('');
 
 
 async function fetchIdioms() {
@@ -51,17 +52,17 @@ function updateString (key:string, word:string, locale: string){
     const toReplace = document.getElementsByClassName(key);
     for(const element in toReplace){
         if(toReplace[element].textContent != undefined && toReplace[element].classList.contains(locale)){
-            console.log("entered")
             toReplace[element].textContent = wordValue;
         }
     }
 }
 
 
-function updateElement (word_to_change: string){
-    changeWord("numbers", word_to_change);
-    updateString("numbers",word_to_change, idiom.value);
+function updateElement (key_to_change: string, word_to_change: string){
+    changeWord(key_to_change, word_to_change);
+    updateString(key_to_change, word_to_change, idiom.value);
     word.value = '';
+    key.value = '';
 }
 
 async function updateLocale (newLocale: string){
@@ -97,8 +98,9 @@ async function updateLocale (newLocale: string){
       </nav>
 
       <div class="idioms">
-        <input type="text" v-model="word">
-        <button @click="updateElement(word)" class="Change" :class="locale">{{ $t("Change") }}</button>
+        <input type="text" v-model="key" placeholder="Key to change">
+        <input type="text" v-model="word" placeholder="New String">
+        <button @click="updateElement(key,word)" class="Change" :class="locale">{{ $t("Change") }}</button>
 
     </div>
     </div>
