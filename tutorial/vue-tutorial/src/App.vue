@@ -44,20 +44,10 @@ function changeWord (key: string, word: string){
     
 }
 
-function updateString (key:string, word:string, locale: string){
-    const wordValue = currentMessages[key];
-    const toReplace = document.getElementsByClassName(key);
-    for(const element in toReplace){
-        if(toReplace[element].textContent != undefined && toReplace[element].classList.contains(locale)){
-            toReplace[element].textContent = wordValue;
-        }
-    }
-}
 
 
 function updateElement (key_to_change: string, word_to_change: string){
     changeWord(key_to_change, word_to_change);
-    updateString(key_to_change, word_to_change, locale.value);
     word.value = '';
     key.value = '';
 }
@@ -65,9 +55,6 @@ function updateElement (key_to_change: string, word_to_change: string){
 async function updateLocale (newLocale: string){
     locale.value = newLocale;
     currentMessages = i18n.global.getLocaleMessage(newLocale);
-        for (const key in currentMessages) {
-            updateString(key, currentMessages[key], newLocale);
-        }
 }
 
 

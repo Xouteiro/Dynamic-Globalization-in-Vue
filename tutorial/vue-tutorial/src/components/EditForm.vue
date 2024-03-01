@@ -5,9 +5,10 @@ import { useI18n } from 'vue-i18n'
 import { ref } from "vue";
 
 
+//change everything to currentMessages
+
 const { locale } = useI18n() 
 let idiom = ref('en');
-let vocabulary = ref();
 let idiom_data: any;
 let word = ref<string>('');
 let key = ref<string>('');
