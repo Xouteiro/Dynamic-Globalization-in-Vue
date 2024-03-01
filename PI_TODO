@@ -1,0 +1,28 @@
+
+DONE---Corrigir erro troca de strign
+dar fetch a um idioma de cada vez--(meio que ja esta, falta melhorar)fazer depois quando tiver a minha API
+
+DONE---Se nao conseguir fazer com que nao de refresh, nao fazer nada em js, simplesmente dar reload --
+-- não é preciso js, nem refresh, porque o $t é reativo, e eu estou a mudar o conteudo das current messages
+
+
+
+Escolher entre estas duas opções:
+	-Ou dou refresh para atualizar a cada vez que uma palavra é mudada.
+	-Ou faço um fetch para cada lingua e faço-o sempre que troco uma palavra.
+	---depois de escolher, eliminar esta linha no changeWord : currentMessages[key] =  word;
+
+Erros a implementar(e documentar) -- erro de fetch
+
+Documentar:
+	-- Change Words
+	-- o porque de NoSql
+	-- o porque da estrutura da DB
+	
+
+
+Backend:
+	Express js, Node js, Mongo DB
+	Site simples exemplo
+
+aplicação de extrair strings

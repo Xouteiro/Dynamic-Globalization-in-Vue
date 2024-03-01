@@ -1,0 +1,19 @@
+Projeto integrador
+
+Traduçãoo
+
+Face ao desafio de aplicação de suportar diversos idiomas, sem haver a necessidade de compilar o codigo uma vez para cada idioma, e também
+mantendo os príncipios de uma SPWA, optou-se pela implementação de uma abordagem que consiste em, a partir de vários conjuntos de pares Chave - Tradução, um conjunto para cada idioma, sempre que se muda a opção do idioma do website todas as componentes textuais do website mudam também. Utilizando algumas ferramentas nativas da framework e também a biblioteca i18n, isto é possível. 
+Os dados referidos anteriormente, armazenados num ficheiro JSON (ou numa estrutura de dados convertível para JSON), são importados para um ficheiro .js, onde se implementa uma função que obtêm as "Mensagens"(pares Chave - Tradução) de cada idioma. Recorrendo à biblioteca i18n é criada uma instância com os seguintes atributos: locale - idioma atual, fallbackLocale: idioma de recurso, legacy - boleano que diz qual a versão de vue que estamos a utilizar e finalmente messages - onde é passada a função implementada anteriormente, que obtém todo o vocabulário de todos os idiomas, sendo que este último, automaticamente, utilizando as suas keys de 1ª ordem, faz com que possamos utilizar outra propriedade, o availableLocales, que tem todos os idiomas presentes em messages. 
+Foi também necessário configurar a nossa aplicação de forma a que a instância criada estivesse disponível em todos os componentes Vue, e isto foi feito no ficheiro main.ts, com esta simples linha: app.use(i18n).mount('#app'). Aplicando o "use(i18n)" à nossa aplicação passa a ser-nos possível aceder a todas as propriedades e métodos anteriormente mencionados a partir da variável especial $i18n. Posto isto, podemos então utlizar estas propriedades numa componente vue, neste caso foi criada uma componente que, utilizando o $i18n, objeto que tem, além dos referidos anteriormente, uma propriedade, "availableLocales", que, com base nas keys de 1a ordem nos fornece todos os idiomas disponíveis no momento, e criando, por exemplo, um select, referenciando o $i18n.locale, onde os utilizamos como options, permite-nos atualizar o locale(idioma) atual. Com isto, podemos o método $t, fornecido pela biblioteca do i18n, com a Chave do par que queremos utilizar e irá ser mostrado na página a Tradução correspondente à Chave, no idioma atual. Além disso estas componentes textuais tornam-se reativas à atualização do idioma, ou seja, sempre que exister uma mudança de idioma, todas a componentes que utilizem o método $t, serão atualizadas automaticamente, sem necessidade de realizar nenhum pedido ao servidor.
+Caso não exista nenhuma Tradução correspondente à Chave, o conteúdo será mostrado no idioma predefinido, "fallbackLocale".
+
+
+//rever e falar do i18n.global.getLocaleMessage(locale.value)
+
+//ver diferentes formas de ir buscar os elementos com o $t, por exemplo, messages[0]
+
+
+
+
+
