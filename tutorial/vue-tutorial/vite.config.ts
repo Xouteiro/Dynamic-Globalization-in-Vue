@@ -16,7 +16,6 @@ export default defineConfig({
   server: {
     watch: {
       // Do not reload the page when these files change
-      ignored: ['**/src/locales/idioms.json']
     }
   }
 })
