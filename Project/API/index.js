@@ -102,8 +102,7 @@ app.put('/Idioms/:name/vocabulary/', async (request, response) => {
         newVocabulary = {};
         newVocabulary[request.body.key] = request.body.value;
     }
-
-    else if(newVocabulary[request.body.key] != request.body.value){
+    else{
         newVocabulary[request.body.key] = request.body.value;
     }
 
