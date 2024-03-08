@@ -16,7 +16,7 @@ watchEffect(() => {
 <template>
   <div class="locale-switcher">
     <div class="locale-changer">
-      <select v-model="$i18n.locale" style="padding: 5px 15px;font-size: 16px;">
+      <select v-model="$i18n.locale">
         <option   
           v-for="locale in $i18n.availableLocales"
           :key="`locale-${locale}`"
@@ -28,3 +28,23 @@ watchEffect(() => {
     </div>
   </div>
 </template>
+
+
+<style scoped>
+
+select {
+  font-size: 16px;
+  width: fit-content;
+  background-color: #41b883;
+  border: 0;
+  border-radius: 10%;
+  padding: 0.5rem 1rem;
+
+}
+
+option {
+  background-color: pink;
+}
+
+
+</style>

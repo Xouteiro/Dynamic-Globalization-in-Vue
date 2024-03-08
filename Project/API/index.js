@@ -8,7 +8,7 @@ app.use(cors());
 app.use(Express.json());
 
 var CONNECTION_URL = 'mongodb://localhost:27017';
-var DATABASE_NAME = 'VueAppLocal';
+var DATABASE_NAME = 'VueLocal';
 var database;
 
 
@@ -199,7 +199,7 @@ app.delete('/Idioms/:name', (request, response) => {
     });
 });
 
-//Delete a key from the vocabulary of an idiom ---- is missing security and error handling
+//Delete a key from the vocabulary of an idiom ---- is missing security and error handling{"_id":"65e1f98c20f052db1eeb14ff","name":"pt","vocabulary":{"Home":"Casa","About":"Sobre"}}
 app.delete('/Idioms/:name/vocabulary/:key', async (request, response) => {
     let result = await database.collection('Idioms').findOne({ name: request.params.name });
     let newVocabulary = result.vocabulary;

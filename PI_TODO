@@ -1,18 +1,21 @@
 
-DONE---Corrigir erro troca de strign
-dar fetch a um idioma de cada vez--(meio que ja esta, falta melhorar)fazer depois quando tiver a minha API
+Mini-problemas a resolver se der:
+    Suportar a existência de palavras com dois significados, por exemplo, swicth em inglês, tanto pode ser "trocar" como "interruptor" em português
 
-DONE---Se nao conseguir fazer com que nao de refresh, nao fazer nada em js, simplesmente dar reload --
--- não é preciso js, nem refresh, porque eu estou a mudar o conteudo das current messages -- Perguntar se pode ser assim, se não puder:
-
-			Escolher entre estas duas opções:
-				-Ou dou refresh para atualizar a cada vez que uma palavra é mudada.
-				-Ou faço um fetch para cada lingua e faço-o sempre que troco uma palavra.
-				---depois de escolher, eliminar esta linha no changeWord : currentMessages[key] =  word;
+    
+A fazer:
 
 
+Edit Button --import
+Erros a implementar(e documentar) -- erro de fetch -- import
 
-Erros a implementar(e documentar) -- erro de fetch
+Fazer script para inicializar site -- medio import
+Fazer POST/GET para noticias --- medio import 
+
+
+
+Permissões gerais e também, por exemplo, só poder adicionar palavras se tiver mais permissões -- menos import
+Meter bandeirinhas a corresponder à lingua -- menos import
 
 Documentar:
 	-- Change Words
@@ -20,6 +23,7 @@ Documentar:
 	-- o porque da estrutura da DB
 	-- a API ??
 	
+    *para melhorar, ver o $t, passar o rato por cima e ver documentação
 
 
 Backend:
@@ -27,3 +31,17 @@ Backend:
 	Site simples exemplo
 
 aplicação de extrair strings
+
+
+
+DONE:
+
+DONE --- Ter noticias para cada idioma OU arranjar forma de traduzir as noticias 
+
+DONE --- Corrigir erro troca de strign
+dar fetch a um idioma de cada vez--(meio que ja esta, falta melhorar)fazer depois quando tiver a minha API
+
+DONE --- Se nao conseguir fazer com que nao de refresh, nao fazer nada em js, simplesmente dar reload --
+-- não é preciso js, nem refresh, porque eu estou a mudar o conteudo das current messages -- DONE
+
+
