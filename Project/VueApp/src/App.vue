@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import { useI18n } from "vue-i18n";
-import { ref, toRaw } from "vue";
+import { ref } from "vue";
 import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 import i18n from './i18n.js';
 
@@ -23,7 +23,7 @@ let key = ref<string>('');
 function changeWord (key: string, word: string){
     const url = 'http://localhost:5037/Idioms/' + locale.value + '/vocabulary'; //change to + locale.value when api is ready
 
-    currentMessages[key] =  word;  //visto nao pode ficar assim, só muda o frontend, escolher uma das opções das notas
+    currentMessages[key] =  word;  //Perguntar se pode ficar assim
 
     fetch(url, {
     method: 'PUT', 
@@ -88,6 +88,8 @@ async function updateLocale (newLocale: string){
 
   <RouterView />
 </template>
+
+
 
 <style scoped>
 

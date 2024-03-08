@@ -24,6 +24,13 @@ app.listen(5037, () => {
 });
 
 
+
+
+//GET
+
+//Get all the idioms
+//Returns an array of all the idioms objects from the db
+
 app.get('/Idioms', (request, response) => {
     database.collection('Idioms').find({}).toArray((error,result) => {
         if (error) {
@@ -31,11 +38,20 @@ app.get('/Idioms', (request, response) => {
             response.status(500).send('Failed to fetch idioms');
             return;
         }
-        response.send(result);
+        else if(result == undefined){
+            response.status(404).send('Idioms not found');
+            return
+        }
+        else{
+            response.send(result);
+        }
     });
 });
 
 
+//Get an idiom by name
+//Returns the whole idiom object from the db
+//Ex: {"_id":"65e1f98c20f052db1eeb14ff","name":"pt","vocabulary":{"Home":"Casa","About":"Sobre"}}
 
 app.get('/Idioms/:name', (request, response) => {
     database.collection('Idioms').findOne({ name: request.params.name }, (error,result) => {
@@ -44,9 +60,20 @@ app.get('/Idioms/:name', (request, response) => {
             response.status(500).send('Failed to fetch idiom');
             return;
         }
-        response.send(result);
+        else if(result == undefined){
+            response.status(404).send('Idiom not found');
+            return
+        }
+        else{
+            response.send(result);
+        }
     });
 });
+
+
+//Get the vocabulary of an idiom by name
+//Returns an object with the key-value pairs of the vocabulary
+//Ex: {"Home":"Casa","About":"Sobre"}
 
 app.get('/Idioms/:name/vocabulary', (request, response) => {
     database.collection('Idioms').findOne({ name: request.params.name }, (error,result) => {
@@ -55,24 +82,56 @@ app.get('/Idioms/:name/vocabulary', (request, response) => {
             response.status(500).send('Failed to fetch idiom');
             return;
         }
-        response.send(result.vocabulary);
+        else if(result == undefined){
+            response.status(404).send('Idiom not found');
+            return
+        }
+        else if(result.vocabulary == undefined || Object.keys(result.vocabulary).length == 0){
+            response.status(404).send('Vocabulary is empty');
+            return
+        }
+        else{
+            response.send(result.vocabulary);
+        }
     });
 });
 
+
+//Get just the names of all the idioms
+//Returns an array of Objects like this: [{"name":"ar"},{"name":"pt"},{"name":"en"},{"name":"sp"}]
+
 app.get('/Idioms/get/names', (request, response) => {
-    console.log("Starting to fetch all idioms");
     database.collection('Idioms').find({}, { projection: { name: 1, _id: 0} }).toArray((error,result) => {
-        console.log("Inside the find() callback");
         if (error) {
             console.error('Failed to fetch idioms. Error:', error);
             response.status(500).send('Failed to fetch idioms');
             return;
         }
-        console.log("Result: ");
-        console.log(result);
-        response.send(result);
+        else if(result == undefined){
+            response.status(404).send('No idioms found');
+            return
+        }
+        else {
+            response.send(result);
+        }
     });
 });
+
+
+//POST
+
+
+//Create an idiom
+//The idiom is passed in the body of the request like this ex: 
+// {
+// "name": "pt",
+//   "vocabulary": {
+//     "Home": "Casa",
+//     "About": "Sobre"
+//     //Add more key-value pairs here
+//   }
+// }
+
 
 app.post('/Idioms', async (request, response) => {
     try {
@@ -94,6 +153,13 @@ app.post('/Idioms', async (request, response) => {
 });
 
 
+//PUT
+
+//Update an idiom vocabulary
+//If the idiom doesn't have a vocabulary, it will be created
+//If the idiom has a vocabulary, the new key-value pair will be added
+//The key value pair is passed in the body of the request like this: {"key":"Home","value":"casa"}
+
 app.put('/Idioms/:name/vocabulary/', async (request, response) => {
     let result = await database.collection('Idioms').findOne({ name: request.params.name });
     let newVocabulary = result.vocabulary;
@@ -110,6 +176,39 @@ app.put('/Idioms/:name/vocabulary/', async (request, response) => {
         if (error) {
             console.error('Failed to update idiom. Error:', error);
             response.status(500).send('Failed to update idiom');
+            return;
+        }
+        response.send(result);
+    });
+});
+
+
+
+//DELETE
+
+
+//Delete an idiom by name ---- is missing security and error handling
+app.delete('/Idioms/:name', (request, response) => {
+    database.collection('Idioms').deleteOne({ name: request.params.name }, (error,result) => {
+        if (error) {
+            console.error('Failed to delete idiom. Error:', error);
+            response.status(500).send('Failed to delete idiom');
+            return;
+        }
+        response.send(result);
+    });
+});
+
+//Delete a key from the vocabulary of an idiom ---- is missing security and error handling
+app.delete('/Idioms/:name/vocabulary/:key', async (request, response) => {
+    let result = await database.collection('Idioms').findOne({ name: request.params.name });
+    let newVocabulary = result.vocabulary;
+    delete newVocabulary[request.params.key];
+
+    database.collection('Idioms').updateOne({ name: request.params.name }, { $set: { vocabulary: newVocabulary} }, (error,result) => {
+        if (error) {
+            console.error('Failed to delete vocabulary. Error:', error);
+            response.status(500).send('Failed to delete vocabulary');
             return;
         }
         response.send(result);
