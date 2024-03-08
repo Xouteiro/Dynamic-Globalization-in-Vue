@@ -3,21 +3,27 @@ Mini-problemas a resolver se der:
     Suportar a existência de palavras com dois significados, por exemplo, swicth em inglês, tanto pode ser "trocar" como "interruptor" em português
 
     
+Edit:
+   Popular todos os editáveis desde o inicio -> Perguntar se há algum problema, e se era isto que prejudicava a performance   
+    
 A fazer:
 
-
 Edit Button --import
-Erros a implementar(e documentar) -- erro de fetch -- import
+Pagina com tabela de todo o vocabulario, tipo embo --import
 
-Fazer script para inicializar site -- medio import
 Fazer POST/GET para noticias --- medio import 
-
-
 
 Permissões gerais e também, por exemplo, só poder adicionar palavras se tiver mais permissões -- menos import
 Meter bandeirinhas a corresponder à lingua -- menos import
 
+aplicação de extrair strings -- import
+
+Erros a implementar:
+
+
 Documentar:
+	-- script run
+	-- erro de fetch
 	-- Change Words
 	-- o porque de NoSql
 	-- o porque da estrutura da DB
@@ -30,11 +36,15 @@ Backend:
 	Express js, Node js, Mongo DB
 	Site simples exemplo
 
-aplicação de extrair strings
+
 
 
 
 DONE:
+
+DONE --- erro de fetch
+
+DONE --- fazer script para inicializar site
 
 DONE --- Ter noticias para cada idioma OU arranjar forma de traduzir as noticias 
 

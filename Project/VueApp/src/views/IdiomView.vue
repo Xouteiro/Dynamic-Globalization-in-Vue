@@ -10,10 +10,11 @@ const { locale } = useI18n() // Get the current locale
     <div class="text">
         
         <div class="nav__end">
-        <p class="numbers" :class="locale">{{ $t("numbers") }}</p>
+        <p class="numbers" :class="locale">{{ $t("Login") }}</p>
         </div>
 
     </div>
 </template>
+
 <style>
 </style>

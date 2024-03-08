@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import { useI18n } from "vue-i18n";
-import {  ref } from "vue";
-import { toRaw } from 'vue';
+import { ref, onMounted} from "vue";
 import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 import i18n from './i18n.js';
 import ArticleDisplay from '@/components/ArticleDisplay.vue'
+import { on } from 'events';
 
 
 
@@ -24,6 +24,9 @@ let isLoading = ref(false);
 //   console.log(errorOnFetch);
 // }
 
+onMounted(() => {
+  populateEditableElements();
+});
 
 
 
@@ -71,8 +74,71 @@ async function updateLocale(newLocale: string) {
   isLoading.value = false;
 }
 
+function populateEditableElements(){
+  const editableElements = document.querySelectorAll('.' + locale.value);
+  editableElements.forEach((element) => {
+    const newDiv = document.createElement('div');
+    element.parentNode!.replaceChild(newDiv, element);
+    newDiv.appendChild(element);
 
+    element.addEventListener('mouseover', (e) => {
+      if (!newDiv.querySelector('.edit-button')) {
+        addEditButton(newDiv, element.classList);
+      }
+    });
+    newDiv.addEventListener('mouseleave', (e) => {
+      removeEditButton(newDiv);
+    });
+  });
+}
 
+function addEditButton(element: HTMLElement, classes: DOMTokenList){
+  const editButton = document.createElement('button');
+  editButton.innerHTML = 'Edit';
+  editButton.classList.add('edit-button');
+  editButton.addEventListener('click', () => {
+    openPopUp(element, classes);
+  });
+  element.insertBefore(editButton,element.firstChild);
+}
+
+function removeEditButton(element: HTMLElement){
+  const editButton = element.querySelector('.edit-button');
+  if (editButton) {
+    element.removeChild(editButton);
+  }
+}
+
+//REDO this to be a great pop up
+
+function openPopUp(element: HTMLElement, classes: DOMTokenList){
+  const popUp = document.createElement('div');
+  popUp.classList.add('pop-up');
+  const input = document.createElement('input');
+  input.value = element.textContent!;
+  popUp.appendChild(input);
+  const saveButton = document.createElement('button');
+  saveButton.innerHTML = 'Save';
+  saveButton.addEventListener('click', () => {
+    changeWord(classes[0], input.value);
+    element.textContent = input.value;
+    element.appendChild(document.createElement('br'));
+    element.appendChild(document.createElement('br'));
+    removePopUp(popUp);
+  });
+  popUp.appendChild(saveButton);
+  const closeButton = document.createElement('button');
+  closeButton.innerHTML = 'Close';
+  closeButton.addEventListener('click', () => {
+    removePopUp(popUp);
+  });
+  popUp.appendChild(closeButton);
+  element.appendChild(popUp);
+}
+
+function removePopUp(popUp: HTMLElement){
+  popUp.parentNode!.removeChild(popUp);
+}
 
 </script>
 
@@ -98,16 +164,9 @@ async function updateLocale(newLocale: string) {
 
   </header>
 
-  <div v-if="errorOnFetch" class="Fetch Error">Error fetching data</div>
+  
 
-  <div v-if="isLoading ">Loading...</div>
-    <ArticleDisplay 
-      v-else
-      v-for="(item, index) in currentMessages.News"
-      :key="index"
-      :newsContent="item">
-    </ArticleDisplay>
-
+  
 
   <RouterView />
 
