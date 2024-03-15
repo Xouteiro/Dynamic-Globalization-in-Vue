@@ -1,7 +1,7 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
-import { watchEffect, ref } from 'vue'
+import { watchEffect } from 'vue'
 
 const { locale } = useI18n() // Get the current locale
 

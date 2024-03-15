@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import i18n from '@/i18n.js';
-import { ref } from "vue";
+import { ref, onMounted, onUpdated } from "vue";
 import ArticleDisplay from '@/components/ArticleDisplay.vue'
+import utils from '@/utils.js';
 
 let { locale } = useI18n()
 let currentMessages = i18n.global.getLocaleMessage(locale.value); 
 let isLoading = ref(false);
-
 let errorOnFetch = Object.keys(currentMessages).length === 0;
+
+
+
+onMounted(() => {
+  utils.populateEditableElements(locale.value, currentMessages);
+});
 
 
 
