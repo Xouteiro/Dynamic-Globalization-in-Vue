@@ -151,33 +151,43 @@ function mouseLeaveHandler(newDiv: HTMLElement) {
 var utils = {
     handlers: new Map(),
 
+
+    removeEventListeners() {
+        this.handlers.forEach((handlers, element) => {
+            element.removeEventListener('mouseover', handlers.mouseOverHandler);
+            element.parentElement!.removeEventListener('mouseleave', handlers.mouseLeaveHandler);
+        });
+        const elements = document.querySelectorAll('.edit-button');
+        elements.forEach((element) => {
+            element.parentElement?.removeChild(element);
+        });
+    },
+
+
     populateEditableElements(locale: string, currentMessages: CurrentMessages) {
         const elements = document.querySelectorAll('.' + locale);
         elements.forEach((element) => {
-            const newDiv = document.createElement('div');
-            element.parentNode!.replaceChild(newDiv, element);
-            newDiv.appendChild(element);
 
             // Define the event handlers
             const mouseOverHandler = (e: Event) => {
-                if (!newDiv.querySelector('.edit-button')) {
-                    addEditButton(newDiv, element.classList, locale, currentMessages);
+                if (!element.parentElement!.querySelector('.edit-button')) {
+                    addEditButton(element.parentElement!, element.classList, locale, currentMessages);
                 }
             };
             const mouseLeaveHandler = (e: Event) => {
-                removeEditButton(newDiv);
+                removeEditButton(element.parentElement!);
             };
 
             // If there are existing handlers, remove them
             if (this.handlers.has(element)) {
                 const oldHandlers = this.handlers.get(element);
                 element.removeEventListener('mouseover', oldHandlers.mouseOverHandler);
-                newDiv.removeEventListener('mouseleave', oldHandlers.mouseLeaveHandler);
+                element.parentElement!.removeEventListener('mouseleave', oldHandlers.mouseLeaveHandler);
             }
 
             // Add the event listeners
             element.addEventListener('mouseover', mouseOverHandler);
-            newDiv.addEventListener('mouseleave', mouseLeaveHandler);
+            element.parentElement!.addEventListener('mouseleave', mouseLeaveHandler);
 
             // Store the handlers
             this.handlers.set(element, { mouseOverHandler, mouseLeaveHandler });

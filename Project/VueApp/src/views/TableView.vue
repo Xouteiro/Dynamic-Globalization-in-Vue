@@ -3,6 +3,8 @@
 import { idioms } from '@/i18n.js';
 import i18n from '@/i18n.js';
 import  utils  from '@/utils.js';
+import { onUpdated } from 'vue';
+import { onMounted } from 'vue';
 import { reactive } from 'vue';
 import { useI18n } from "vue-i18n";
 
@@ -17,9 +19,13 @@ function populateCurrentInput() {
     let vocabulary = getVocabulary(idioms[i].name);
     for (let key in vocabulary) {
       let finalKey = idioms[i].name + "." + key;
-      if (!currentInput[finalKey]) {
+      if(key === 'News') {
+        continue;
+      }
+      else if (!currentInput[finalKey]) {
         currentInput[finalKey] = vocabulary[key];
       }
+
     }
   }
 }
@@ -31,12 +37,19 @@ function debug(key: any) {
 function getVocabulary(idiom: string) {
   for (let i = 0; i < idioms.length; i++) {
     if (idioms[i].name === idiom) {
-      return idioms[i].vocabulary;
+      let vocabulary = Object.assign({}, idioms[i].vocabulary); //make a copy of the object
+      delete vocabulary.News;
+      return vocabulary;
     }
   }
 }
 
+//Fazer tabela para noticias
 
+
+onMounted(() => {
+  utils.removeEventListeners();
+});
 
  
 </script>
@@ -63,7 +76,6 @@ function getVocabulary(idiom: string) {
   </tbody>
 </table>
 
-  <button @click="debug">Debug</button>
 </template>
 
 

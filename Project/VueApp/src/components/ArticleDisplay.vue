@@ -18,19 +18,21 @@ const title = "News." + identifier + ".Title"
 const subtitle = "News." + identifier + ".Subtitle"
 const body = "News." + identifier + ".Body"
 
-function debug() {
-  console.log(locale.value)
-}
-
 
 </script>
 
 <template>
   <div class=tile >
-    <h1 :class="[title,locale]">{{ $t(title)}}</h1>
-    <p :class="[subtitle,locale]" >{{ $t(subtitle) }}</p>
-    <p :class="[body,locale]" >{{ $t(body) }}</p>
-    <!-- <button @click="debug">Debug</button> -->
+
+    <div>
+      <h1 :class="[title,locale]">{{ $t(title)}}</h1>
+    </div>
+    <div>
+      <p :class="[subtitle,locale]" >{{ $t(subtitle) }}</p>
+    </div>
+    <div>
+      <p :class="[body,locale]" >{{ $t(body) }}</p>
+    </div>
   </div>
 </template>
 

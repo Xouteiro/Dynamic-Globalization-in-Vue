@@ -22,10 +22,14 @@ let isLoading = ref(false);
 //  }
 
 
-onUpdated(() => {
+onMounted(() => {
+  if(window.location.pathname === '/table') {
+    return;
+  }
   utils.populateEditableElements(locale.value, currentMessages);
   
 });
+
 
 
 
@@ -50,11 +54,26 @@ async function updateLocale(newLocale: string) {
 
     <nav>
 
+      <div>
       <RouterLink to="/" class="Home" :class="locale" >{{ $t("Home") }}</RouterLink>
+      </div>
+    
+      <div>
       <RouterLink to="/about" class="About" :class="locale">{{ $t("About") }}</RouterLink>
+      </div>
+    
+      <div>
       <RouterLink to="/table" class="Table" :class="locale">{{ $t("Table") }}</RouterLink>
+      </div>
+    
+      <div>
       <RouterLink to="/login" class="Login" :class="locale">{{ $t("Login") }}</RouterLink>
+      </div>
+    
+    
       <LocaleSwitcher v-if="!errorOnFetch" @update:locale="updateLocale" />
+      
+    
 
 
 
@@ -107,11 +126,12 @@ nav a.router-link-exact-active:hover {
   background-color: transparent;
 }
 
-nav a {
+div nav a {
   display: inline-block;
   padding: 0 1rem;
   border-left: 1px solid var(--color-border);
   align-self: center;
+  height: fit-content;
 }
 
 nav a:first-of-type {
