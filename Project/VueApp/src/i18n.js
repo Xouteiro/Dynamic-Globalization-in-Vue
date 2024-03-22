@@ -45,3 +45,4 @@ const i18n = createI18n({
   messages:  loadLocaleMessages(),  //preenche $i18.availableLocales com as linguagens disponíveis
 });
 export default i18n;
+export {idioms};

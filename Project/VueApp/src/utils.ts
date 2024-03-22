@@ -2,9 +2,21 @@ interface CurrentMessages {
     [key: string]: string | any;
 }
 
+function getCurrentKey(key: string, locale: string, currentMessages: CurrentMessages) {
+    let keys = key.includes('.') ? key.split('.') : []
+    let current = currentMessages
+    for (let i = 0; i < keys.length; i++) {
+        if (i === keys.length - 1) {
+            return current[keys[i]]
+        }
+        else {
+            current = current[keys[i]]
+        }
+    }
+}
+
 function updateCurrentMessages(key: string, word: string, currentMessages: CurrentMessages) {
     let keys = key.includes('.') ? key.split('.') : []
-    console.log(currentMessages)
     if (keys.length === 0) {
         currentMessages[key] = word
         return
@@ -26,7 +38,6 @@ function updateCurrentMessages(key: string, word: string, currentMessages: Curre
 }
 
 function changeWord(key: string, word: string, locale: string, currentMessages: CurrentMessages) {
-    console.log("change word " + locale);
 
     const url = 'http://localhost:5037/Idioms/' + locale + '/vocabulary'; //change to + locale.value when api is ready
 
@@ -50,10 +61,6 @@ function changeWord(key: string, word: string, locale: string, currentMessages: 
 
 }
 
-function updateElement(key_to_change: string, word_to_change: string, locale: string, currentMessages: CurrentMessages, key: HTMLInputElement) {
-    changeWord(key_to_change, word_to_change, locale, currentMessages);
-    key.value = '';
-}
 
 
 //Edit button and PopUp
@@ -62,7 +69,6 @@ function addEditButton(element: HTMLElement, classes: DOMTokenList, locale: stri
     const editButton = document.createElement('button');
     editButton.innerHTML = 'Edit';
     editButton.classList.add('edit-button');
-    console.log("add edit button : " + locale)
     editButton.addEventListener('click', () => {
         openPopUp(classes, locale, currentMessages);
     });
@@ -70,16 +76,13 @@ function addEditButton(element: HTMLElement, classes: DOMTokenList, locale: stri
 }
 
 function openPopUp(classes: DOMTokenList, locale: string, currentMessages: CurrentMessages) {
-    console.log("open pop up : " + locale)
     const popUp = document.createElement('div');
     popUp.classList.add('pop-up');
 
     let key = cleanClasses(classes, locale);
-    console.log("open pop up : " + locale)
 
     let ShowKey = document.createElement('p');
     ShowKey.style.color = 'black';
-    console.log(key + ':' + locale + " whyyyyy");
     ShowKey.textContent = key + ':' + locale;
 
     popUp.appendChild(ShowKey);
@@ -92,7 +95,7 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
     const saveButton = document.createElement('button');
     saveButton.innerHTML = 'Save';
     saveButton.addEventListener('click', () => {
-        updateElement(key, newWord.value, locale, currentMessages, newWord);
+        utils.updateElement(key, newWord.value, locale, currentMessages, newWord);
         removePopUp(popUp);
     });
     popUp.appendChild(saveButton);
@@ -180,6 +183,16 @@ var utils = {
             this.handlers.set(element, { mouseOverHandler, mouseLeaveHandler });
         });
     },
+
+    updateElement(key_to_change: string, word_to_change: string, locale: string, currentMessages: CurrentMessages, key?: HTMLInputElement) {
+        changeWord(key_to_change, word_to_change, locale, currentMessages);
+        if(key){
+            key.value = '';
+        }
+    }
+
+    
+    
 }
 
 export default utils;

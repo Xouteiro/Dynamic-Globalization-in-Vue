@@ -52,7 +52,8 @@ async function updateLocale(newLocale: string) {
 
       <RouterLink to="/" class="Home" :class="locale" >{{ $t("Home") }}</RouterLink>
       <RouterLink to="/about" class="About" :class="locale">{{ $t("About") }}</RouterLink>
-      <RouterLink to="/idiom" class="Login" :class="locale">{{ $t("Login") }}</RouterLink>
+      <RouterLink to="/table" class="Table" :class="locale">{{ $t("Table") }}</RouterLink>
+      <RouterLink to="/login" class="Login" :class="locale">{{ $t("Login") }}</RouterLink>
       <LocaleSwitcher v-if="!errorOnFetch" @update:locale="updateLocale" />
 
 
@@ -67,15 +68,18 @@ async function updateLocale(newLocale: string) {
 
 
 
-
-  <RouterView />
+    <RouterView />
 
 </template>
 
 
 
 <style scoped>
+
 header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
   line-height: 1.5;
   max-height: 100vh;
 }
@@ -114,18 +118,11 @@ nav a:first-of-type {
   border: 0;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
+div.locale-switcher {
+  display: inline-block;
+  height: fit-content;
+  align-self: center;
 }
-</style>@/components/ArticleDisplay.vue
+
+
+</style>

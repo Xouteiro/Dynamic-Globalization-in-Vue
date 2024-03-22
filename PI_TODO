@@ -6,11 +6,18 @@ Mini-problemas a resolver se der:
 Edit:
    Popular todos os editáveis desde o inicio -> Perguntar se há algum problema, e se era isto que prejudicava a performance   
     
+    
+Now:
+Pagina com tabela de todo o vocabulario, tipo embo --import
+
+Lidar com noticias
+
+
 A fazer:
 
-Edit Button --import -- Quase
+Edit Button --import -- Funcional -- falta melhorar design
 
-Pagina com tabela de todo o vocabulario, tipo embo --import
+Filtros e ordenação na tabela
 
 Fazer POST/GET para noticias --- medio import 
 
@@ -22,7 +29,15 @@ aplicação de extrair strings -- import
 
 default lingua pc
 
-Erros a implementar:
+
+
+
+Erros a corrigir:
+
+popup nao deixar carregar noutro sitio
+
+
+Error handling a implementar:
 
 
 Documentar:
