@@ -3,6 +3,7 @@
 import { idioms } from '@/i18n.js';
 import i18n from '@/i18n.js';
 import  utils  from '@/utils.js';
+import { watch } from 'vue';
 import { onUpdated } from 'vue';
 import { onMounted } from 'vue';
 import { reactive } from 'vue';
@@ -13,6 +14,19 @@ let { locale } = useI18n()
 let currentMessages = i18n.global.getLocaleMessage(locale.value);
 let currentInput: any = reactive([]);
 populateCurrentInput();
+
+
+
+
+watch(locale, (newLocale, oldLocale) => {
+  console.log(currentMessages);
+  for(let i = 0; i < idioms.length; i++) {
+    if(idioms[i].name === newLocale) {
+      currentMessages = idioms[i].vocabulary;
+    }
+  }
+  console.log('changed locale, current messages is now idioms[locale]: ' + currentMessages);
+});
 
 function populateCurrentInput() {
   for (let i = 0; i < idioms.length; i++) {
@@ -44,6 +58,8 @@ function getVocabulary(idiom: string) {
   }
 }
 
+
+
 //Fazer tabela para noticias
 
 
@@ -71,7 +87,7 @@ onMounted(() => {
       <td class="idiom"> {{ item.name }} </td>
       <td class="identifier"> {{ key }}</td> 
       <td class="text"><input type="text" v-model="currentInput[item.name + '.' + key]" /></td>
-      <td class="submit"><button @click="utils.updateElement(key.toString(), currentInput[item.name + '.' + key], item.name, currentMessages)" >Submit</button></td>
+      <td class="submit"><button @click="utils.updateElement(key.toString(), currentInput[item.name + '.' + key], item.name, currentMessages, locale, idioms)" >Submit</button></td>
     </tr>
   </tbody>
 </table>

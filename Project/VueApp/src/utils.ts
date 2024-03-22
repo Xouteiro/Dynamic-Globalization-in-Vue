@@ -1,3 +1,5 @@
+
+
 interface CurrentMessages {
     [key: string]: string | any;
 }
@@ -32,16 +34,29 @@ function updateCurrentMessages(key: string, word: string, currentMessages: Curre
             }
         }
     }
-
-
-
 }
 
-function changeWord(key: string, word: string, locale: string, currentMessages: CurrentMessages) {
+function updateIdioms(key: string, word: string, locale: string, idioms: any) {
+    for(let i = 0; i < idioms.length; i++){
+        if(idioms[i].name === locale){
+            let vocabulary = idioms[i].vocabulary
+            vocabulary[key] = word
+        }
+}
+}
+
+function changeWord(key: string, word: string, locale: string, currentMessages: CurrentMessages, currentMessages_locale : string, idioms: any ) {
 
     const url = 'http://localhost:5037/Idioms/' + locale + '/vocabulary'; //change to + locale.value when api is ready
 
-    updateCurrentMessages(key, word, currentMessages);
+    if(currentMessages_locale === locale || currentMessages_locale === ''){
+        console.log('update current messages')
+        updateCurrentMessages(key, word, currentMessages);
+    }
+    else{
+        console.log('update idioms')
+        updateIdioms(key, word, locale, idioms);
+    }
 
     fetch(url, {
         method: 'PUT',
@@ -87,15 +102,23 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
 
     popUp.appendChild(ShowKey);
 
-    const newWord = document.createElement('input');
-    newWord.placeholder = 'New word';
+    const newWord = document.createElement('input')
+    let keys = key.includes('.') ? key.split('.') : []
+    if (keys.length > 1) {
+        const actual = getCurrentKey(key, locale, currentMessages)
+        newWord.value = actual
+    }
+    else {
+        newWord.value = currentMessages[key];
+    }
+    
     popUp.appendChild(newWord);
 
 
     const saveButton = document.createElement('button');
     saveButton.innerHTML = 'Save';
     saveButton.addEventListener('click', () => {
-        utils.updateElement(key, newWord.value, locale, currentMessages, newWord);
+        utils.updateElement(key, newWord.value, locale, currentMessages);
         removePopUp(popUp);
     });
     popUp.appendChild(saveButton);
@@ -194,8 +217,8 @@ var utils = {
         });
     },
 
-    updateElement(key_to_change: string, word_to_change: string, locale: string, currentMessages: CurrentMessages, key?: HTMLInputElement) {
-        changeWord(key_to_change, word_to_change, locale, currentMessages);
+    updateElement(key_to_change: string, word_to_change: string, locale: string, currentMessages: CurrentMessages, currentMessages_locale?:string, idioms? : any, key?: HTMLInputElement) {
+        changeWord(key_to_change, word_to_change, locale, currentMessages, currentMessages_locale || '', idioms || {});
         if(key){
             key.value = '';
         }
