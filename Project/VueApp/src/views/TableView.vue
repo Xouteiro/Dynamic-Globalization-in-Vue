@@ -4,7 +4,6 @@ import { idioms } from '@/i18n.js';
 import i18n from '@/i18n.js';
 import  utils  from '@/utils.js';
 import { watch } from 'vue';
-import { onUpdated } from 'vue';
 import { onMounted } from 'vue';
 import { reactive } from 'vue';
 import { useI18n } from "vue-i18n";
@@ -18,14 +17,15 @@ populateCurrentInput();
 
 
 
-watch(locale, (newLocale, oldLocale) => {
-  console.log(currentMessages);
+
+watch(locale, (newLocale) => {
   for(let i = 0; i < idioms.length; i++) {
     if(idioms[i].name === newLocale) {
-      currentMessages = idioms[i].vocabulary;
+      currentMessages = i18n.global.getLocaleMessage(newLocale);
+      Object.assign(currentMessages, idioms[i].vocabulary);
     }
   }
-  console.log('changed locale, current messages is now idioms[locale]: ' + currentMessages);
+
 });
 
 function populateCurrentInput() {
@@ -44,8 +44,8 @@ function populateCurrentInput() {
   }
 }
 
-function debug(key: any) {
-  console.log(currentInput['pt.About']);
+function debug() {
+  console.log(currentMessages);
 }
 
 function getVocabulary(idiom: string) {
@@ -57,6 +57,8 @@ function getVocabulary(idiom: string) {
     }
   }
 }
+
+
 
 
 
@@ -91,6 +93,7 @@ onMounted(() => {
     </tr>
   </tbody>
 </table>
+
 
 </template>
 

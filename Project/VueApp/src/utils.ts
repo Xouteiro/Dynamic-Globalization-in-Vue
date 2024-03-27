@@ -52,6 +52,8 @@ function changeWord(key: string, word: string, locale: string, currentMessages: 
     if(currentMessages_locale === locale || currentMessages_locale === ''){
         console.log('update current messages')
         updateCurrentMessages(key, word, currentMessages);
+        updateIdioms(key, word, locale, idioms);    
+        console.log(currentMessages)
     }
     else{
         console.log('update idioms')

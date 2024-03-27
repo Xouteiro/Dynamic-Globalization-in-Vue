@@ -10,16 +10,13 @@ import utils from './utils.js';
 let { locale } = useI18n()
 let currentMessages = i18n.global.getLocaleMessage(locale.value);
 let errorOnFetch = Object.keys(currentMessages).length === 0;
-let word = ref<string>('');
-let key = ref<string>('');
 
 
 let isLoading = ref(false);
 
-// function debug() {
-//    console.log(typeof currentMessages);
-//    console.log(errorOnFetch);
-//  }
+function debug() {
+   console.log(currentMessages);
+ }
 
 
 onMounted(() => {
@@ -38,7 +35,6 @@ onMounted(() => {
 async function updateLocale(newLocale: string) {
     isLoading.value = true;
     locale.value = newLocale;
-    currentMessages = i18n.global.getLocaleMessage(newLocale);
     isLoading.value = false;
 }
 
@@ -77,7 +73,6 @@ async function updateLocale(newLocale: string) {
 
 
 
-      <!-- <button @click="debug" class="Change" :class="locale">{{ $t("Debug") }}</button> -->
 
       
     </nav>
@@ -124,6 +119,12 @@ nav a.router-link-exact-active {
 
 nav a.router-link-exact-active:hover {
   background-color: transparent;
+}
+
+div {
+  display: inline-block;
+  height: fit-content;
+  align-self: center;
 }
 
 div nav a {

@@ -5,7 +5,6 @@ import utils from '../utils.ts';
 
 
 let { locale } = useI18n()
-let currentMessages = i18n.global.getLocaleMessage(locale.value);
 
 let props = defineProps({
   newsContent: Object
