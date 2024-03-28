@@ -24,40 +24,52 @@ function updateCurrentMessages(key: string, word: string, currentMessages: Curre
     }
     else {
         let current = currentMessages
+        console.log(current)
         for (let i = 0; i < keys.length; i++) {
             if (i === keys.length - 1) {
                 current[keys[i]] = i === keys.length - 1 ? word : {}
             }
             else {
-                current = current[keys[i]]
+                current = current[keys[i]];
             }
-        }
     }
+}
 }
 
 function updateIdioms(key: string, word: string, locale: string, idioms: any) {
+    let keys = key.includes('.') ? key.split('.') : []
     for (let i = 0; i < idioms.length; i++) {
         if (idioms[i].name === locale) {
             let vocabulary = idioms[i].vocabulary
-            vocabulary[key] = word
+            if (keys.length === 0) {
+                vocabulary[key] = word
+                return
+            }
+            else {
+                let current = vocabulary
+                for (let i = 0; i < keys.length; i++) {
+                    if (i === keys.length - 1) {
+                        current[keys[i]] = i === keys.length - 1 ? word : {}
+                    }
+                    else {
+                        current = current[keys[i]];
+                    }
+                }
+            }
         }
     }
 }
 
 function changeWord(key: string, word: string, locale: string, currentMessages: CurrentMessages, currentMessages_locale: string, idioms: any) {
 
-    const url = 'http://localhost:5037/Idioms/' + locale + '/vocabulary'; //change to + locale.value when api is ready
+    const url = 'http://localhost:5037/Idioms/' + locale + '/vocabulary'; 
 
     if (currentMessages_locale === locale || currentMessages_locale === '') {
         console.log('update current messages')
         updateCurrentMessages(key, word, currentMessages);
-        updateIdioms(key, word, locale, idioms);
-        console.log(currentMessages)
     }
-    else {
-        console.log('update idioms')
-        updateIdioms(key, word, locale, idioms);
-    }
+    
+    updateIdioms(key, word, locale, idioms)
 
     fetch(url, {
         method: 'PUT',
@@ -241,16 +253,6 @@ function cleanClasses(classes: DOMTokenList, locale: string) {
 
 
 
-function mouseOverHandler(newDiv: HTMLElement, element: Element, locale: string, currentMessages: CurrentMessages) {
-    if (!newDiv.querySelector('.edit-button')) {
-        addEditButton(newDiv, element.classList, locale, currentMessages);
-    }
-}
-
-
-function mouseLeaveHandler(newDiv: HTMLElement) {
-    removeEditButton(newDiv);
-}
 
 let flags = {
     'en': '🇬🇧',

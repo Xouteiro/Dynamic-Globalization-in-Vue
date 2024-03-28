@@ -172,7 +172,12 @@ app.put('/Idioms/:name/vocabulary/', async (request, response) => {
             if (i === keys.length - 1) {
                 current[keys[i]] = request.body.value;
             } else {
+                if (current[keys[i]] == undefined) {
+                    console.log('error in current[keys[i]]');
+                }
+                else{
                 current = current[keys[i]];
+                }
             }
         }
     }

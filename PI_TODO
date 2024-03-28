@@ -2,8 +2,6 @@
 A fazer:
 
 
-Lidar com noticias na tabela (para já tirei só)
-
 Filtros e ordenação na tabela
 
 Fazer POST/GET para noticias --- medio import 
@@ -15,7 +13,6 @@ mostrar palavras que nao têm tradução
 default lingua pc
 
 Permissões gerais e também, por exemplo, só poder adicionar palavras se tiver mais permissões -- menos import
-
 
 animação saved -- mt pouco import
 
@@ -56,6 +53,9 @@ Backend:
 
 
 
+
+
+DONE: ---- Lidar com noticias na tabela (para já tirei só)
 
 DONE: ---- Edit Button falta melhorar design
 

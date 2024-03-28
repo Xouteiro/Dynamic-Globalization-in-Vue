@@ -104,7 +104,7 @@ header {
   flex-direction: row;
   line-height: 1.5;
   max-height: 100vh;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
 }
 
 .logo {
