@@ -2,15 +2,6 @@
 Mini-problemas a resolver se der:
     Suportar a existência de palavras com dois significados, por exemplo, swicth em inglês, tanto pode ser "trocar" como "interruptor" em português
 
-    
-Edit:
-   Popular todos os editáveis desde o inicio -> Perguntar se há algum problema, e se era isto que prejudicava a performance   
-    
-    
- update ao current messages quando o locale é o mesmo, update idioms quando o locale nao é o mesmo, watch quando muda a locale, update current messages para idioms[locale]
------agora só não muda depois de mudar de locale, talvez porque novo current messages nao é um proxy
-
-
 A fazer:
 
 Lidar com noticias(para já tirei só)
@@ -19,8 +10,7 @@ fazer edit news ser uma textArea
 
 melhorar informação do popUps
 
-Resolver erros tabela, quando se muda de lingua a seguir a mudar palavra
-e quando se muda palavra de uma lingua que não é a que se está
+
 
 
 
@@ -35,6 +25,7 @@ Meter bandeirinhas a corresponder à lingua -- menos import
 
 aplicação de extrair strings -- import
 
+mostrar palavras que nao têm tradução
 
 default lingua pc
 
@@ -48,6 +39,8 @@ popup nao deixar carregar noutro sitio
 
 Error handling a implementar:
 
+verificar se a falha no fetch da sempre
+
 
 Documentar:
 	-- script run
@@ -57,16 +50,25 @@ Documentar:
 	-- o porque da estrutura da DB
 	-- a API ??
 	
+	-- Tudo o resto !!!
+	
     *para melhorar, ver o $t, passar o rato por cima e ver documentação
 
 
 Backend:
-	Express js, Node js, Mongo DB
+	Express js, Node js, Mongo DB -- DONE
 	Site simples exemplo
 
 
 
+DONE: ----Popular todos os editáveis desde o iicio -> Perguntar se há algum problema, e se era isto que prejudicava a performance   
+    
+    
+DONE: ----- Resolver erros tabela, quando se muda de lingua a seguir a mudar palavra
+e quando se muda palavra de uma lingua que não é a que se está
 
+fiz assim -- update ao current messages quando o locale é o mesmo, update idioms quando o locale nao é o mesmo, watch quando muda a locale, update current messages para idioms[locale]
+-----agora só não muda depois de mudar de locale, talvez porque novo current messages nao é um proxy(era isto)
 
 DONE:--- Pagina com tabela de todo o vocabulario
 

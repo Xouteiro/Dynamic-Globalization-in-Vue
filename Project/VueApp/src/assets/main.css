@@ -16,19 +16,85 @@ a,
 }
 
 .pop-up{
-  background-color : white;
-  width : 200px;
-  height : 200px;
+  background-color : rgb(215, 238, 216);
+  width : 45em;
+  height : 36em;
   position : fixed;
   top : 50%;
   left : 50%;
   transform : translate(-50%, -50%);
   display : flex;
-  justify-content : center;
   align-items : center;
   flex-direction : column;
   border : 1px solid black;
+  border-radius : 5px;
 }
+
+div.pop-up .pop-up-title{
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-top: 30px;
+  color: black;
+}
+
+div.pop-up .pop-up-content{
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  width: 100%;
+  margin-left: 130px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+div.pop-up .input{
+  margin-top: 15px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 17px;
+  margin-bottom: 110px;
+  max-width: 95%;
+  width: 80%;
+  box-sizing: border-box;
+  
+}
+
+div.pop-up .save-button{
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  cursor: pointer;
+  background-color: hsla(160, 93%, 35%, 0.55);
+  color: black;
+  border: none;
+  border-radius: 5px;
+  font-size: 17px;
+  padding: 10px 20px;
+}
+
+div.pop-up .save-button:hover{
+  background-color:#41b883; 
+}
+
+div.pop-up .close-button{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: hsla(160, 93%, 35%, 0.55);;
+  border: none;
+  background-color: rgb(215, 238, 216);
+  font-size: 25px;
+}
+
+div.pop-up .close-button:hover{
+  color:#41b883; 
+}
+
+
+
 
 @media (hover: hover) {
   a:hover {
