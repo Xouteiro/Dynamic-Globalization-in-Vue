@@ -132,7 +132,7 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
 
     let showLocale = document.createElement('p');
     showLocale.style.color = 'black';
-    showLocale.textContent = locale;
+    showLocale.textContent = locale + ' ' + utils.getFlag(locale);
     showLocale.style.fontSize = '21px';
 
     showLocaleContainer.appendChild(showLocaleTitle);
@@ -252,6 +252,43 @@ function mouseLeaveHandler(newDiv: HTMLElement) {
     removeEditButton(newDiv);
 }
 
+let flags = {
+    'en': '🇬🇧',
+    'es': '🇪🇸',
+    'fr': '🇫🇷',
+    'de': '🇩🇪',
+    'it': '🇮🇹',
+    'pt': '🇵🇹',
+    'nl': '🇳🇱',
+    'pl': '🇵🇱',
+    'ru': '🇷🇺',
+    'tr': '🇹🇷',
+    'ja': '🇯🇵',
+    'ko': '🇰🇷',
+    'zh': '🇨🇳',
+    'ar': '🇸🇦',
+    'hi': '🇮🇳',
+    'id': '🇮🇩',
+    'ms': '🇲🇾',
+    'th': '🇹🇭',
+    'vi': '🇻🇳',
+    'bg': '🇧🇬',
+    'hr': '🇭🇷',
+    'cs': '🇨🇿',
+    'da': '🇩🇰',
+    'fi': '🇫🇮',
+    'el': '🇬🇷',
+    'hu': '🇭🇺',
+    'ga': '🇮🇪',
+    'lv': '🇱🇻',
+    'lt': '🇱🇹',
+    'ro': '🇷🇴',
+    'sk': '🇸🇰',
+    'sl': '🇸🇮',
+    'sv': '🇸🇪'
+}
+
+
 
 
 var utils = {
@@ -305,8 +342,13 @@ var utils = {
         if (key) {
             key.value = '';
         }
-    }
+    },
 
+    getFlag(locale :string){
+
+        return flags[locale as keyof typeof flags] as string;
+    
+    }
 
 
 }

@@ -1,7 +1,6 @@
 <script setup>
 import { useI18n } from "vue-i18n";
-import i18n from '@/i18n.js'
-import utils from '../utils.ts';
+
 
 
 let { locale } = useI18n()
@@ -21,21 +20,34 @@ const body = "News." + identifier + ".Body"
 </script>
 
 <template>
-  <div class=tile >
+  <div class=news >
 
-    <div>
+    <div class="news-title">
       <h1 :class="[title,locale]">{{ $t(title)}}</h1>
     </div>
-    <div>
+    <div class="news-subtitle">
       <p :class="[subtitle,locale]" >{{ $t(subtitle) }}</p>
     </div>
-    <div>
+    <div class="news-body">
       <p :class="[body,locale]" >{{ $t(body) }}</p>
     </div>
+
+    
   </div>
 </template>
 
 
 <style scoped>
+
+.news {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  margin-left: 110px;
+  margin-right: auto;
+  width: 80%;
+  margin-top: 30px;
+}
+
 
 </style>

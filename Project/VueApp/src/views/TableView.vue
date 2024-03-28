@@ -9,6 +9,7 @@ import { reactive } from 'vue';
 import { useI18n } from "vue-i18n";
 
 
+
 let { locale } = useI18n()
 let currentMessages = i18n.global.getLocaleMessage(locale.value);
 let currentInput: any = reactive([]);
@@ -86,10 +87,10 @@ onMounted(() => {
   </thead>
   <tbody v-for="(item, index) in idioms" :key="index">
     <tr v-for="(word, key) in getVocabulary(item.name)" :key="key">
-      <td class="idiom"> {{ item.name }} </td>
+      <td class="idiom"> {{ item.name + ' ' + utils.getFlag(item.name) }} </td>
       <td class="identifier"> {{ key }}</td> 
       <td class="text"><input type="text" v-model="currentInput[item.name + '.' + key]" /></td>
-      <td class="submit"><button @click="utils.updateElement(key.toString(), currentInput[item.name + '.' + key], item.name, currentMessages, locale, idioms)" >Submit</button></td>
+      <td class="submit"><button class="submit" @click="utils.updateElement(key.toString(), currentInput[item.name + '.' + key], item.name, currentMessages, locale, idioms)" >Submit</button></td>
     </tr>
   </tbody>
 </table>
@@ -109,6 +110,7 @@ h1 {
   width: 80%;
   border-collapse: collapse;
   margin: 2em auto;
+  background-color: rgba(194, 227, 196, 0.802);
 }
 
 .row, .table-header {
@@ -121,12 +123,30 @@ h1 {
 
 
 .idiom, .text, .identifier, .submit{
-  border: 1px solid;
+  border: 1px solid black;
   padding: 8px;
   text-align: center;
+  color: black;
+  font-size: 17px;
 }
 
 
+button.submit {
+  background-color: #1818183f;
+  border: none;
+  color: white;
+  padding: 8px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+button.submit:hover {
+  background-color: #181818;
+}
 
 .identifier {
   width: 20%;
@@ -145,6 +165,12 @@ input {
   border: none;
   padding: 8px;
   text-align: left;
+  background-color: rgb(215, 238, 216);
+  font-size: 15px;
+}
+
+input:focus {
+  outline: 3px solid rgb(15, 40, 4);
 }
 
 </style>

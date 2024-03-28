@@ -1,33 +1,26 @@
 
-Mini-problemas a resolver se der:
-    Suportar a existência de palavras com dois significados, por exemplo, swicth em inglês, tanto pode ser "trocar" como "interruptor" em português
-
 A fazer:
 
-Lidar com noticias(para já tirei só)
 
-fazer edit news ser uma textArea
-
-melhorar informação do popUps
-
-
-
-
-
-Edit Button --import -- Funcional -- falta melhorar design
+Lidar com noticias na tabela (para já tirei só)
 
 Filtros e ordenação na tabela
 
 Fazer POST/GET para noticias --- medio import 
-
-Permissões gerais e também, por exemplo, só poder adicionar palavras se tiver mais permissões -- menos import
-Meter bandeirinhas a corresponder à lingua -- menos import
 
 aplicação de extrair strings -- import
 
 mostrar palavras que nao têm tradução
 
 default lingua pc
+
+Permissões gerais e também, por exemplo, só poder adicionar palavras se tiver mais permissões -- menos import
+
+
+animação saved -- mt pouco import
+
+Mini-problemas a resolver se der:
+    Suportar a existência de palavras com dois significados, por exemplo, swicth em inglês, tanto pode ser "trocar" como "interruptor" em português
 
 
 
@@ -50,6 +43,8 @@ Documentar:
 	-- o porque da estrutura da DB
 	-- a API ??
 	
+
+	-explicar que o edit tem que ser em sitios com o div à volta
 	-- Tudo o resto !!!
 	
     *para melhorar, ver o $t, passar o rato por cima e ver documentação
@@ -60,6 +55,15 @@ Backend:
 	Site simples exemplo
 
 
+
+
+DONE: ---- Edit Button falta melhorar design
+
+DONE: ---- fazer edit news ser uma textArea
+
+DONE: ---- melhorar informação do popUps
+
+DONE: ---- Meter bandeirinhas a corresponder à lingua -- menos import
 
 DONE: ----Popular todos os editáveis desde o iicio -> Perguntar se há algum problema, e se era isto que prejudicava a performance   
     

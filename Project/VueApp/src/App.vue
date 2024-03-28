@@ -72,6 +72,7 @@ async function updateLocale(newLocale: string) {
       <div>
       <RouterLink to="/login" class="Login" :class="locale">{{ $t("Login") }}</RouterLink>
       </div>
+
     
     
       <LocaleSwitcher v-if="!errorOnFetch" @update:locale="updateLocale" />
@@ -103,6 +104,7 @@ header {
   flex-direction: row;
   line-height: 1.5;
   max-height: 100vh;
+  margin-bottom: 80px;
 }
 
 .logo {
@@ -116,7 +118,7 @@ nav {
   margin-top: 2rem;
   display: flex;
   justify-content: right;
-  font-size: 1rem;
+  font-size: 1.2rem;
   padding: 1rem 0;
 }
 
