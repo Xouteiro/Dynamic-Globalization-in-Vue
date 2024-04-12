@@ -7,7 +7,7 @@ aplicação de extrair strings do documento? do codigo?
 
 A fazer:
 
-Filtros e ordenação na tabela
+
 
 Fazer POST/GET para noticias --- medio import 
 
@@ -64,6 +64,8 @@ Backend:
 
 
 
+
+Filtros e ordenação na tabela -- Filtros e search -- DONE
 
 
 API e aplicação de extrair strings e Autenticação é para por nos objetivos?  --trabalho futuro o que nao der para fazer
