@@ -3,8 +3,6 @@
 import { idioms } from '@/i18n.js';
 import i18n from '@/i18n.js';
 import  utils  from '@/utils.js';
-import { e } from 'vitest/dist/reporters-1evA5lom.js';
-import { vModelCheckbox } from 'vue';
 import { ref } from 'vue';
 import { watch } from 'vue';
 import { onMounted } from 'vue';
@@ -193,7 +191,7 @@ onMounted(() => {
         <th class="identifier">Article</th>
         <th class="identifier">Identifier</th>
         <th class="text"> Text </th>
-        <th class="submit">Submit</th>
+        <th class="submit" >Submit</th>
       </tr>
     </thead>
     <tbody v-for="(item, index) in getFilteredIdioms()" :key="index">

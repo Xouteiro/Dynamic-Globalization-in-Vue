@@ -3,6 +3,8 @@ interface CurrentMessages {
     [key: string]: string | any;
 }
 
+let popUp_open = false;
+
 function getCurrentKey(key: string, locale: string, currentMessages: CurrentMessages) {
     let keys = key.includes('.') ? key.split('.') : []
     let current = currentMessages
@@ -99,12 +101,13 @@ function addEditButton(element: HTMLElement, classes: DOMTokenList, locale: stri
     editButton.classList.add('edit-button');
     editButton.classList.add('tooltiptext')
     editButton.addEventListener('click', () => {
-        openPopUp(classes, locale, currentMessages);
+        openPopUp(classes, locale, currentMessages, element);
     });
     element.insertBefore(editButton, element.firstChild);
 }
 
-function openPopUp(classes: DOMTokenList, locale: string, currentMessages: CurrentMessages) {
+function openPopUp(classes: DOMTokenList, locale: string, currentMessages: CurrentMessages, element: HTMLElement) {
+    popUp_open = true;
     const overlay = document.createElement('div');
     overlay.style.position = 'fixed';
     overlay.style.top = '0';
@@ -117,8 +120,12 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
     const popUp = document.createElement('div');
     popUp.classList.add('pop-up');
 
-    let key = cleanClasses(classes, locale);
-
+    let key : string;
+    if(element.lastElementChild?.tagName === 'INPUT' || element.lastElementChild?.tagName === 'TEXTAREA'){
+        key = cleanClasses(element.lastElementChild.classList,locale)//key para o placeholder
+    } else {
+        key = cleanClasses(classes, locale);
+    }
     let popUpTitle = document.createElement('h2');
     popUpTitle.textContent = 'Edit word';
     popUpTitle.classList.add('pop-up-title');
@@ -189,6 +196,7 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
 
 
     let newWord : HTMLInputElement | HTMLTextAreaElement;
+
     let keys = key.includes('.') ? key.split('.') : [];
 
     if (keys.length > 1) {
@@ -203,6 +211,7 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
 
 
     popUp.appendChild(newWord);
+    
 
     const saveButton = document.createElement('button');
     saveButton.innerHTML = 'Save';
@@ -220,15 +229,27 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
     closeButton.innerHTML = '&#10006';
     closeButton.classList.add('close-button');
 
+
     closeButton.addEventListener('click', () => {
         removePopUp(popUp);
         document.body.removeChild(overlay);
     });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && popUp_open === true ) {
+            popUp_open = false;
+            removePopUp(popUp);
+            document.body.removeChild(overlay);
+        }
+    });
+
+
     popUp.appendChild(closeButton);
 
     overlay.appendChild(popUp);
-
 }
+
+
 
 
 function removeEditButton(element: HTMLElement) {
@@ -240,6 +261,9 @@ function removeEditButton(element: HTMLElement) {
 
 
 function removePopUp(popUp: HTMLElement) {
+    if(popUp.parentNode === null || popUp === null){ 
+        return;
+    }
     popUp.parentNode!.removeChild(popUp);
 }
 

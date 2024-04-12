@@ -7,7 +7,13 @@ aplicação de extrair strings do documento? do codigo?
 
 A fazer:
 
-Search pelo texto -- medio import
+Esc para sair do modal(popup)
+
+Search pelo texto -- falta mensagem quando é vazia
+
+ToolTip -- falta css e delay ao sair de on hover
+
+Investigar mudança de strings em butões e placeholders, butões->dá, placeholder-> mais dificil mas tambem ja está
 
 Fazer POST/GET para noticias --- medio import 
 

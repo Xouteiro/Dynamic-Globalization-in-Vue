@@ -5,7 +5,7 @@ import { onMounted,onUpdated } from 'vue';
 import  utils  from '@/utils.ts';
 import i18n from '@/i18n.js';
 import { useI18n } from "vue-i18n";
-
+import { ref } from 'vue';
 
 
 
@@ -32,7 +32,9 @@ onUpdated(() => {
 </script>
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1 class="about-h1" :class="locale">{{ $t("about-title")}}</h1>
+    <button class="about-button" :class="locale" @click="debug">{{$t("about-button")}}</button>
+    <input class="test-placeholder" :placeholder="$t('test-placeholder')" :class="locale" />
   </div>
 </template>
 
