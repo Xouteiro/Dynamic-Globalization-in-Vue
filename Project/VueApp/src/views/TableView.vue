@@ -3,6 +3,7 @@
 import { idioms } from '@/i18n.js';
 import i18n from '@/i18n.js';
 import  utils  from '@/utils.js';
+import { ref } from 'vue';
 import { watch } from 'vue';
 import { onMounted } from 'vue';
 import { reactive } from 'vue';
@@ -13,6 +14,10 @@ import { useI18n } from "vue-i18n";
 let { locale } = useI18n()
 let currentMessages = i18n.global.getLocaleMessage(locale.value);
 let currentInput: any = reactive([]);
+let orderFilter = ref('asc');
+let idiomChoice = ref<string[]>([]);
+let search_v = ref('');
+let search_n = ref('');
 populateCurrentInput();
 
 
@@ -52,29 +57,63 @@ function populateCurrentInput() {
 }
 
 function debug() {
-  console.log(currentMessages);
+  console.log(idiomChoice.value);
+}
+
+
+function filterSearch(vocabulary: Object, search: string) {
+  let filteredVocabulary = Object.assign({}, vocabulary);
+  let search_lower = search.toLowerCase();
+  for(let key in vocabulary) {
+    let key_lower = key.toLowerCase();
+    if(!key_lower.includes(search_lower)) {
+      delete filteredVocabulary[key as keyof typeof filteredVocabulary];
+    }
+  }
+  return filteredVocabulary;
 }
 
 function getVocabulary(idiom: string) {
   for (let i = 0; i < idioms.length; i++) {
-    if (idioms[i].name === idiom) {
-      let vocabulary = Object.assign({}, idioms[i].vocabulary); //make a copy of the object
-      //delete vocabulary.News;
-      return vocabulary;
+    if (idioms[i].name === idiom ) {
+        let vocabulary = Object.assign({}, idioms[i].vocabulary); //make a copy of the object
+        if(!(search_v.value == '')){
+          vocabulary = Object.assign({},filterSearch(vocabulary, search_v.value));
+        }
+        return vocabulary;
     }
-  }
+    }
 }
 
 function getNews(idiom: string) {
-  let news = [];
   for (let i = 0; i < idioms.length; i++) {
     if (idioms[i].name === idiom) {
-      news = Object.assign({}, idioms[i].vocabulary.News);
+      let news = Object.assign({}, idioms[i].vocabulary.News);
+      if(!(search_n.value == '')){
+          news = Object.assign({},filterSearch(news, search_n.value));
+        }
+        return news;
+    }
+    
+  }
+  
+}
+
+function getFilteredIdioms() {
+  let filteredIdioms = [];
+
+  if(idiomChoice.value.length === 0) {
+    return idioms;
+  }
+  for (let i = 0; i < idioms.length; i++) {
+    if (idiomChoice.value.includes(idioms[i].name) ) {
+      filteredIdioms.push(idioms[i]);
     }
   }
-  return news;
-
+  return filteredIdioms;
 }
+
+
 
 
 
@@ -91,8 +130,26 @@ onMounted(() => {
 </script>
 
 <template>
-  
-  <h2>Vocabulary</h2>
+
+  <!-- <select class="order" v-model="orderFilter">
+    <option value="asc">&#8593; Alphabetical </option>
+    <option value="desc">&#8595; Alphabetical</option>
+  </select> -->
+
+  <div class="search">
+    <input type="text" class="search" placeholder="Search for an identifier" v-model="search_v"/>
+  </div>
+
+  <div class="idiom-choice">
+    <div v-for="idiom in idioms" :key="idiom.name">
+      <input type="checkbox" :id="idiom.name" :value="idiom.name" v-model="idiomChoice">
+      <label :for="idiom.name">{{ idiom.name + ' ' + utils.getFlag(idiom.name) }}</label>
+    </div>
+  </div>
+
+<!-- <button @click="debug">Debug</button> -->
+
+<h2>Vocabulary</h2>
   <table class="table">
     <thead>
       <tr>
@@ -102,7 +159,7 @@ onMounted(() => {
         <th class="submit">Submit</th>
       </tr>
     </thead>
-    <tbody v-for="(item, index) in idioms" :key="index">
+    <tbody v-for="(item, index) in getFilteredIdioms()" :key="index">
       <tr v-for="(word, key) in getVocabulary(item.name)" :key="key">
         <td class="idiom" v-if="String(key) != 'News'"> {{ item.name + ' ' + utils.getFlag(item.name) }} </td>
         <td class="identifier" v-if="String(key) != 'News'"> {{ key }}</td> 
@@ -113,21 +170,27 @@ onMounted(() => {
   </table>
 
 
+  <div class="search">
+    <input type="text" class="search" placeholder="Search for an identifier" v-model="search_n"/>
+  </div>
+
   <h2>News</h2>
   <table class="table">
     <thead>
       <tr>
         <th class="idiom"> Idiom </th>
+        <th class="identifier">Article</th>
         <th class="identifier">Identifier</th>
         <th class="text"> Text </th>
         <th class="submit">Submit</th>
       </tr>
     </thead>
-    <tbody v-for="(item, index) in idioms" :key="index">
-      <template v-for="(word, key) in getNews(item.name)" :key="key">
+    <tbody v-for="(item, index) in getFilteredIdioms()" :key="index">
+      <template  v-for="(word, key) in getNews(item.name)" :key="key">
         <tr v-for="(text, subKey) in word" :key="subKey" >
           <td class="idiom" v-if="String(subKey) != 'Identifier'"> {{ item.name + ' ' + utils.getFlag(item.name) }} </td>
-          <td class="identifier" v-if="String(subKey) != 'Identifier'"> {{ key + '.' + subKey }}</td> 
+          <td class="identifier" v-if="String(subKey) != 'Identifier'"> {{ key }}</td> 
+          <td class="identifier" v-if="String(subKey) != 'Identifier'"> {{ subKey }}</td>
           <td class="text" v-if="String(subKey) != 'Identifier'"><textarea type="text" class="input area" v-model="currentInput[item.name + '.News.' + key + '.' + subKey]" /></td>
           <td class="submit" v-if="String(subKey) != 'Identifier'"><button class="submit" @click="utils.updateElement('News.' + key + '.' + subKey, currentInput[item.name + '.News.' + key + '.' + subKey], item.name, currentMessages, locale, idioms)" >Submit</button></td>
         </tr>
@@ -154,22 +217,30 @@ h2 {
   background-color: rgba(194, 227, 196, 0.802);
 }
 
-.row, .table-header {
-  display: flex;
+
+.table, .table tr, .table td, .table th {
+  border: 1px solid black;
 }
 
 .table-header {
   width: 80%;
+  border: 1px solid black;
 }
 
 
 .idiom, .text, .identifier, .submit{
-  border: 1px solid black;
+  border: 1px solid black ;
   padding: 8px;
   text-align: center;
   color: black;
   font-size: 17px;
 }
+
+tr {
+  border: 1px solid black;
+}
+
+
 
 
 button.submit {

@@ -1,6 +1,11 @@
+Perguntas:
+
+aplicação de extrair strings do documento? do codigo?
+
+
+
 
 A fazer:
-
 
 Filtros e ordenação na tabela
 
@@ -18,13 +23,13 @@ animação saved -- mt pouco import
 
 Mini-problemas a resolver se der:
     Suportar a existência de palavras com dois significados, por exemplo, swicth em inglês, tanto pode ser "trocar" como "interruptor" em português
+    butão de atualização de página quando alguma palavra é alterada ( resolver o problema das duas tabs, mudar numa e nao mudar na outra)
 
 
 
 
 Erros a corrigir:
 
-popup nao deixar carregar noutro sitio
 
 
 Error handling a implementar:
@@ -44,16 +49,27 @@ Documentar:
 	-explicar que o edit tem que ser em sitios com o div à volta
 	-- Tudo o resto !!!
 	
-    *para melhorar, ver o $t, passar o rato por cima e ver documentação
+	
+    ---Mudança de Idioma:
+	-- falar da base de dados	
+   	-- *para melhorar, ver o $t, passar o rato por cima e ver documentação
 
 
 Backend:
 	Express js, Node js, Mongo DB -- DONE
-	Site simples exemplo
+	
+	Site simples exemplo -- melhorar eventualmente
 
 
 
 
+
+
+
+API e aplicação de extrair strings e Autenticação é para por nos objetivos?  --trabalho futuro o que nao der para fazer
+
+
+DONE: ----popup nao deixar carregar noutro sitio
 
 DONE: ---- Lidar com noticias na tabela (para já tirei só)
 

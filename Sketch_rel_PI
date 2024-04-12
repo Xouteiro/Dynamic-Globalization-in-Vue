@@ -1,17 +1,33 @@
 Projeto integrador
 
-Traduçãoo
+À medida que as empresas se expandem globalmente, a necessidade de aplicações que suportem múltiplos idiomas e preferências regionais torna-se primordial. Vue, sendo um framework front-end amplamente utilizado, desempenha um papel crucial na construção de interfaces de usuário responsivas e dinâmicas.
+Este projeto tem como objetivo explorar como o Vue lida com a globalização, focando especificamente no suporte multilíngue e regional. Além disso, iremos nos aprofundar nas possibilidades de implementar a globalização dinâmica, onde os usuários podem editar e personalizar o texto exibido com base em suas preferências.
 
-Face ao desafio de aplicação de suportar diversos idiomas, sem haver a necessidade de compilar o codigo uma vez para cada idioma, e também
-mantendo os príncipios de uma SPWA, optou-se pela implementação de uma abordagem que consiste em, a partir de vários conjuntos de pares Chave - Tradução, um conjunto para cada idioma, sempre que se muda a opção do idioma do website todas as componentes textuais do website mudam também. Utilizando algumas ferramentas nativas da framework e também a biblioteca i18n, isto é possível. 
-Os dados referidos anteriormente, armazenados num ficheiro JSON (ou numa estrutura de dados convertível para JSON), são importados para um ficheiro .js, onde se implementa uma função que obtêm as "Mensagens"(pares Chave - Tradução) de cada idioma. Recorrendo à biblioteca i18n é criada uma instância com os seguintes atributos: locale - idioma atual, fallbackLocale: idioma de recurso, legacy - boleano que diz qual a versão de vue que estamos a utilizar e finalmente messages - onde é passada a função implementada anteriormente, que obtém todo o vocabulário de todos os idiomas, sendo que este último, automaticamente, utilizando as suas keys de 1ª ordem, faz com que possamos utilizar outra propriedade, o availableLocales, que tem todos os idiomas presentes em messages. 
-Foi também necessário configurar a nossa aplicação de forma a que a instância criada estivesse disponível em todos os componentes Vue, e isto foi feito no ficheiro main.ts, com esta simples linha: app.use(i18n).mount('#app'). Aplicando o "use(i18n)" à nossa aplicação passa a ser-nos possível aceder a todas as propriedades e métodos anteriormente mencionados a partir da variável especial $i18n. Posto isto, podemos então utlizar estas propriedades numa componente vue, neste caso foi criada uma componente que, utilizando o $i18n, objeto que tem, além dos referidos anteriormente, uma propriedade, "availableLocales", que, com base nas keys de 1a ordem nos fornece todos os idiomas disponíveis no momento, e criando, por exemplo, um select, referenciando o $i18n.locale, onde os utilizamos como options, permite-nos atualizar o locale(idioma) atual. Com isto, podemos o método $t, fornecido pela biblioteca do i18n, com a Chave do par que queremos utilizar e irá ser mostrado na página a Tradução correspondente à Chave, no idioma atual. Além disso estas componentes textuais tornam-se reativas à atualização do idioma, ou seja, sempre que exister uma mudança de idioma, todas a componentes que utilizem o método $t, serão atualizadas automaticamente, sem necessidade de realizar nenhum pedido ao servidor.
-Caso não exista nenhuma Tradução correspondente à Chave, o conteúdo será mostrado no idioma predefinido, "fallbackLocale".
+Enquadramento(Problemas a resolver)--Apresentar o problema abordado e a motivação para o trabalho realizado (qual é o problema abordado e porque é que é importante). Indicar os objetivos do trabalho e os resultados esperados.
+
+Uma aplicação com utilizadores de diversos países e culturas tem a necessidade de suportar diversas linguagens, que têm de ser introduzidas na aplicação
+
+Tradução
+
+Face ao desafio de aplicação de suportar diversos idiomas, sem haver a necessidade de compilar o codigo uma vez para cada idioma, e também mantendo os príncipios de uma SPWA, optou-se pela implementação de uma abordagem que consiste em, a partir de vários conjuntos de pares Chave - Tradução, um conjunto para cada idioma, sempre que a opção do idioma do website for alterada todas as componentes textuais do website serão atualizadas para esse idoma.
+
+Utilizando algumas ferramentas nativas da framework e também a biblioteca i18n, isto é possível. 
+Os dados referidos anteriormente, armazenados num ficheiro JSON (ou numa estrutura de dados convertível para JSON), são importados para um ficheiro .js, onde se implementa uma função que obtêm as \textit{currentMessages} (pares Chave - Tradução) de cada idioma. Recorrendo à biblioteca i18n é criada uma instância com os seguintes atributos: locale - idioma atual, fallbackLocale: idioma de recurso, legacy - boleano que diz qual a versão de vue que estamos a utilizar e finalmente messages - onde é passada a função implementada anteriormente, que obtém todo o vocabulário de todos os idiomas, sendo que este último, automaticamente, utilizando as suas keys de 1ª ordem, faz com que possamos utilizar outra propriedade, o availableLocales, que tem todos os idiomas presentes em messages. 
+
+Foi também necessário configurar a nossa aplicação de forma a que a instância criada estivesse disponível em todos os componentes Vue, e isto foi feito no ficheiro main.ts, com esta simples linha: app.use(i18n).mount('\#app'). Aplicando o "use(i18n)" à nossa aplicação passa a ser-nos possível aceder a todas as propriedades e métodos anteriormente mencionados a partir da variável \$i18n. Posto isto, podemos então utlizar estas propriedades numa componente vue, neste caso foi criada uma componente que, utilizando o \$i18n.availableLocales para criar um menu dropdown que nos permite atualizar o idioma atual. 
+
+Posto isto, podemos utilizar o método \$t, fornecido pela biblioteca do i18n, com a Chave do par que queremos utilizar \ignore{Dar exemplo aqui} e irá ser mostrado na página a Tradução correspondente à Chave, no idioma atual. O método \$t utiliza o par Chave - Tradução das \textit{currentMessages} do locale atual, e por isso, sempre que exister uma mudança de idioma, todas a componentes que utilizem este método serão atualizadas automaticamente, sem necessidade de realizar nenhum pedido ao servidor.
+Caso não exista nenhuma Tradução correspondente à Chave, a string apresentada será a que estiver a ser utilizada como key dentro do método \$t.
 
 
 //rever e falar do i18n.global.getLocaleMessage(locale.value)
 
 //ver diferentes formas de ir buscar os elementos com o $t, por exemplo, messages[0]
+
+Change Words
+
+De forma a otimizar e facilitar uma possível correção ou alteração na tradução
+
 
 
 
