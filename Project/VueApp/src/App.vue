@@ -15,19 +15,19 @@ let errorOnFetch = Object.keys(currentMessages).length === 0;
 let isLoading = ref(false);
 
 function debug() {
-   console.log(currentMessages);
- }
+  console.log(currentMessages);
+}
 
 
 onMounted(() => {
-  if(window.location.pathname === '/table') {
+  if (window.location.pathname === '/table') {
     return;
   }
   utils.populateEditableElements(locale.value, currentMessages);
 });
 
 onUpdated(() => {
-  if(window.location.pathname === '/table') {
+  if (window.location.pathname === '/table') {
     return;
   }
   currentMessages = i18n.global.getLocaleMessage(locale.value);
@@ -40,9 +40,9 @@ onUpdated(() => {
 
 
 async function updateLocale(newLocale: string) {
-    isLoading.value = true;
-    locale.value = newLocale;
-    isLoading.value = false;
+  isLoading.value = true;
+  locale.value = newLocale;
+  isLoading.value = false;
 }
 
 
@@ -57,32 +57,20 @@ async function updateLocale(newLocale: string) {
 
     <nav>
 
-      <div>
-      <RouterLink to="/" class="Home" :class="locale" >{{ $t("Home") }}</RouterLink>
-      </div>
-    
-      <div>
-      <RouterLink to="/about" class="About" :class="locale">{{ $t("About") }}</RouterLink>
-      </div>
-    
-      <div>
-      <RouterLink to="/table" class="Table" :class="locale">{{ $t("Table") }}</RouterLink>
-      </div>
-    
-      <div>
-      <RouterLink to="/login" class="Login" :class="locale">{{ $t("Login") }}</RouterLink>
-      </div>
+        <RouterLink to="/" class="Home" :class="locale">{{ $t("Home") }}</RouterLink>
 
-    
-    
-      <LocaleSwitcher v-if="!errorOnFetch" @update:locale="updateLocale" />
-      
-    
+        <RouterLink to="/about" class="About" :class="locale">{{ $t("About") }}</RouterLink>
+
+        <RouterLink to="/table" class="Table" :class="locale">{{ $t("Table") }}</RouterLink>
+
+        <RouterLink to="/login" class="Login" :class="locale">{{ $t("Login") }}</RouterLink>
 
 
 
 
-      
+
+        <LocaleSwitcher v-if="!errorOnFetch" @update:locale="updateLocale" />
+
     </nav>
 
   </header>
@@ -90,14 +78,16 @@ async function updateLocale(newLocale: string) {
 
 
 
-    <RouterView />
+  <RouterView />
+
+
+
 
 </template>
 
 
 
 <style scoped>
-
 header {
   display: flex;
   justify-content: space-between;
@@ -120,6 +110,7 @@ nav {
   justify-content: right;
   font-size: 1.2rem;
   padding: 1rem 0;
+  align-items: center;
 }
 
 nav a.router-link-exact-active {
@@ -153,6 +144,4 @@ div.locale-switcher {
   height: fit-content;
   align-self: center;
 }
-
-
 </style>

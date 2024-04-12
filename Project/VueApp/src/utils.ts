@@ -97,6 +97,7 @@ function addEditButton(element: HTMLElement, classes: DOMTokenList, locale: stri
     const editButton = document.createElement('button');
     editButton.innerHTML = 'Edit';
     editButton.classList.add('edit-button');
+    editButton.classList.add('tooltiptext')
     editButton.addEventListener('click', () => {
         openPopUp(classes, locale, currentMessages);
     });
@@ -313,6 +314,11 @@ var utils = {
         const elements = document.querySelectorAll('.' + locale);
         elements.forEach((element) => {
 
+            const div = document.createElement('div');
+            div.classList.add('tooltip');
+            element.parentNode!.replaceChild(div, element);
+            div.appendChild(element);
+
             // Define the event handlers
             const mouseOverHandler = (e: Event) => {
                 if (!element.parentElement!.querySelector('.edit-button')) {
@@ -338,6 +344,7 @@ var utils = {
             this.handlers.set(element, { mouseOverHandler, mouseLeaveHandler });
         });
     },
+    
 
     updateElement(key_to_change: string, word_to_change: string, locale: string, currentMessages: CurrentMessages, currentMessages_locale?: string, idioms?: any, key?: HTMLInputElement) {
         changeWord(key_to_change, word_to_change, locale, currentMessages, currentMessages_locale || '', idioms || {});

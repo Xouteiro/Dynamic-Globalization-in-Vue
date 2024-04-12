@@ -50,4 +50,19 @@ const body = "News." + identifier + ".Body"
 }
 
 
+.news-title {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.news-subtitle {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.news-body {
+  display: flex;
+  margin-bottom: 20px;
+}
+
 </style>

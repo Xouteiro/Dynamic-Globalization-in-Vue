@@ -136,20 +136,22 @@ onMounted(() => {
     <option value="desc">&#8595; Alphabetical</option>
   </select> -->
 
-  <div class="search">
-    <input type="text" class="search" placeholder="Search for an identifier" v-model="search_v"/>
-  </div>
+  
 
-  <div class="idiom-choice">
+  <div class="filters">
     <div v-for="idiom in idioms" :key="idiom.name">
       <input type="checkbox" :id="idiom.name" :value="idiom.name" v-model="idiomChoice">
       <label :for="idiom.name">{{ idiom.name + ' ' + utils.getFlag(idiom.name) }}</label>
     </div>
   </div>
 
+
 <!-- <button @click="debug">Debug</button> -->
 
 <h2>Vocabulary</h2>
+  <div class="search">
+    <input type="text" class="search" placeholder="Search for an Identifier" v-model="search_v"/>
+  </div>
   <table class="table">
     <thead>
       <tr>
@@ -170,11 +172,12 @@ onMounted(() => {
   </table>
 
 
-  <div class="search">
-    <input type="text" class="search" placeholder="Search for an identifier" v-model="search_n"/>
-  </div>
+  
 
   <h2>News</h2>
+  <div class="search">
+    <input type="text" class="search" placeholder="Search for an Article" v-model="search_n"/>
+  </div>
   <table class="table">
     <thead>
       <tr>
@@ -236,11 +239,20 @@ h2 {
   font-size: 17px;
 }
 
-tr {
-  border: 1px solid black;
+.search {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
 }
 
-
+.filters {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
 
 
 button.submit {
