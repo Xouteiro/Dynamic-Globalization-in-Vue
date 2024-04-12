@@ -3,6 +3,8 @@
 import { idioms } from '@/i18n.js';
 import i18n from '@/i18n.js';
 import  utils  from '@/utils.js';
+import { e } from 'vitest/dist/reporters-1evA5lom.js';
+import { vModelCheckbox } from 'vue';
 import { ref } from 'vue';
 import { watch } from 'vue';
 import { onMounted } from 'vue';
@@ -57,19 +59,25 @@ function populateCurrentInput() {
 }
 
 function debug() {
-  console.log(idiomChoice.value);
+  console.log(Object.keys(getVocabulary("en")).length == 1);
 }
-
 
 function filterSearch(vocabulary: Object, search: string) {
   let filteredVocabulary = Object.assign({}, vocabulary);
   let search_lower = search.toLowerCase();
-  for(let key in vocabulary) {
-    let key_lower = key.toLowerCase();
-    if(!key_lower.includes(search_lower)) {
-      delete filteredVocabulary[key as keyof typeof filteredVocabulary];
+  let keys = Object.keys(vocabulary);
+  for(let i = 0; i< Object.values(vocabulary).length; i++){
+    let key_lower = keys[i].toLowerCase();
+    if(typeof Object.values(vocabulary)[i] != 'object'){
+      let value_lower = Object.values(vocabulary)[i].toLowerCase();
+      console.log(value_lower);
+    if(!key_lower.includes(search_lower) && !value_lower.includes(search_lower) ){
+      delete filteredVocabulary[keys[i] as keyof typeof filteredVocabulary];
     }
-  }
+
+    
+}
+}
   return filteredVocabulary;
 }
 
@@ -150,7 +158,7 @@ onMounted(() => {
 
 <h2>Vocabulary</h2>
   <div class="search">
-    <input type="text" class="search" placeholder="Search for an Identifier" v-model="search_v"/>
+    <input type="text" class="search" placeholder="Search for an Identifier or a Word" v-model="search_v"/>
   </div>
   <table class="table">
     <thead>
