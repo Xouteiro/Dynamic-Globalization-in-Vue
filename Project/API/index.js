@@ -96,6 +96,31 @@ app.get('/Idioms/:name/vocabulary', (request, response) => {
     });
 });
 
+//Get the vocabulary of an idiom by name
+//Returns an object with the key-value pairs of the vocabulary
+//Ex: {"Home":"Casa","About":"Sobre"}
+
+app.get('/Idioms/:name/news', (request, response) => {
+    database.collection('Idioms').findOne({ name: request.params.name }, (error, result) => {
+        if (error) {
+            console.error('Failed to fetch idiom. Error:', error);
+            response.status(500).send('Failed to fetch idiom');
+            return;
+        }
+        else if (result == undefined) {
+            response.status(404).send('Idiom not found');
+            return
+        }
+        else if (result.News == undefined || Object.keys(result.News).length == 0) {
+            response.status(404).send('Vocabulary is empty');
+            return
+        }
+        else {
+            response.send(result.News);
+        }
+    });
+});
+
 
 //Get just the names of all the idioms
 //Returns an array of Objects like this: [{"name":"ar"},{"name":"pt"},{"name":"en"},{"name":"sp"}]
@@ -202,6 +227,56 @@ app.put('/Idioms/:name/vocabulary/', async (request, response) => {
     });
 });
 
+
+//PUT
+
+//Update an idiom vocabulary
+//If the idiom doesn't have a vocabulary, it will be created
+//If the idiom has a vocabulary, the new key-value pair will be added
+//The key value pair is passed in the body of the request like this: {"key":"Home","value":"casa"}
+
+app.put('/Idioms/:name/news/', async (request, response) => {
+    let result = await database.collection('Idioms').findOne({ name: request.params.name });
+    let newNews = result.News;
+    let key = request.body.key;
+    let keys = [];
+    if (key.includes('.')) {
+        keys = key.split('.');
+        let current = newNews;
+        for (let i = 0; i < keys.length; i++) {
+            console.log('current[keys[i]]', current[keys[i]]);
+            if (i === keys.length - 1) {
+                current[keys[i]] = request.body.value;
+            } else {
+                if (current[keys[i]] == undefined) {
+                    console.log('error in current[keys[i]]');
+                }
+                else{
+                current = current[keys[i]];
+                }
+            }
+        }
+    }
+
+    else if (newNews == undefined) {
+        newNews = {};
+        newNews[request.body.key] = request.body.value;
+    }
+    else {
+        newNews[request.body.key] = request.body.value;
+    }
+
+
+
+    database.collection('Idioms').updateOne({ name: request.params.name }, { $set: { News: newNews } }, (error, result) => {
+        if (error) {
+            console.error('Failed to update idiom. Error:', error);
+            response.status(500).send('Failed to update idiom');
+            return;
+        }
+        response.send(result);
+    });
+});
 
 
 //DELETE

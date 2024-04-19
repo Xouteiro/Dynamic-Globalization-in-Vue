@@ -26,8 +26,9 @@ const idioms = await fetchIdioms();
 function loadLocaleMessages() {
   let locales = [];
   for (const idiom of idioms) {
-    locales.push({ [idiom.name]: idiom.vocabulary });
+    locales.push({ [idiom.name]: {...idiom.vocabulary, ...idiom.News} });
   }
+  console.log(locales);
   const messages = {};
   locales.forEach((lang) => {
     const key = Object.keys(lang);
@@ -46,3 +47,4 @@ const i18n = createI18n({
 });
 export default i18n;
 export {idioms};
+ 

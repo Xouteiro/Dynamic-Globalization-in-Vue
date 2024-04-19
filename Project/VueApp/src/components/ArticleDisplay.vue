@@ -12,9 +12,9 @@ let props = defineProps({
 
 const newsContent = props.newsContent
 const identifier = newsContent.Identifier
-const title = "News." + identifier + ".Title"
-const subtitle = "News." + identifier + ".Subtitle"
-const body = "News." + identifier + ".Body"
+const title =  identifier + ".Title"
+const subtitle = identifier + ".Subtitle"
+const body =  identifier + ".Body"
 
 
 </script>
@@ -22,13 +22,13 @@ const body = "News." + identifier + ".Body"
 <template>
   <div class=news >
 
-    <div class="news-title">
+    <div class="title">
       <h1 :class="[title,locale]">{{ $t(title)}}</h1>
     </div>
-    <div class="news-subtitle">
+    <div class="subtitle">
       <p :class="[subtitle,locale]" >{{ $t(subtitle) }}</p>
     </div>
-    <div class="news-body">
+    <div class="body">
       <p :class="[body,locale]" >{{ $t(body) }}</p>
     </div>
 

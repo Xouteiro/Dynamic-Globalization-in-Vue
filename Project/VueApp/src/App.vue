@@ -9,6 +9,7 @@ import utils from './utils.js';
 
 let { locale } = useI18n()
 let currentMessages = i18n.global.getLocaleMessage(locale.value);
+console.log(currentMessages);
 let errorOnFetch = Object.keys(currentMessages).length === 0;
 
 

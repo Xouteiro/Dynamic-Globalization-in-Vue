@@ -42,13 +42,13 @@ function updateIdioms(key: string, word: string, locale: string, idioms: any) {
     let keys = key.includes('.') ? key.split('.') : []
     for (let i = 0; i < idioms.length; i++) {
         if (idioms[i].name === locale) {
-            let vocabulary = idioms[i].vocabulary
+            let news = idioms[i].News
             if (keys.length === 0) {
-                vocabulary[key] = word
+                news[key] = word
                 return
             }
             else {
-                let current = vocabulary
+                let current = news
                 for (let i = 0; i < keys.length; i++) {
                     if (i === keys.length - 1) {
                         current[keys[i]] = i === keys.length - 1 ? word : {}
@@ -62,9 +62,12 @@ function updateIdioms(key: string, word: string, locale: string, idioms: any) {
     }
 }
 
-function changeWord(key: string, word: string, locale: string, currentMessages: CurrentMessages, currentMessages_locale: string, idioms: any) {
-
-    const url = 'http://localhost:5037/Idioms/' + locale + '/vocabulary'; 
+function changeWord(key: string, word: string, locale: string, currentMessages: CurrentMessages, currentMessages_locale: string, idioms: any, is_News: boolean) {
+    let url : string;
+    url = 'http://localhost:5037/Idioms/' + locale + '/vocabulary';
+    if(is_News){
+         url = 'http://localhost:5037/Idioms/' + locale + '/news'; 
+    }
 
     if (currentMessages_locale === locale || currentMessages_locale === '') {
         console.log('update current messages')
@@ -86,7 +89,7 @@ function changeWord(key: string, word: string, locale: string, currentMessages: 
     })
         .then(response => response.json())
         .catch((error) => {
-            console.error('Error:', error);
+            console.error('Error:', error.message);
         });
 
 }
@@ -200,8 +203,10 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
 
     let keys = key.includes('.') ? key.split('.') : [];
 
+    let is_News = false;
     if (keys.length > 1) {
         newWord = document.createElement('textarea');
+        is_News = true;
         newWord.value = getCurrentKey(key, locale, currentMessages);
     } else {
         newWord = document.createElement('input');
@@ -220,7 +225,7 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
 
 
     saveButton.addEventListener('click', () => {
-        utils.updateElement(key, newWord.value, locale, currentMessages);
+        utils.updateElement(key, newWord.value, locale, currentMessages, is_News);
         removePopUp(popUp);
         document.body.removeChild(overlay);
     });
@@ -371,8 +376,9 @@ var utils = {
     },
     
 
-    updateElement(key_to_change: string, word_to_change: string, locale: string, currentMessages: CurrentMessages, currentMessages_locale?: string, idioms?: any, key?: HTMLInputElement) {
-        changeWord(key_to_change, word_to_change, locale, currentMessages, currentMessages_locale || '', idioms || {});
+    updateElement(key_to_change: string, word_to_change: string, locale: string, currentMessages: CurrentMessages, is_News: boolean, currentMessages_locale?: string, idioms?: any, key?: HTMLInputElement) {
+        is_News = is_News || false;
+        changeWord(key_to_change, word_to_change, locale, currentMessages, currentMessages_locale || '', idioms || {}, is_News);
         if (key) {
             key.value = '';
         }

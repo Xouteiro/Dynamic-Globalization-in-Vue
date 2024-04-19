@@ -13,6 +13,21 @@ let errorOnFetch = Object.keys(currentMessages).length === 0;
 
 
 
+function getNews(currentMessages : any){
+  let news = [];
+  let newNews = {};
+  for(let i = 0; i < Object.values(currentMessages).length; i++){
+    if(typeof Object.values(currentMessages)[i] === "object"){
+      newNews = Object.assign({}, Object.values(currentMessages)[i]);
+      news.push(newNews);
+    }
+  }
+  console.log(news);
+  return news;
+}
+
+
+
 
 onMounted(() => {
   utils.populateEditableElements(locale.value, currentMessages);
@@ -29,7 +44,7 @@ onMounted(() => {
   <div v-if="isLoading ">Loading...</div>
     <ArticleDisplay 
       v-else
-      v-for="(item, index) in currentMessages.News"
+      v-for="(item, index) in getNews(currentMessages)"
       :key="index"
       :newsContent="item">
     </ArticleDisplay>

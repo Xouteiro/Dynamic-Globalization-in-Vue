@@ -23,7 +23,6 @@ populateCurrentInput();
 
 
 
-
 watch(locale, (newLocale) => {
   for(let i = 0; i < idioms.length; i++) {
     if(idioms[i].name === newLocale) {
@@ -37,20 +36,20 @@ watch(locale, (newLocale) => {
 function populateCurrentInput() {
   for (let i = 0; i < idioms.length; i++) {
     let vocabulary = getVocabulary(idioms[i].name);
-    for (let key in vocabulary) {
+    let news = getAllNews(idioms[i]);
+    console.log(news);
+    for (let key in vocabulary) { 
       let finalKey = idioms[i].name + "." + key;
-        if (typeof vocabulary[key] === 'object') {
-          for (let subKey in vocabulary[key]) {
-            let fullKey = finalKey + "." + subKey;
-            currentInput[fullKey + '.Title'] = vocabulary[key][subKey].Title;
-            currentInput[fullKey + '.Subtitle'] = vocabulary[key][subKey].Subtitle;
-            currentInput[fullKey + '.Body'] = vocabulary[key][subKey].Body;
-          }
-        }
-       else if (!currentInput[finalKey]) {
         currentInput[finalKey] = vocabulary[key];
       }
-
+    for (let key = 0  ; key < Object.keys(news).length; key++) {
+      let object = Object.values(news)[key];
+      let finalKey = idioms[i].name + "."  + Object.keys(news)[key];
+      console.log(finalKey);
+      for (let subKey in object) {
+        console.log(finalKey + "." + subKey);
+        currentInput[finalKey + "." + subKey] = object[subKey];
+      }
     }
   }
   console.log(currentInput);
@@ -91,14 +90,34 @@ function getVocabulary(idiom: string) {
     }
 }
 
-function getNews(idiom: string) {
+
+function getAllNews(currentMessages : any){
+  let news:  Array<Object>;
+  news = [];
+  let newNews = {};
+  for(let i = 0; i < Object.values(currentMessages).length; i++){
+    if(typeof Object.values(currentMessages)[i] === "object"){
+      newNews = Object.assign({}, Object.values(currentMessages)[i]);
+      news.push(newNews);
+    }
+  }
+  return news[1];
+}
+
+
+function getNews(idioms_vocab:any,idiom: string) {
   for (let i = 0; i < idioms.length; i++) {
     if (idioms[i].name === idiom) {
-      let news = Object.assign({}, idioms[i].vocabulary.News);
-      if(!(search_n.value == '')){
-          news = Object.assign({},filterSearch(news, search_n.value));
-        }
-        return news;
+      let news = [];
+      let newNews = {};
+  for(let i = 0; i < Object.values(idioms[i]).length; i++){
+    if(typeof Object.values(idioms[i])[i] === "object"){
+      newNews = Object.assign({}, Object.values(idioms[i])[i]);
+      news.push(newNews);
+    }
+  }
+  console.log(news);
+  return news;
     }
     
   }
@@ -152,7 +171,7 @@ onMounted(() => {
   </div>
 
 
-<!-- <button @click="debug">Debug</button> -->
+<button @click="console.log(currentMessages)">Debug</button>
 
 <h2>Vocabulary</h2>
   <div class="search">
@@ -172,7 +191,7 @@ onMounted(() => {
         <td class="idiom" v-if="String(key) != 'News'"> {{ item.name + ' ' + utils.getFlag(item.name) }} </td>
         <td class="identifier" v-if="String(key) != 'News'"> {{ key }}</td> 
         <td class="text" v-if="String(key) != 'News'"><input type="text" class="input" v-model="currentInput[item.name + '.' + key]" /></td>
-        <td class="submit" v-if="String(key) != 'News'"><button class="submit" @click="utils.updateElement(key.toString(), currentInput[item.name + '.' + key], item.name, currentMessages, locale, idioms)" >Submit</button></td>
+        <td class="submit" v-if="String(key) != 'News'"><button class="submit" @click="utils.updateElement(key.toString(), currentInput[item.name + '.' + key], item.name, currentMessages, false, locale, idioms)" >Submit</button></td>
       </tr>
     </tbody>
   </table>
@@ -195,13 +214,13 @@ onMounted(() => {
       </tr>
     </thead>
     <tbody v-for="(item, index) in getFilteredIdioms()" :key="index">
-      <template  v-for="(word, key) in getNews(item.name)" :key="key">
+      <template  v-for="(word, key) in getAllNews(item)" :key="key">
         <tr v-for="(text, subKey) in word" :key="subKey" >
           <td class="idiom" v-if="String(subKey) != 'Identifier'"> {{ item.name + ' ' + utils.getFlag(item.name) }} </td>
           <td class="identifier" v-if="String(subKey) != 'Identifier'"> {{ key }}</td> 
           <td class="identifier" v-if="String(subKey) != 'Identifier'"> {{ subKey }}</td>
-          <td class="text" v-if="String(subKey) != 'Identifier'"><textarea type="text" class="input area" v-model="currentInput[item.name + '.News.' + key + '.' + subKey]" /></td>
-          <td class="submit" v-if="String(subKey) != 'Identifier'"><button class="submit" @click="utils.updateElement('News.' + key + '.' + subKey, currentInput[item.name + '.News.' + key + '.' + subKey], item.name, currentMessages, locale, idioms)" >Submit</button></td>
+          <td class="text" v-if="String(subKey) != 'Identifier'"><textarea type="text" class="input area" v-model="currentInput[item.name +'.' + key + '.' + subKey]" /></td>
+          <td class="submit" v-if="String(subKey) != 'Identifier'"><button class="submit" @click="utils.updateElement( key + '.' + subKey, currentInput[item.name + '.' + key + '.' + subKey], item.name, currentMessages,true, locale, idioms)" >Submit</button></td>
         </tr>
       </template>
     </tbody>

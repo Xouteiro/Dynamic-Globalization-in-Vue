@@ -1,31 +1,53 @@
 Perguntas:
 
+
+nos exemplos de pedidos, ponho imagens também ou só os pedidos e os dados?
+
 aplicação de extrair strings do documento? do codigo?
+
+escrevo texto antes do itemize?
+
+requisitos funcionais -- São os requisitos necessários para o funcionamento da solução. escrevo isto?
+
+
+autenticação, talvez mas nao muito importante
 
 
 
 
 A fazer:
 
-Esc para sair do modal(popup)
+
+
+Criar idiomas
+Aviso idiomas em falta e idiomas que já nao estao em uso -- ou usar distinct ou main languange(talvez esta seja melhor)
+Css cuidado e mudar table apagar login
+alterar bd, tirar o news para fora
+
+Performance:
+Comparar site normal só com strings em ingles e com o carregar de todas, usar extensao de vue
+
+
 
 Search pelo texto -- falta mensagem quando é vazia
 
 ToolTip -- falta css e delay ao sair de on hover
 
-Investigar mudança de strings em butões e placeholders, butões->dá, placeholder-> mais dificil mas tambem ja está
+mostrar palavras que nao têm tradução
 
 Fazer POST/GET para noticias --- medio import 
 
 aplicação de extrair strings -- import
 
-mostrar palavras que nao têm tradução
+sugestão de tradução ?? 
 
 default lingua pc
 
 Permissões gerais e também, por exemplo, só poder adicionar palavras se tiver mais permissões -- menos import
 
 animação saved -- mt pouco import
+
+Tentar que só carregue a linguagem quando necessário
 
 Mini-problemas a resolver se der:
     Suportar a existência de palavras com dois significados, por exemplo, swicth em inglês, tanto pode ser "trocar" como "interruptor" em português
@@ -67,15 +89,17 @@ Backend:
 	Site simples exemplo -- melhorar eventualmente
 
 
-
-
-
-
-Filtros e ordenação na tabela -- Filtros e search -- DONE
-
-
 API e aplicação de extrair strings e Autenticação é para por nos objetivos?  --trabalho futuro o que nao der para fazer
 
+
+
+
+
+Esc para sair do modal(popup) -- DONE 
+
+Investigar mudança de strings em butões e placeholders, butões->dá, placeholder-> mais dificil mas tambem ja está --DONEE
+
+Filtros e ordenação na tabela -- Filtros e search -- DONE
 
 DONE: ----popup nao deixar carregar noutro sitio
 
