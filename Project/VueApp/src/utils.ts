@@ -109,6 +109,7 @@ function addEditButton(element: HTMLElement, classes: DOMTokenList, locale: stri
 function openPopUp(classes: DOMTokenList, locale: string, currentMessages: CurrentMessages, element: HTMLElement) {
     popUp_open = true;
     const overlay = document.createElement('div');
+    overlay.id = 'overlay';
     overlay.style.position = 'fixed';
     overlay.style.top = '0';
     overlay.style.left = '0';
@@ -235,11 +236,11 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
         document.body.removeChild(overlay);
     });
 
-    document.addEventListener('keydown', (e) => {
+    document.body.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && popUp_open === true ) {
             popUp_open = false;
+            document.getElementById('overlay')?.remove();
             removePopUp(popUp);
-            document.body.removeChild(overlay);
         }
     });
 

@@ -35,6 +35,8 @@ onUpdated(() => {
     <h1 class="about-h1" :class="locale">{{ $t("about-title")}}</h1>
     <button class="about-button" :class="locale" @click="debug">{{$t("about-button")}}</button>
     <input class="test-placeholder" :placeholder="$t('test-placeholder')" :class="locale" />
+    <input class="test-placeholder2" :placeholder="$t('test-placeholder2')" :class="locale" />
+
   </div>
 </template>
 
