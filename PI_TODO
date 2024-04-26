@@ -16,9 +16,7 @@ autenticação, talvez mas nao muito importante
 
 A fazer:
 
-Criar e Apagar idiomas -- DONE
-
-Suportar importar e exportar idiomas
+Dar para adicionar palavras à main language ou a todas ??
 
 Css cuidado e mudar table apagar login
 
@@ -34,8 +32,6 @@ Search pelo texto -- falta mensagem quando é vazia
 
 ToolTip -- falta css e delay ao sair de on hover
 
-mostrar palavras que nao têm tradução
-
 Fazer POST/GET para noticias --- medio import 
 
 aplicação de extrair strings -- import
@@ -49,6 +45,8 @@ Permissões gerais e também, por exemplo, só poder adicionar palavras se tiver
 animação saved -- mt pouco import
 
 Tentar que só carregue a linguagem quando necessário
+
+melhorar import se der
 
 Mini-problemas a resolver se der:
     Suportar a existência de palavras com dois significados, por exemplo, swicth em inglês, tanto pode ser "trocar" como "interruptor" em português
@@ -101,6 +99,13 @@ Backend:
 API e aplicação de extrair strings e Autenticação é para por nos objetivos?  --trabalho futuro o que nao der para fazer
 
 DONE:
+
+mostrar palavras que nao têm tradução -- DONE
+
+
+Criar e Apagar idiomas -- DONE
+
+Suportar importar e exportar idiomas -- DONE -- melhorar import se der
 
 Delete idiomas(não está) e palavras(aviso para quando uma palavra é apagada da main language(se nao se apagar logo as outras todas automaticamente)) -- DONE -- avisos em todas as palavras
 

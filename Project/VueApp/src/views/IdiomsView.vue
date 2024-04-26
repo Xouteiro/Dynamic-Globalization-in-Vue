@@ -1,11 +1,11 @@
 <script setup>
 
 import { idioms } from '@/i18n.js';
-import { onMounted,onUpdated } from 'vue';
-import  utils  from '@/utils.ts';
+import { onMounted, onUpdated } from 'vue';
+import utils from '@/utils.ts';
 import i18n from '@/i18n.js';
 import { useI18n } from "vue-i18n";
-import {watch } from 'vue';
+import { watch } from 'vue';
 
 
 
@@ -15,8 +15,8 @@ let currentMessages = i18n.global.getLocaleMessage(locale.value);
 
 
 watch(locale, (newLocale) => {
-  for(let i = 0; i < idioms.length; i++) {
-    if(idioms[i].name === newLocale) {
+  for (let i = 0; i < idioms.length; i++) {
+    if (idioms[i].name === newLocale) {
       currentMessages = i18n.global.getLocaleMessage(newLocale);
       Object.assign(currentMessages, idioms[i].vocabulary);
     }
@@ -26,14 +26,14 @@ watch(locale, (newLocale) => {
 
 
 onMounted(() => {
-  if(window.location.pathname === '/table') {
+  if (window.location.pathname === '/table') {
     return;
   }
   utils.populateEditableElements(locale.value, currentMessages);
 });
 
 onUpdated(() => {
-  if(window.location.pathname === '/table') {
+  if (window.location.pathname === '/table') {
     return;
   }
   currentMessages = i18n.global.getLocaleMessage(locale.value);
@@ -72,7 +72,7 @@ function addPair() {
 
   pair.appendChild(removeButton);
 
-  
+
 }
 
 
@@ -82,17 +82,17 @@ function addIdiom() {
   const vocabulary = {};
   const pairs = document.querySelectorAll('.Pair');
 
-  if(idioms.some((idiom) => idiom.name === name)) {
+  if (idioms.some((idiom) => idiom.name === name)) {
     alert('Idiom already exists');
     return;
   }
 
-  if(name.length !== 2) {
+  if (name.length !== 2) {
     alert('Idiom name must be 2 characters long');
     return;
   }
 
-  if(pairs[0].querySelector('.key').value === '' || pairs[0].querySelector('.value').value === '') {
+  if (pairs[0].querySelector('.key').value === '' || pairs[0].querySelector('.value').value === '') {
     alert('Please fill in all fields');
     return;
   }
@@ -125,40 +125,40 @@ function addIdiom() {
       console.error('Error:', error);
     });
 
-    pairs.forEach((pair) => {
-      pair.querySelector('.key').value = '';
-      pair.querySelector('.value').value = '';
-    });
-    document.querySelector('#name').value = '';
+  pairs.forEach((pair) => {
+    pair.querySelector('.key').value = '';
+    pair.querySelector('.value').value = '';
+  });
+  document.querySelector('#name').value = '';
 
-    idioms.push(newIdiom);
+  idioms.push(newIdiom);
 
-    const idiomsDiv = document.querySelector('.current-idioms');
-    const manageDiv = document.createElement('div');
-    manageDiv.classList.add('manage');
-    const h3 = document.createElement('h3');
-    h3.textContent = newIdiom.name + utils.getFlag(newIdiom.name);
-    manageDiv.appendChild(h3);
-    const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete Idiom';
-    deleteButton.addEventListener('click', (event) => {
-      event.preventDefault();
-      deleteIdiom(newIdiom, event);
-    });
+  const idiomsDiv = document.querySelector('.current-idioms');
+  const manageDiv = document.createElement('div');
+  manageDiv.classList.add('manage');
+  const h3 = document.createElement('h3');
+  h3.textContent = newIdiom.name + utils.getFlag(newIdiom.name);
+  manageDiv.appendChild(h3);
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = 'Delete Idiom';
+  deleteButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    deleteIdiom(newIdiom, event);
+  });
 
-    const exportButton = document.createElement('button');
-    exportButton.textContent = 'Export Json';
-    exportButton.addEventListener('click', (event) => {
-      event.preventDefault();
-      exportJson(newIdiom);
-    });
-    manageDiv.appendChild(deleteButton);
-    manageDiv.appendChild(exportButton);
-    
-    idiomsDiv.appendChild(manageDiv);
+  const exportButton = document.createElement('button');
+  exportButton.textContent = 'Export Json';
+  exportButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    exportJson(newIdiom);
+  });
+  manageDiv.appendChild(deleteButton);
+  manageDiv.appendChild(exportButton);
+
+  idiomsDiv.appendChild(manageDiv);
 
 
-  }
+}
 
 
 function deleteIdiom(idiom, event) {
@@ -179,13 +179,17 @@ function deleteIdiom(idiom, event) {
 
   event.target.parentElement.remove();
 
-  
+
 }
 
 
 function importJson() {
   const file = document.querySelector('#file').files[0];
   const reader = new FileReader();
+  if (!file) {
+    alert('Please select a file');
+    return;
+  }
   reader.onload = function (e) {
     const json = JSON.parse(e.target.result);
     const newIdiom = {};
@@ -193,7 +197,7 @@ function importJson() {
     newIdiom.vocabulary = json.vocabulary || {};
     newIdiom.News = json.News || {};
 
-    if(idioms.some((idiom) => idiom.name === newIdiom.name)) {
+    if (idioms.some((idiom) => idiom.name === newIdiom.name)) {
       alert('Idiom already exists');
       return;
     }
@@ -216,22 +220,32 @@ function importJson() {
         console.error('Error:', error);
       });
 
-      idioms.push(newIdiom);
+    idioms.push(newIdiom);
 
-      const idiomsDiv = document.querySelector('.current-idioms');
-      const manageDiv = document.createElement('div');
-      manageDiv.classList.add('manage');
-      const h3 = document.createElement('h3');
-      h3.textContent = newIdiom.name + utils.getFlag(newIdiom.name);
-      manageDiv.appendChild(h3);
-      const deleteButton = document.createElement('button');
-      deleteButton.textContent = 'Delete Idiom';
-      deleteButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        deleteIdiom(newIdiom, event);
-      });
-      manageDiv.appendChild(deleteButton);
-      idiomsDiv.appendChild(manageDiv);
+    const idiomsDiv = document.querySelector('.current-idioms');
+    const manageDiv = document.createElement('div');
+    manageDiv.classList.add('manage');
+    const h3 = document.createElement('h3');
+    h3.textContent = newIdiom.name + utils.getFlag(newIdiom.name);
+    manageDiv.appendChild(h3);
+
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete Idiom';
+    deleteButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      deleteIdiom(newIdiom, event);
+    });
+
+    const exportButton = document.createElement('button');
+    exportButton.textContent = 'Export Json';
+    exportButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      exportJson(newIdiom);
+    });
+    manageDiv.appendChild(deleteButton);
+    manageDiv.appendChild(exportButton);
+
+    idiomsDiv.appendChild(manageDiv);
 
   };
   reader.readAsText(file);
@@ -253,50 +267,53 @@ function exportJson(idiom) {
 </script>
 <template>
 
-<h1>Manage all idioms</h1>
+  <h1>Manage all idioms</h1>
 
-<h2>Add a new Idiom</h2>
+  <h2>Add a new Idiom</h2>
 
-<h4>Fill in the form below to add a new idiom</h4>
+  <h4>Fill in the form below to add a new idiom</h4>
 
-<form>
-  <label for="name">Name</label>
-  <input type="text" id="name" v-model="name" placeholder="2 letter code" required maxlength="2">
-  <div class="Vocabulary">
-    <div class="Pair">
-      <input type="text" class="key" placeholder="Key" required>
-      <input type="text" class="value" placeholder="Value" required>
+  <form>
+    <label for="name">Name</label>
+    <input type="text" id="name" v-model="name" placeholder="2 letter code" >
+    <div class="Vocabulary">
+      <div class="Pair">
+        <input type="text" class="key" placeholder="Key" >
+        <input type="text" class="value" placeholder="Value" >
+      </div>
+      <button @click.prevent="addPair">Add Pair</button>
     </div>
-    <button @click.prevent="addPair">Add Pair</button>
-  </div>
-  <button tye="submit" @click ="addIdiom">Add Idiom</button>
-</form>
+    <button tye="submit" @click="addIdiom">Add Idiom</button>
+  </form>
 
-<p class="Idioms-tip" :class="locale">{{$t("If you are not sure about what words to add submit the idiom and fill the words in the")}}
+  <p class="Idioms-tip" :class="locale">{{ $t("If you are not sure about what words to add submit the idiom and fill the words in the")}}
     <RouterLink to="/table" class="Table" :class="locale">{{ $t("Table") }}</RouterLink>
   </p>
 
-<h4>Import a Json File</h4>
+  <h4>Import a Json File</h4>
 
-<form >
-  <input type="file" id="file" name="file" accept=".json" required>
-  <button @click.prevent="importJson">Import</button>
-</form>
+  <form>
+    <label for="file">Choose a file</label>
+    <input type="file" id="file" name="file" accept=".json" >
+    <input type="reset" id="remove">
+    
+    <button @click.prevent="importJson">Import</button>
+  </form>
 
 
 
 
 
-<h2>Current Idioms</h2>
-<div class="current-idioms">
-  <div v-for="(idiom, index) in idioms" :key="index">
-    <div class="manage">
-    <h3>{{ idiom.name + utils.getFlag(idiom.name)}}</h3>
-    <button @click.prevent="deleteIdiom(idiom, $event)">Delete Idiom</button>
-    <button @click.prevent="exportJson(idiom)">Export Json</button>
+  <h2>Current Idioms</h2>
+  <div class="current-idioms">
+    <div v-for="(idiom, index) in idioms" :key="index">
+      <div class="manage">
+        <h3>{{ idiom.name + utils.getFlag(idiom.name) }}</h3>
+        <button v-if="idiom.name != 'en'" @click.prevent="deleteIdiom(idiom, $event)">Delete Idiom</button>
+        <button @click.prevent="exportJson(idiom)">Export Json</button>
+      </div>
     </div>
   </div>
-</div>
 
 
 
@@ -331,5 +348,4 @@ form {
   width: 100%;
   justify-content: center;
 }
-
 </style>
