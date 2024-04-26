@@ -17,18 +17,19 @@ autenticação, talvez mas nao muito importante
 A fazer:
 
 Criar idiomas
-Delete idiomas e palavras(aviso para quando uma palavra é apagada da main language(se nao se apagar logo as outras todas automaticamente))
-Aviso palavras em falta (e palavras que já nao estao em uso (não está, talvez não se faça)) -- ou usar distinct ou main languange(talvez esta seja melhor)  -- DONE - en é main language
+
 Css cuidado e mudar table apagar login
+
 mudar o uml do relatorio
 
-search news nao est aa funcionar
 
+
+search news nao esta a funcionar
+
+tirar coluna delete onde nao tem delete
 
 Performance:
 Comparar site normal só com strings em ingles e com o carregar de todas, usar extensao de vue
-
-
 
 
 Search pelo texto -- falta mensagem quando é vazia
@@ -58,8 +59,14 @@ Mini-problemas a resolver se der:
 
 
 
+
+
 Erros a corrigir:
 
+
+sendo que alguma palavra qundo não tem tradução fica com a tradução em inglês, ao mudar a tradução em ingles não muda a tradução em portugues da palavra sem tradução
+
+quando se apaga uma palavra em ingles o not used só fica depois do refresh
 
 
 Error handling a implementar:
@@ -93,7 +100,11 @@ Backend:
 
 API e aplicação de extrair strings e Autenticação é para por nos objetivos?  --trabalho futuro o que nao der para fazer
 
+DONE:
 
+Delete idiomas(não está) e palavras(aviso para quando uma palavra é apagada da main language(se nao se apagar logo as outras todas automaticamente)) -- DONE -- avisos em todas as palavras
+
+Aviso palavras em falta (e palavras que já nao estao em uso (já está)) -- ou usar distinct ou main languange(talvez esta seja melhor)  -- DONE - en é main language
 
 
 alterar bd, tirar o news para fora -- DONE
