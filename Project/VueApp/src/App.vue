@@ -9,7 +9,6 @@ import utils from './utils.js';
 
 let { locale } = useI18n()
 let currentMessages = i18n.global.getLocaleMessage(locale.value);
-console.log(currentMessages);
 let errorOnFetch = Object.keys(currentMessages).length === 0;
 
 
@@ -65,7 +64,6 @@ async function updateLocale(newLocale: string) {
         <RouterLink to="/table" class="Table" :class="locale">{{ $t("Table") }}</RouterLink>
 
         <RouterLink to="/login" class="Login" :class="locale">{{ $t("Login") }}</RouterLink>
-
 
 
 

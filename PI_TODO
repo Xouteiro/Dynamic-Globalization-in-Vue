@@ -14,18 +14,20 @@ autenticação, talvez mas nao muito importante
 
 
 
-
 A fazer:
 
-
-
 Criar idiomas
-Aviso idiomas em falta e idiomas que já nao estao em uso -- ou usar distinct ou main languange(talvez esta seja melhor)
+Delete idiomas e palavras(aviso para quando uma palavra é apagada da main language(se nao se apagar logo as outras todas automaticamente))
+Aviso palavras em falta (e palavras que já nao estao em uso (não está, talvez não se faça)) -- ou usar distinct ou main languange(talvez esta seja melhor)  -- DONE - en é main language
 Css cuidado e mudar table apagar login
-alterar bd, tirar o news para fora
+mudar o uml do relatorio
+
+search news nao est aa funcionar
+
 
 Performance:
 Comparar site normal só com strings em ingles e com o carregar de todas, usar extensao de vue
+
 
 
 
@@ -93,6 +95,8 @@ API e aplicação de extrair strings e Autenticação é para por nos objetivos?
 
 
 
+
+alterar bd, tirar o news para fora -- DONE
 
 
 Esc para sair do modal(popup) -- DONE 

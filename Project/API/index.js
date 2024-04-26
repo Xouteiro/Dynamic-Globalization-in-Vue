@@ -294,7 +294,7 @@ app.delete('/Idioms/:name', (request, response) => {
     });
 });
 
-//Delete a key from the vocabulary of an idiom ---- is missing security and error handling{"_id":"65e1f98c20f052db1eeb14ff","name":"pt","vocabulary":{"Home":"Casa","About":"Sobre"}}
+//Delete a key from the vocabulary of an idiom ---- is missing security and error handling
 app.delete('/Idioms/:name/vocabulary/:key', async (request, response) => {
     let result = await database.collection('Idioms').findOne({ name: request.params.name });
     let newVocabulary = result.vocabulary;
@@ -302,7 +302,7 @@ app.delete('/Idioms/:name/vocabulary/:key', async (request, response) => {
 
     database.collection('Idioms').updateOne({ name: request.params.name }, { $set: { vocabulary: newVocabulary } }, (error, result) => {
         if (error) {
-            console.error('Failed to delete vocabulary. Error:', error);
+            console.error('Failed to delete vocabulary key. Error:', error);
             response.status(500).send('Failed to delete vocabulary');
             return;
         }

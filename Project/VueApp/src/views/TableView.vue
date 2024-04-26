@@ -3,6 +3,8 @@
 import { idioms } from '@/i18n.js';
 import i18n from '@/i18n.js';
 import  utils  from '@/utils.js';
+import { on } from 'events';
+import { onUpdated } from 'vue';
 import { ref } from 'vue';
 import { watch } from 'vue';
 import { onMounted } from 'vue';
@@ -20,9 +22,6 @@ let search_v = ref('');
 let search_n = ref('');
 populateCurrentInput();
 
-
-
-
 watch(locale, (newLocale) => {
   for(let i = 0; i < idioms.length; i++) {
     if(idioms[i].name === newLocale) {
@@ -37,7 +36,6 @@ function populateCurrentInput() {
   for (let i = 0; i < idioms.length; i++) {
     let vocabulary = getVocabulary(idioms[i].name);
     let news = getAllNews(idioms[i]);
-    console.log(news);
     for (let key in vocabulary) { 
       let finalKey = idioms[i].name + "." + key;
         currentInput[finalKey] = vocabulary[key];
@@ -45,14 +43,11 @@ function populateCurrentInput() {
     for (let key = 0  ; key < Object.keys(news).length; key++) {
       let object = Object.values(news)[key];
       let finalKey = idioms[i].name + "."  + Object.keys(news)[key];
-      console.log(finalKey);
       for (let subKey in object) {
-        console.log(finalKey + "." + subKey);
         currentInput[finalKey + "." + subKey] = object[subKey];
       }
     }
   }
-  console.log(currentInput);
 }
 
 function debug() {
@@ -79,12 +74,30 @@ function filterSearch(vocabulary: Object, search: string) {
 }
 
 function getVocabulary(idiom: string) {
+  let valueLessVocabulary;
   for (let i = 0; i < idioms.length; i++) {
+    if(idioms[i].name === "en"){
+      valueLessVocabulary = Object.assign({}, idioms[i].vocabulary);
+      for(let key in valueLessVocabulary){
+          valueLessVocabulary[key] = "";
+      }
+    }
     if (idioms[i].name === idiom ) {
-        let vocabulary = Object.assign({}, idioms[i].vocabulary); //make a copy of the object
+        let vocabulary = Object.assign({}, idioms[i].vocabulary); 
         if(!(search_v.value == '')){
           vocabulary = Object.assign({},filterSearch(vocabulary, search_v.value));
+          for(let key in filterSearch(valueLessVocabulary, search_v.value)){
+          if(vocabulary[key] == undefined){
+            vocabulary[key] = "";
+          }
         }
+        } else {
+        for(let key in valueLessVocabulary){
+          if(vocabulary[key] == undefined){
+            vocabulary[key] = "";
+          }
+        }
+      }
         return vocabulary;
     }
     }
@@ -139,6 +152,32 @@ function getFilteredIdioms() {
 }
 
 
+function updateElement(key_to_change: string, word_to_change: string, locale_: string, currentMessages: any, is_News: boolean, currentMessages_locale?: string, idioms?: any, key?: HTMLInputElement){
+  utils.updateElement(key_to_change, word_to_change, locale_, currentMessages, is_News, currentMessages_locale, idioms);
+  for(let i = 0; i < idioms.length; i++) {
+    if(idioms[i].name === locale_) {
+      console.log(word_to_change);
+      if(word_to_change == ''){
+        delete idioms[i].vocabulary[key_to_change]
+        console.log(idioms[i].vocabulary);
+      }else{
+        idioms[i].vocabulary[key_to_change] = word_to_change;
+      }
+    }
+  }
+}
+
+function deleteElement(event : any, key_to_change: string, locale_: string, currentMessages: any, is_News: boolean, currentMessages_locale?: string, idioms?: any){
+  utils.deleteElement(key_to_change, locale_, currentMessages, is_News, currentMessages_locale, idioms);
+  for(let i = 0; i < idioms.length; i++) {
+    if(idioms[i].name === locale_) {
+      delete idioms[i].vocabulary[key_to_change];
+    }
+  }
+  event.target.parentElement.parentElement.remove();
+
+}
+
 
 
 
@@ -171,7 +210,7 @@ onMounted(() => {
   </div>
 
 
-<button @click="console.log(currentMessages)">Debug</button>
+<!-- <button @click="console.log(currentMessages)">Debug</button> -->
 
 <h2>Vocabulary</h2>
   <div class="search">
@@ -184,14 +223,18 @@ onMounted(() => {
         <th class="identifier">Identifier</th>
         <th class="text"> Text </th>
         <th class="submit">Submit</th>
+        <th class="submit">Delete</th>
       </tr>
     </thead>
     <tbody v-for="(item, index) in getFilteredIdioms()" :key="index">
       <tr v-for="(word, key) in getVocabulary(item.name)" :key="key">
-        <td class="idiom" v-if="String(key) != 'News'"> {{ item.name + ' ' + utils.getFlag(item.name) }} </td>
-        <td class="identifier" v-if="String(key) != 'News'"> {{ key }}</td> 
-        <td class="text" v-if="String(key) != 'News'"><input type="text" class="input" v-model="currentInput[item.name + '.' + key]" /></td>
-        <td class="submit" v-if="String(key) != 'News'"><button class="submit" @click="utils.updateElement(key.toString(), currentInput[item.name + '.' + key], item.name, currentMessages, false, locale, idioms)" >Submit</button></td>
+        <td class="idiom" > {{ item.name + ' ' + utils.getFlag(item.name) }} </td>
+        <td class="identifier"> {{ key }}</td> 
+        <td class="text" ><input type="text" class="input" v-model="currentInput[item.name + '.' + key]"  :placeholder = "currentInput[item.name + '.' + key] == '' ? ' ⚠ Complete this missing value' : currentInput[item.name + '.' + key]" /></td>
+        <td class="submit"><button class="submit" @click="updateElement(key.toString(), currentInput[item.name + '.' + key], item.name, currentMessages, false, locale, idioms)" >Submit</button></td>
+        <template v-if="item.name == 'en'">
+        <td class="submit" v-if="item.name == 'en'"><button class="submit" @click="deleteElement($event, key.toString(), item.name, currentMessages, false, locale, idioms)">Delete</button></td>
+        </template>
       </tr>
     </tbody>
   </table>

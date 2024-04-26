@@ -1,7 +1,10 @@
+import { idioms } from '@/i18n.js';
+
 
 interface CurrentMessages {
     [key: string]: string | any;
 }
+
 
 let popUp_open = false;
 
@@ -34,63 +37,107 @@ function updateCurrentMessages(key: string, word: string, currentMessages: Curre
             else {
                 current = current[keys[i]];
             }
+        }
     }
 }
-}
 
-function updateIdioms(key: string, word: string, locale: string, idioms: any) {
-    let keys = key.includes('.') ? key.split('.') : []
-    for (let i = 0; i < idioms.length; i++) {
-        if (idioms[i].name === locale) {
-            let news = idioms[i].News
-            if (keys.length === 0) {
-                news[key] = word
-                return
-            }
-            else {
-                let current = news
-                for (let i = 0; i < keys.length; i++) {
-                    if (i === keys.length - 1) {
-                        current[keys[i]] = i === keys.length - 1 ? word : {}
-                    }
-                    else {
-                        current = current[keys[i]];
+function updateIdioms(key: string, word: string, locale: string, idioms: any, is_News: boolean) {
+    console.log('update idioms')
+    if (is_News) {
+        let keys = key.includes('.') ? key.split('.') : []
+        for (let i = 0; i < idioms.length; i++) {
+            if (idioms[i].name === locale) {
+                let news = idioms[i].News
+                if (keys.length === 0) {
+                    news[key] = word
+                    return
+                }
+                else {
+                    let current = news
+                    for (let i = 0; i < keys.length; i++) {
+                        if (i === keys.length - 1) {
+                            current[keys[i]] = i === keys.length - 1 ? word : {}
+                        }
+                        else {
+                            current = current[keys[i]];
+                        }
                     }
                 }
+            }
+        }
+    }
+    else {
+        for (let i = 0; i < idioms.length; i++) {
+            if (idioms[i].name === locale) {
+                idioms[i].vocabulary[key] = word
+                return
             }
         }
     }
 }
 
 function changeWord(key: string, word: string, locale: string, currentMessages: CurrentMessages, currentMessages_locale: string, idioms: any, is_News: boolean) {
-    let url : string;
-    url = 'http://localhost:5037/Idioms/' + locale + '/vocabulary';
-    if(is_News){
-         url = 'http://localhost:5037/Idioms/' + locale + '/news'; 
+    let url: string;
+
+    if (word === '' && !is_News) {
+        url = 'http://localhost:5037/Idioms/' + locale + '/vocabulary' + '/' + key;
+
+
+
+        word = idioms[0].vocabulary[key];
+
+        if (currentMessages_locale === locale || currentMessages_locale === '') {
+            console.log('update current messages')
+            updateCurrentMessages(key, word, currentMessages);
+        }
+
+        updateIdioms(key, word, locale, idioms, is_News)
+
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .catch((error) => {
+                console.error('Error:', error.message);
+            });
+
+
+    } else {
+
+
+        url = 'http://localhost:5037/Idioms/' + locale + '/vocabulary';
+
+        if (is_News) {
+            url = 'http://localhost:5037/Idioms/' + locale + '/news';
+        }
+
+        if (currentMessages_locale === locale || currentMessages_locale === '') {
+            console.log('update current messages')
+            updateCurrentMessages(key, word, currentMessages);
+        }
+
+        updateIdioms(key, word, locale, idioms, is_News)
+
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                key: key,
+                value: word
+
+            }),
+        })
+            .then(response => response.json())
+            .catch((error) => {
+                console.error('Error:', error.message);
+            });
+
     }
-
-    if (currentMessages_locale === locale || currentMessages_locale === '') {
-        console.log('update current messages')
-        updateCurrentMessages(key, word, currentMessages);
-    }
-    
-    updateIdioms(key, word, locale, idioms)
-
-    fetch(url, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            key: key,
-            value: word
-
-        }),
-    })
-        .then(response => response.json())
-        .catch((error) => {
-            console.error('Error:', error.message);
-        });
 
 }
 
@@ -124,9 +171,9 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
     const popUp = document.createElement('div');
     popUp.classList.add('pop-up');
 
-    let key : string;
-    if(element.lastElementChild?.tagName === 'INPUT' || element.lastElementChild?.tagName === 'TEXTAREA'){
-        key = cleanClasses(element.lastElementChild.classList,locale)//key para o placeholder
+    let key: string;
+    if (element.lastElementChild?.tagName === 'INPUT' || element.lastElementChild?.tagName === 'TEXTAREA') {
+        key = cleanClasses(element.lastElementChild.classList, locale)//key para o placeholder
     } else {
         key = cleanClasses(classes, locale);
     }
@@ -199,7 +246,7 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
     popUp.appendChild(word);
 
 
-    let newWord : HTMLInputElement | HTMLTextAreaElement;
+    let newWord: HTMLInputElement | HTMLTextAreaElement;
 
     let keys = key.includes('.') ? key.split('.') : [];
 
@@ -217,7 +264,7 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
 
 
     popUp.appendChild(newWord);
-    
+
 
     const saveButton = document.createElement('button');
     saveButton.innerHTML = 'Save';
@@ -225,10 +272,11 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
 
 
     saveButton.addEventListener('click', () => {
-        utils.updateElement(key, newWord.value, locale, currentMessages, is_News);
+        utils.updateElement(key, newWord.value, locale, currentMessages, is_News, locale, idioms);
         removePopUp(popUp);
         document.body.removeChild(overlay);
     });
+
     popUp.appendChild(saveButton);
 
     const closeButton = document.createElement('button');
@@ -242,7 +290,7 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
     });
 
     document.body.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && popUp_open === true ) {
+        if (e.key === 'Escape' && popUp_open === true) {
             popUp_open = false;
             document.getElementById('overlay')?.remove();
             removePopUp(popUp);
@@ -267,7 +315,7 @@ function removeEditButton(element: HTMLElement) {
 
 
 function removePopUp(popUp: HTMLElement) {
-    if(popUp.parentNode === null || popUp === null){ 
+    if (popUp.parentNode === null || popUp === null) {
         return;
     }
     popUp.parentNode!.removeChild(popUp);
@@ -374,7 +422,7 @@ var utils = {
             this.handlers.set(element, { mouseOverHandler, mouseLeaveHandler });
         });
     },
-    
+
 
     updateElement(key_to_change: string, word_to_change: string, locale: string, currentMessages: CurrentMessages, is_News: boolean, currentMessages_locale?: string, idioms?: any, key?: HTMLInputElement) {
         is_News = is_News || false;
@@ -384,11 +432,29 @@ var utils = {
         }
     },
 
-    getFlag(locale :string){
+    getFlag(locale: string) {
 
         return flags[locale as keyof typeof flags] as string;
-    
+
+    },
+
+    deleteElement(key_to_change: string, locale_: string, currentMessages: any, is_News: boolean, currentMessages_locale?: string, idioms?: any) {
+
+        let url = 'http://localhost:5037/Idioms/' + locale_ + '/vocabulary' + '/' + key_to_change;
+
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .catch((error) => {
+                console.error('Error:', error.message);
+            });
+
     }
+
 
 
 }
