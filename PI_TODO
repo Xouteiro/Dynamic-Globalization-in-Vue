@@ -16,15 +16,13 @@ autenticação, talvez mas nao muito importante
 
 A fazer:
 
-Criar idiomas
+Criar e Apagar idiomas -- DONE
+
+Suportar importar e exportar idiomas
 
 Css cuidado e mudar table apagar login
 
 mudar o uml do relatorio
-
-
-
-search news nao esta a funcionar
 
 tirar coluna delete onde nao tem delete
 
@@ -62,6 +60,8 @@ Mini-problemas a resolver se der:
 
 
 Erros a corrigir:
+
+search news nao esta a funcionar
 
 
 sendo que alguma palavra qundo não tem tradução fica com a tradução em inglês, ao mudar a tradução em ingles não muda a tradução em portugues da palavra sem tradução

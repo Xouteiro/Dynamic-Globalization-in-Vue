@@ -27,8 +27,11 @@ const router = createRouter({
       path: '/table',
       name: 'table',
       component: TableView
-    }
-
+    },{
+    path: '/idioms',
+    name: 'idioms',
+    component: () => import('../views/IdiomsView.vue')
+  }
     
   ]
 })

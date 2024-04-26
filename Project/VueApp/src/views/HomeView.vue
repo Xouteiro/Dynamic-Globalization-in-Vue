@@ -22,7 +22,6 @@ function getNews(currentMessages : any){
       news.push(newNews);
     }
   }
-  console.log(news);
   return news;
 }
 

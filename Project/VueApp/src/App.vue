@@ -63,7 +63,7 @@ async function updateLocale(newLocale: string) {
 
         <RouterLink to="/table" class="Table" :class="locale">{{ $t("Table") }}</RouterLink>
 
-        <RouterLink to="/login" class="Login" :class="locale">{{ $t("Login") }}</RouterLink>
+        <RouterLink to="/idioms" class="Idioms" :class="locale">{{ $t("Idioms") }}</RouterLink>
 
 
 

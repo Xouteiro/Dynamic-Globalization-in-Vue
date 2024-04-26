@@ -3,9 +3,6 @@
 import { idioms } from '@/i18n.js';
 import i18n from '@/i18n.js';
 import utils from '@/utils.js';
-import { on } from 'events';
-import { c } from 'node_modules/vite/dist/node/types.d-aGj9QkWt';
-import { onUpdated } from 'vue';
 import { ref } from 'vue';
 import { watch } from 'vue';
 import { onMounted } from 'vue';
@@ -69,12 +66,9 @@ function filterSearch(vocabulary: Object, search: string) {
     let key_lower = keys[i].toLowerCase();
     if (typeof Object.values(vocabulary)[i] != 'object') {
       let value_lower = Object.values(vocabulary)[i].toLowerCase();
-      console.log(value_lower);
       if (!key_lower.includes(search_lower) && !value_lower.includes(search_lower)) {
         delete filteredVocabulary[keys[i] as keyof typeof filteredVocabulary];
       }
-
-
     }
   }
   return filteredVocabulary;
@@ -196,7 +190,6 @@ function deleteElement(event: any, key_to_change: string, locale_: string, curre
 
 function getUsage( key: string, idiom: string, currentInput: string) {
   if (key in idioms[0].vocabulary) {
-    console.log(currentInput);
     if (currentInput == undefined || currentInput == '') {
       return missing;
     }
@@ -246,7 +239,7 @@ onMounted(() => {
   </div>
 
 
-  <!-- <button @click="console.log(currentMessages)">Debug</button> -->
+  <!-- <button @click="console.log(filterSearch(getAllNews(currentMessages), 't'))">Debug</button> -->
 
   <template v-if="error_message != undefined">
     <div class="error">
@@ -291,9 +284,9 @@ onMounted(() => {
 
 
   <h2>News</h2>
-  <div class="search">
+  <!-- <div class="search">
     <input type="text" class="search" placeholder="Search for an Article" v-model="search_n" />
-  </div>
+  </div> -->
   <table class="table">
     <thead>
       <tr>
