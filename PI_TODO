@@ -16,19 +16,14 @@ autenticação, talvez mas nao muito importante
 
 A fazer:
 
+
 Dar para adicionar palavras à main language ou a todas ??
 
 Css cuidado e mudar table apagar login
 
 mudar o uml do relatorio
 
-tirar coluna delete onde nao tem delete
-
-Performance:
-Comparar site normal só com strings em ingles e com o carregar de todas, usar extensao de vue
-
-
-Search pelo texto -- falta mensagem quando é vazia
+DONE --- Search pelo texto -- falta mensagem quando é vazia --- DONE
 
 ToolTip -- falta css e delay ao sair de on hover
 
@@ -53,8 +48,8 @@ Mini-problemas a resolver se der:
     butão de atualização de página quando alguma palavra é alterada ( resolver o problema das duas tabs, mudar numa e nao mudar na outra)
 
 
-
-
+Performance:
+Comparar site normal só com strings em ingles e com o carregar de todas, usar extensao de vue
 
 
 Erros a corrigir:
@@ -85,9 +80,9 @@ Documentar:
 	-- Tudo o resto !!!
 	
 	
-    ---Mudança de Idioma:
+  --- Mudança de Idioma:
 	-- falar da base de dados	
-   	-- *para melhorar, ver o $t, passar o rato por cima e ver documentação
+  -- *para melhorar, ver o $t, passar o rato por cima e ver documentação
 
 
 Backend:
@@ -98,57 +93,63 @@ Backend:
 
 API e aplicação de extrair strings e Autenticação é para por nos objetivos?  --trabalho futuro o que nao der para fazer
 
+
+
+
 DONE:
 
-mostrar palavras que nao têm tradução -- DONE
+
+DONE --- Por link para a tabela no popUp --- DONE
+
+DONE --- mostrar palavras que nao têm tradução --- DONE
 
 
-Criar e Apagar idiomas -- DONE
+DONE --- Criar e Apagar idiomas -- DONE
 
-Suportar importar e exportar idiomas -- DONE -- melhorar import se der
+DONE --- Suportar importar e exportar idiomas -- DONE -- melhorar import se der
 
-Delete idiomas(não está) e palavras(aviso para quando uma palavra é apagada da main language(se nao se apagar logo as outras todas automaticamente)) -- DONE -- avisos em todas as palavras
+DONE --- Delete idiomas(não está) e palavras(aviso para quando uma palavra é apagada da main language(se nao se apagar logo as outras todas automaticamente)) -- DONE -- avisos em todas as palavras
 
-Aviso palavras em falta (e palavras que já nao estao em uso (já está)) -- ou usar distinct ou main languange(talvez esta seja melhor)  -- DONE - en é main language
-
-
-alterar bd, tirar o news para fora -- DONE
+DONE --- Aviso palavras em falta (e palavras que já nao estao em uso (já está)) -- ou usar distinct ou main languange(talvez esta seja melhor)  -- DONE - en é main language
 
 
-Esc para sair do modal(popup) -- DONE 
+DONE --- alterar bd, tirar o news para fora -- DONE
 
-Investigar mudança de strings em butões e placeholders, butões->dá, placeholder-> mais dificil mas tambem ja está --DONEE
 
-Filtros e ordenação na tabela -- Filtros e search -- DONE
+DONE --- Esc para sair do modal(popup) -- DONE 
 
-DONE: ----popup nao deixar carregar noutro sitio
+DONE --- Investigar mudança de strings em butões e placeholders, butões->dá, placeholder-> mais dificil mas tambem ja está --DONEE
 
-DONE: ---- Lidar com noticias na tabela (para já tirei só)
+DONE --- Filtros e ordenação na tabela -- Filtros e search -- DONE
 
-DONE: ---- Edit Button falta melhorar design
+DONE --- popup nao deixar carregar noutro sitio
 
-DONE: ---- fazer edit news ser uma textArea
+DONE ---- Lidar com noticias na tabela (para já tirei só)
 
-DONE: ---- melhorar informação do popUps
+DONE ---- Edit Button falta melhorar design
 
-DONE: ---- Meter bandeirinhas a corresponder à lingua -- menos import
+DONE ---- fazer edit news ser uma textArea
 
-DONE: ----Popular todos os editáveis desde o iicio -> Perguntar se há algum problema, e se era isto que prejudicava a performance   
+DONE ---- melhorar informação do popUps
+
+DONE ---- Meter bandeirinhas a corresponder à lingua -- menos import
+
+DONE ----Popular todos os editáveis desde o iicio -> Perguntar se há algum problema, e se era isto que prejudicava a performance   
     
     
-DONE: ----- Resolver erros tabela, quando se muda de lingua a seguir a mudar palavra
+DONE ----- Resolver erros tabela, quando se muda de lingua a seguir a mudar palavra
 e quando se muda palavra de uma lingua que não é a que se está
 
 fiz assim -- update ao current messages quando o locale é o mesmo, update idioms quando o locale nao é o mesmo, watch quando muda a locale, update current messages para idioms[locale]
 -----agora só não muda depois de mudar de locale, talvez porque novo current messages nao é um proxy(era isto)
 
-DONE:--- Pagina com tabela de todo o vocabulario
+DONE --- Pagina com tabela de todo o vocabulario
 
 DONE --- erro de fetch
 
 DONE --- fazer script para inicializar site
 
-DONE --- Ter noticias para cada idioma OU arranjar forma de traduzir as noticias 
+DONE -- Ter noticias para cada idioma OU arranjar forma de traduzir as noticias 
 
 DONE --- Corrigir erro troca de strign
 dar fetch a um idioma de cada vez--(meio que ja esta, falta melhorar)fazer depois quando tiver a minha API

@@ -1,5 +1,5 @@
 import { idioms } from '@/i18n.js';
-
+import router from './router'; 
 
 interface CurrentMessages {
     [key: string]: string | any;
@@ -296,9 +296,21 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
             removePopUp(popUp);
         }
     });
-
-
     popUp.appendChild(closeButton);
+
+    const link = document.createElement('a');
+    link.href = '#';
+    link.textContent = 'See in the table';
+    link.classList.add('link');link.addEventListener('click', (event) => {
+        event.preventDefault();
+        router.push('/table');
+        popUp_open = false;
+        document.getElementById('overlay')?.remove();
+        removePopUp(popUp);
+      });
+
+
+    popUp.appendChild(link);
 
     overlay.appendChild(popUp);
 }

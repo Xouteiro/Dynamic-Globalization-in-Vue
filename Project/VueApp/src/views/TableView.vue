@@ -22,6 +22,7 @@ let idiomChoice = ref<string[]>([]);
 let search_v = ref('');
 let search_n = ref('');
 let error_message = ref('');
+let vocabulary_empty = 1;
 
 
 populateCurrentInput();
@@ -99,6 +100,9 @@ function getVocabulary(idiom: string) {
           }
         }
       }
+      if(Object.keys(vocabulary).length != 0){
+        vocabulary_empty = 0;
+      }
       return vocabulary;
     }
   }
@@ -139,6 +143,7 @@ function getNews(idioms_vocab: any, idiom: string) {
 }
 
 function getFilteredIdioms() {
+  vocabulary_empty = 1;
   let filteredIdioms = [];
 
   if (idiomChoice.value.length === 0) {
@@ -251,6 +256,7 @@ onMounted(() => {
   <div class="search">
     <input type="text" class="search" placeholder="Search for an Identifier or a Word" v-model="search_v" />
   </div>
+  
   <table class="table">
     <thead>
       <tr>
@@ -277,7 +283,10 @@ onMounted(() => {
         </td>
         <td class="warning" > <img class="warning" :src=" getUsage(key.toString(), item.name, currentInput[item.name + '.' + key])" :title = "getTitle(getUsage(key.toString(), item.name, currentInput[item.name + '.' + key]))" /></td>
       </tr>
-    </tbody>
+    </tbody>    
+    <template v-if="vocabulary_empty == 1">
+      <p class="error">No results found</p>
+    </template>  
   </table>
 
 
