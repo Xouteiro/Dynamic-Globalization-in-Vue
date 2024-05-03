@@ -43,14 +43,19 @@ onUpdated(() => {
 
 
 function addPair() {
-  const vocabulary = document.querySelector('.Vocabulary');
+  const vocabulary = document.querySelector('.vocabulary');
+  const full_pair = document.createElement('div');
+  full_pair.classList.add('full-pair');
   const pair = document.createElement('div');
-  pair.classList.add('Pair');
+  pair.classList.add('pair');
+  const label = document.createElement('label');
+  label.textContent = 'Pair';
   const key = document.createElement('input');
   key.classList.add('key');
   key.type = 'text';
   key.placeholder = 'Key';
   key.required = true;
+  pair.appendChild(label);
   pair.appendChild(key);
 
   const value = document.createElement('input');
@@ -61,16 +66,18 @@ function addPair() {
   pair.appendChild(value);
 
 
-  vocabulary.firstChild.appendChild(pair);
+  full_pair.append(pair);
 
   const removeButton = document.createElement('button');
   removeButton.textContent = 'Remove Pair';
   removeButton.addEventListener('click', (event) => {
     event.preventDefault();
-    vocabulary.firstChild.removeChild(pair);
+    vocabulary.removeChild(full_pair);
   });
 
-  pair.appendChild(removeButton);
+  full_pair.appendChild(removeButton);
+
+  vocabulary.appendChild(full_pair);
 
 
 }
@@ -274,30 +281,37 @@ function exportJson(idiom) {
   <h4>Fill in the form below to add a new idiom</h4>
 
   <form>
-    <label for="name">Name</label>
-    <input type="text" id="name" v-model="name" placeholder="2 letter code" >
-    <div class="Vocabulary">
-      <div class="Pair">
-        <input type="text" class="key" placeholder="Key" >
-        <input type="text" class="value" placeholder="Value" >
-      </div>
-      <button @click.prevent="addPair">Add Pair</button>
+    <div class = "name">
+      <label for="name">Name</label>
+      <input type="text" id="name" v-model="name" placeholder="2 letter code" >
     </div>
+    <div class="vocabulary">
+      <div class = "full-pair">
+        <div class="pair">
+          <label >Pair</label>
+          <input type="text" class="key" placeholder="Key" >
+          <input type="text" class="value" placeholder="Value" >
+        </div>
+      </div>
+    </div>
+    <button @click.prevent="addPair">Add Pair</button>
     <button tye="submit" @click="addIdiom">Add Idiom</button>
   </form>
-
-  <p class="Idioms-tip" :class="locale">{{ $t("If you are not sure about what words to add submit the idiom and fill the words in the")}}
+  <div class="idioms-tip">
+  <p :class="locale">{{ $t("If you are not sure about what words to add submit the idiom and fill the words in the")}}
     <RouterLink to="/table" class="Table" :class="locale">{{ $t("Table") }}</RouterLink>
   </p>
+</div>
 
-  <h4>Import a Json File</h4>
+  <h4> Or import a Json File</h4>
 
   <form>
     <label for="file">Choose a file</label>
+    <div class= "buttons">
     <input type="file" id="file" name="file" accept=".json" >
-    <input type="reset" id="remove">
-    
-    <button @click.prevent="importJson">Import</button>
+      <input type="reset" id="remove">
+      <button class="import" @click.prevent="importJson">Import</button>
+    </div>
   </form>
 
 
@@ -329,18 +343,91 @@ function exportJson(idiom) {
   }
 }
 
+h1{
+  text-align: center;
+  font-size: 50px;
+  margin-bottom: 40px;
+}
 
 
 
 h2 {
   text-align: center;
-  font-size: 45px;
+  font-size: 35px;
+  margin-bottom: 30px;
+}
+
+h3{
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+  margin-right: 10px;
+
+}
+
+h4{
+  text-align: center;
+  font-size: 23px;
+  margin-top: 35px;
+  margin-bottom:25px;
+
 }
 
 form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 50px;
+}
+
+.idioms-tip {
+  display: flex;
+  text-align: center;
+  font-size: 14px;
+
+}
+
+.idioms-tip p {
+  width: 100%;
+}
+
+label{
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  margin-right: 15px;
+}
+
+
+input[type="file"]{
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 10px;
+  margin-right: 5px;
+  border: 1px solid #41b883;
+}
+
+button, input[type="reset"]{
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #41b883;
+  margin-bottom: 10px;
+}
+
+input[type="text"]{
+  width: 50%;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #41b883;
+  margin-bottom: 10px;
+  text-align: center;
+  }
+
+.buttons{
+  display: flex;
+  flex-direction: row;
 }
 
 .manage {
@@ -348,4 +435,36 @@ form {
   width: 100%;
   justify-content: center;
 }
+
+.pair{
+  width: 55em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  align-content: center;
+  align-items: center;
+}
+
+.vocabulary{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.full-pair{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.name{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+}
+
 </style>

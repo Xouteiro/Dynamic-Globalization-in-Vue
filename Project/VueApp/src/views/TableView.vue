@@ -11,6 +11,7 @@ import { useI18n } from "vue-i18n";
 import unused from '../assets/warnings/unused.png';
 import missing from '../assets/warnings/missing.png';
 import used from '../assets/warnings/used.png';
+import new_img from '../assets/warnings/new.png';
 import { computed } from 'vue';
 
 
@@ -246,6 +247,9 @@ function getTitle(usage: string) {
   else if (usage == used) {
     return "This value is used";
   }
+  else if (usage == new_img) {
+    return "This is a new value";
+  }
   else {
     return "This value is not used";
   }
@@ -316,8 +320,8 @@ onMounted(() => {
               @click="clearElement()">Clear</button>
           </td>
           <td class="warning"> <img class="warning"
-              :src="getUsage(new_value.toString(), item.name, currentInput[item.name + '.' + new_key])"
-              :title="getTitle(getUsage(new_value.toString(), item.name, currentInput[item.name + '.' + new_key]))" />
+              :src="new_img"
+              :title="getTitle('new_image')" />
           </td>
         </tr>
       </template>
