@@ -17,15 +17,13 @@ autenticação, talvez mas nao muito importante
 A fazer:
 
 
-Dar para adicionar palavras à main language ou a todas ??
-
 Css cuidado e mudar table apagar login
 
 mudar o uml do relatorio
 
-DONE --- Search pelo texto -- falta mensagem quando é vazia --- DONE
-
 ToolTip -- falta css e delay ao sair de on hover
+
+
 
 Fazer POST/GET para noticias --- medio import 
 
@@ -98,6 +96,9 @@ API e aplicação de extrair strings e Autenticação é para por nos objetivos?
 
 DONE:
 
+DONE --- Dar para adicionar palavras à main language --- DONE
+
+DONE --- Search pelo texto -- falta mensagem quando é vazia --- DONE
 
 DONE --- Por link para a tabela no popUp --- DONE
 

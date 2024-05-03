@@ -11,19 +11,30 @@ import { useI18n } from "vue-i18n";
 import unused from '../assets/warnings/unused.png';
 import missing from '../assets/warnings/missing.png';
 import used from '../assets/warnings/used.png';
+import { computed } from 'vue';
 
 
 
 let { locale } = useI18n()
 let currentMessages = i18n.global.getLocaleMessage(locale.value);
 let currentInput: any = reactive([]);
-let orderFilter = ref('asc');
 let idiomChoice = ref<string[]>([]);
 let search_v = ref('');
 let search_n = ref('');
 let error_message = ref('');
 let vocabulary_empty = 1;
+let new_key = ref('');
+let new_value = ref('');
 
+const filteredIdioms = computed(() => getFilteredIdioms());
+
+const vocabulary = computed(() => {
+  // Get all idiom names
+  const idiomNames = idioms.map((idiom: { name: any; }) => idiom.name);
+  
+  // For each idiom name, compute the vocabulary
+  return idiomNames.map((name: string) => getVocabulary(name));
+});
 
 populateCurrentInput();
 
@@ -34,8 +45,9 @@ watch(locale, (newLocale) => {
       Object.assign(currentMessages, idioms[i].vocabulary);
     }
   }
-
 });
+
+
 
 function populateCurrentInput() {
   for (let i = 0; i < idioms.length; i++) {
@@ -100,7 +112,7 @@ function getVocabulary(idiom: string) {
           }
         }
       }
-      if(Object.keys(vocabulary).length != 0){
+      if (Object.keys(vocabulary).length != 0) {
         vocabulary_empty = 0;
       }
       return vocabulary;
@@ -158,7 +170,7 @@ function getFilteredIdioms() {
 }
 
 
-function updateElement(key_to_change: string, word_to_change: string, locale_: string, currentMessages: any, is_News: boolean, currentMessages_locale?: string, idioms?: any, key?: HTMLInputElement) {
+function updateElement(key_to_change: string, word_to_change: string, locale_: string, currentMessages: any, is_News: boolean, currentMessages_locale?: string, idioms?: any, new_pair?: boolean) {
   if (locale_ == 'en' && word_to_change == '') {
 
     error_message.value = "Use delete to delete the value";
@@ -179,21 +191,41 @@ function updateElement(key_to_change: string, word_to_change: string, locale_: s
       }
     }
   }
+  if(new_pair){
+    console.log(vocabulary.value[0])
+    vocabulary.value[0][key_to_change] = word_to_change;
+    currentInput[locale_ + '.' + key_to_change] = word_to_change;
+    for(let i = 0; i < vocabulary.value.length; i++){
+      if(vocabulary.value[i][key_to_change] == undefined){
+        vocabulary.value[i][key_to_change] = '';
+      }
+    }
+    new_key.value = '';
+    new_value.value = '';
+    }
 }
 
 function deleteElement(event: any, key_to_change: string, locale_: string, currentMessages: any, is_News: boolean, currentMessages_locale?: string, idioms?: any) {
-  utils.deleteElement(key_to_change, locale_, currentMessages, is_News, currentMessages_locale, idioms);
-  for (let i = 0; i < idioms.length; i++) {
-    if (idioms[i].name === locale_) {
-      delete currentMessages[key_to_change];
-      delete idioms[i].vocabulary[key_to_change];
-      
+
+    utils.deleteElement(key_to_change, locale_, currentMessages, is_News, currentMessages_locale, idioms);
+    for (let i = 0; i < idioms.length; i++) {
+      if (idioms[i].name === locale_) {
+        delete currentMessages[key_to_change];
+        delete idioms[i].vocabulary[key_to_change];
+
+      }
     }
+    event.target.closest('tr').remove();
   }
-  event.target.closest('tr').remove();
+
+
+function clearElement(){
+  new_key.value = '';
+  new_value.value = '';
+
 }
 
-function getUsage( key: string, idiom: string, currentInput: string) {
+function getUsage(key: string, idiom: string, currentInput: string) {
   if (key in idioms[0].vocabulary) {
     if (currentInput == undefined || currentInput == '') {
       return missing;
@@ -256,20 +288,40 @@ onMounted(() => {
   <div class="search">
     <input type="text" class="search" placeholder="Search for an Identifier or a Word" v-model="search_v" />
   </div>
-  
+
   <table class="table">
     <thead>
       <tr>
         <th class="idiom"> Idiom </th>
         <th class="identifier">Identifier</th>
         <th class="text"> Text </th>
-        <th class="submit">Submit</th>
-        <th class="submit">Delete</th>
+        <th class="submit" colspan="2">Action</th>
         <th class="submit">Warning</th>
       </tr>
     </thead>
-    <tbody v-for="(item, index) in getFilteredIdioms()" :key="index">
-      <tr v-for="(word, key) in getVocabulary(item.name)" :key="key">
+    <tbody v-for="(item, index) in filteredIdioms" :key="index">
+      <template v-if="item.name == 'en'">
+        <tr class="new-word">
+          <td class="idiom"> {{ item.name + ' ' + utils.getFlag(item.name) }} </td>
+          <td class="identifier"> <input type="text" class="input" v-model="new_key"
+              :placeholder="new_key == '' ? ' Add a new key' : new_key" />
+          </td>
+          <td class="text"><input type="text" class="input" v-model="new_value"
+              :placeholder="new_value == '' ? ' Add a new word to the main idiom' : new_value" />
+          </td>
+          <td class="submit"><button class="submit"
+              @click="updateElement(new_key, new_value, item.name, currentMessages, false, locale, idioms, true)">Create</button>
+          </td>
+          <td class="submit"><button class="submit"
+              @click="clearElement()">Clear</button>
+          </td>
+          <td class="warning"> <img class="warning"
+              :src="getUsage(new_value.toString(), item.name, currentInput[item.name + '.' + new_key])"
+              :title="getTitle(getUsage(new_value.toString(), item.name, currentInput[item.name + '.' + new_key]))" />
+          </td>
+        </tr>
+      </template>
+      <tr v-for="(word, key) in vocabulary[index]" :key="key">
         <td class="idiom"> {{ item.name + ' ' + utils.getFlag(item.name) }} </td>
         <td class="identifier"> {{ key }}</td>
         <td class="text"><input type="text" class="input" v-model="currentInput[item.name + '.' + key]"
@@ -281,12 +333,14 @@ onMounted(() => {
         <td class="submit"><button class="submit"
             @click="deleteElement($event, key.toString(), item.name, currentMessages, false, locale, idioms)">Delete</button>
         </td>
-        <td class="warning" > <img class="warning" :src=" getUsage(key.toString(), item.name, currentInput[item.name + '.' + key])" :title = "getTitle(getUsage(key.toString(), item.name, currentInput[item.name + '.' + key]))" /></td>
+        <td class="warning"> <img class="warning"
+            :src="getUsage(key.toString(), item.name, currentInput[item.name + '.' + key])"
+            :title="getTitle(getUsage(key.toString(), item.name, currentInput[item.name + '.' + key]))" /></td>
       </tr>
-    </tbody>    
-    <template v-if="vocabulary_empty == 1">
+    </tbody>
+    <template v-if="vocabulary_empty == 1 && (!idiomChoice.includes('en') && idiomChoice.length != 0)">
       <p class="error">No results found</p>
-    </template>  
+    </template>
   </table>
 
 
@@ -438,5 +492,4 @@ img.warning {
   margin-right: 20px;
   margin-top: 5px;
 }
-
 </style>

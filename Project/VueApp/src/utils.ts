@@ -120,6 +120,7 @@ function changeWord(key: string, word: string, locale: string, currentMessages: 
         }
 
         updateIdioms(key, word, locale, idioms, is_News)
+        
 
         fetch(url, {
             method: 'PUT',
