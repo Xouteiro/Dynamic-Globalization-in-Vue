@@ -87,7 +87,7 @@ function addIdiom() {
   const newIdiom = {};
   const name = document.querySelector('#name').value;
   const vocabulary = {};
-  const pairs = document.querySelectorAll('.Pair');
+  const pairs = document.querySelectorAll('.pair');
 
   if (idioms.some((idiom) => idiom.name === name)) {
     alert('Idiom already exists');
@@ -110,6 +110,8 @@ function addIdiom() {
     const value = pair.querySelector('.value').value;
     vocabulary[key] = value;
   });
+
+
   newIdiom.name = name;
   newIdiom.vocabulary = vocabulary;
 
@@ -131,6 +133,11 @@ function addIdiom() {
     .catch((error) => {
       console.error('Error:', error);
     });
+
+
+
+
+
 
   pairs.forEach((pair) => {
     pair.querySelector('.key').value = '';
@@ -295,7 +302,7 @@ function exportJson(idiom) {
       </div>
     </div>
     <button @click.prevent="addPair">Add Pair</button>
-    <button tye="submit" @click="addIdiom">Add Idiom</button>
+    <button tye="submit" @click.prevent="addIdiom">Add Idiom</button>
   </form>
   <div class="idioms-tip">
   <p :class="locale">{{ $t("If you are not sure about what words to add submit the idiom and fill the words in the")}}
