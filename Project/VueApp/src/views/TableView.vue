@@ -387,6 +387,7 @@ onMounted(() => {
 
 
 <style scoped>
+
 h2 {
   text-align: center;
   font-size: 45px;
@@ -496,4 +497,46 @@ img.warning {
   margin-right: 20px;
   margin-top: 5px;
 }
+
+.filters div input[type="checkbox"] {
+  margin-right: 10px;
+  appearance: none;
+  background-color: #d7eed8;
+  border: 1px solid #09b233;
+  padding: 9px;
+  border-radius: 3px;
+  display: inline-block;
+  position: relative;
+  width:25px;
+  height:25px;
+}
+
+.filters div input[type="checkbox"]:checked::before {
+  content: "\2713";
+  position: absolute;
+  font-size: 20px;
+  line-height: 15px;
+  top: 4px;
+  left: 5px;
+  color: #032516;
+}
+
+.filters div input[type="checkbox"]:checked {
+  background-color: #d7eed8;
+  border-color: #000000;
+  color: #127b37;
+}
+
+.filters div label {
+  font-size: 20px;
+  margin: 0;
+}
+
+.filters div{
+  display:flex;
+  align-items:center;
+  
+}
+
+
 </style>
