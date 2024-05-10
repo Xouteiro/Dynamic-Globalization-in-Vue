@@ -391,6 +391,7 @@ onMounted(() => {
 h2 {
   text-align: center;
   font-size: 45px;
+  margin-top: 30px;
 }
 
 .table {
@@ -502,7 +503,6 @@ img.warning {
   margin-right: 10px;
   appearance: none;
   background-color: #d7eed8;
-  border: 1px solid #09b233;
   padding: 9px;
   border-radius: 3px;
   display: inline-block;
@@ -535,7 +535,8 @@ img.warning {
 .filters div{
   display:flex;
   align-items:center;
-  
+  margin-top:10px;
+
 }
 
 

@@ -21,8 +21,9 @@ watch(locale, (newLocale) => {
       Object.assign(currentMessages, idioms[i].vocabulary);
     }
   }
-
 });
+
+
 
 
 onMounted(() => {
@@ -147,11 +148,11 @@ function addIdiom() {
 
   idioms.push(newIdiom);
 
-  const idiomsDiv = document.querySelector('.current-idioms');
+  const idiomsDiv = document.querySelector('.full-form.idioms');
   const manageDiv = document.createElement('div');
   manageDiv.classList.add('manage');
-  const h3 = document.createElement('h3');
-  h3.textContent = newIdiom.name + utils.getFlag(newIdiom.name);
+  const h3 = document.createElement('label');
+  h3.textContent = newIdiom.name + ' ' + utils.getFlag(newIdiom.name);
   manageDiv.appendChild(h3);
   const deleteButton = document.createElement('button');
   deleteButton.textContent = 'Delete Idiom';
@@ -161,6 +162,7 @@ function addIdiom() {
   });
 
   const exportButton = document.createElement('button');
+  exportButton.classList.add('export');
   exportButton.textContent = 'Export Json';
   exportButton.addEventListener('click', (event) => {
     event.preventDefault();
@@ -193,6 +195,7 @@ function deleteIdiom(idiom, event) {
 
   event.target.parentElement.remove();
 
+  console.log(i18n);
 
 }
 
@@ -236,10 +239,10 @@ function importJson() {
 
     idioms.push(newIdiom);
 
-    const idiomsDiv = document.querySelector('.current-idioms');
+    const idiomsDiv = document.querySelector('.full-form.idioms');
     const manageDiv = document.createElement('div');
     manageDiv.classList.add('manage');
-    const h3 = document.createElement('h3');
+    const h3 = document.createElement('label');
     h3.textContent = newIdiom.name + utils.getFlag(newIdiom.name);
     manageDiv.appendChild(h3);
 
@@ -279,59 +282,67 @@ function exportJson(idiom) {
 }
 
 </script>
+
 <template>
 
-  <h1>Manage all idioms</h1>
-
+  <h1>Manage idioms</h1>
   <h2>Add a new Idiom</h2>
+  <div class="full-form">
+    
 
-  <h4>Fill in the form below to add a new idiom</h4>
+    <h4>Fill in the form below to add a new idiom</h4>
 
-  <form>
-    <div class = "name">
-      <label for="name">Name</label>
-      <input type="text" id="name" v-model="name" placeholder="2 letter code" >
-    </div>
-    <div class="vocabulary">
-      <div class = "full-pair">
-        <div class="pair">
-          <label >Pair</label>
-          <input type="text" class="key" placeholder="Key" >
-          <input type="text" class="value" placeholder="Value" >
+    <form>
+      <div class="name">
+        <label for="name">Name</label>
+        <input type="text" id="name" v-model="name" placeholder="2 letter code">
+      </div>
+      <div class="vocabulary">
+        <div class="full-pair">
+          <div class="pair">
+            <label> Pair</label>
+            <input type="text" class="key" placeholder="Key">
+            <input type="text" class="value" placeholder="Value">
+          </div>
         </div>
       </div>
-    </div>
-    <button @click.prevent="addPair">Add Pair</button>
-    <button tye="submit" @click.prevent="addIdiom">Add Idiom</button>
-  </form>
-  <div class="idioms-tip">
-  <p :class="locale">{{ $t("If you are not sure about what words to add submit the idiom and fill the words in the")}}
-    <RouterLink to="/table" class="Table" :class="locale">{{ $t("Table") }}</RouterLink>
-  </p>
-</div>
-
-  <h4> Or import a Json File</h4>
-
+      <button @click.prevent="addPair">Add Pair</button>
+      <button class="right-corner" type="submit" @click.prevent="addIdiom">Add Idiom</button>
+    </form>
+    <div class="idioms-tip">
+    <p class="idioms-tip" :class="locale">{{ $t("idioms-tip") }}
+      <RouterLink to="/table" class="Table" :class="locale">{{ $t("Table") }}</RouterLink>
+      .
+    </p>
+  </div>
+  </div>
+  <h2> Import a Json File </h2>
+  
+  <div class="full-form input">
+  <h4> Choose a file</h4>
   <form>
-    <label for="file">Choose a file</label>
-    <div class= "buttons">
-    <input type="file" id="file" name="file" accept=".json" >
+    <div class="buttons">
+      <input type="file" id="file" name="file" accept=".json">
+      <div class="buttons-file">
       <input type="reset" id="remove">
       <button class="import" @click.prevent="importJson">Import</button>
+      </div>
     </div>
   </form>
+  </div>
 
 
 
 
 
-  <h2>Current Idioms</h2>
-  <div class="current-idioms">
+  <h2>Delete/Export Idioms</h2>
+  <div class="full-form idioms">
+    <h4>Delete or export an idiom</h4>
     <div v-for="(idiom, index) in idioms" :key="index">
       <div class="manage">
-        <h3>{{ idiom.name + utils.getFlag(idiom.name) }}</h3>
-        <button v-if="idiom.name != 'en'" @click.prevent="deleteIdiom(idiom, $event)">Delete Idiom</button>
-        <button @click.prevent="exportJson(idiom)">Export Json</button>
+        <label>{{ idiom.name + ' ' + utils.getFlag(idiom.name) }}</label>
+        <button  v-if="idiom.name != 'en'" @click.prevent="deleteIdiom(idiom, $event)">Delete Idiom</button>
+        <button class="export" @click.prevent="exportJson(idiom)">Export Json</button>
       </div>
     </div>
   </div>
@@ -341,7 +352,7 @@ function exportJson(idiom) {
 
 </template>
 
-<style>
+<style scoped>
 @media (min-width: 1024px) {
   .about {
     min-height: 100vh;
@@ -350,7 +361,7 @@ function exportJson(idiom) {
   }
 }
 
-h1{
+h1 {
   text-align: center;
   font-size: 50px;
   margin-bottom: 40px;
@@ -364,7 +375,7 @@ h2 {
   margin-bottom: 30px;
 }
 
-h3{
+h3 {
   text-align: center;
   font-size: 20px;
   margin-bottom: 20px;
@@ -372,57 +383,54 @@ h3{
 
 }
 
-h4{
+h4 {
   text-align: center;
   font-size: 23px;
   margin-top: 35px;
-  margin-bottom:25px;
+  margin-bottom: 25px;
 
 }
 
 form {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .idioms-tip {
   display: flex;
   text-align: center;
   font-size: 14px;
-
 }
 
 .idioms-tip p {
   width: 100%;
 }
 
-label{
-  font-size: 17px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  margin-right: 15px;
+a.Table{
+  color: #148617;
 }
 
 
-input[type="file"]{
-  font-size: 16px;
-  padding: 10px;
-  border-radius: 10px;
-  margin-right: 5px;
-  border: 1px solid #41b883;
-}
 
-button, input[type="reset"]{
+input[type="file"] {
   font-size: 16px;
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #41b883;
-  margin-bottom: 10px;
+  color: #000;
 }
 
-input[type="text"]{
+button,input[type="reset"] {
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #41b883;
+}
+
+input[type="text"] {
   width: 50%;
   font-size: 16px;
   padding: 10px;
@@ -430,21 +438,57 @@ input[type="text"]{
   border: 1px solid #41b883;
   margin-bottom: 10px;
   text-align: center;
-  }
+}
 
-.buttons{
+
+
+
+.buttons-file {
   display: flex;
   flex-direction: row;
-}
-
-.manage {
-  display: flex;
-  width: 100%;
   justify-content: center;
+  align-items: center;
+  margin-top: 12px;
 }
 
-.pair{
-  width: 55em;
+
+
+button.right-corner {
+  position: absolute;
+  right: 100px;
+  bottom: 30px;
+}
+
+
+
+.vocabulary {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+}
+
+.name {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-right: 40px;
+}
+
+
+
+.full-form.input {
+  width: 30%;
+  height: 200px;
+}
+
+
+</style>
+
+<style>
+  .pair {
+  width: 80%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -452,26 +496,104 @@ input[type="text"]{
   align-content: center;
   align-items: center;
 }
+.full-pair {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+}
+.full-pair input[type="text"] {
+  width: 50%;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #41b883;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.full-pair button {
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #41b883;
+  margin-bottom: 10px;
+}
 
-.vocabulary{
+.full-form label{
+  color: #000;
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  margin-right: 15px;
+}
+
+.full-form.idioms label{
+  margin-bottom: 0;
+  margin-top: 6px;
+  margin-right: 10px;
+}
+input.key{
+  margin-right: 3px;
+}
+.full-form.idioms {
+  width: 30%;
+  padding-bottom: 20px ;
+}
+
+.full-form {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 35px;
+  border: 3px solid #41b883;
+  background-color: #a1bba2;
 }
 
-.full-pair{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+.full-form h2,
+.full-form h4, .full-form h3{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #000;
 }
 
-.name{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-right: 40px;
+
+.full-form label{
+  color: #000;
 }
+
+.full-form p{
+  color: #000;
+  margin-bottom: 5px;
+}
+
+button.import, button.export{
+  margin-left:3px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.manage {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.full-form button{
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #41b883;
+}
+
 
 </style>

@@ -16,16 +16,25 @@ autenticação, talvez mas nao muito importante
 
 A fazer:
 
+link ir para a palavra
 
-Css cuidado e mudar table apagar login
+poder mudar main language
+
+erro ao criar idioma?
+
+erro chegar ao edit -- ToolTip -- falta css e delay ao sair de on hover
+
+erro ao dar delete idioma, ele continua no dropdown de mudar a lingua availableLocalesate dar refresh
+erro ao adicionar idioma, ele nao aparece logo no dropdown
+
+Fazer POST/GET para noticias e analisar como dar handle à tradução --- medio import 
+
+
+Css cuidado 
 
 mudar o uml do relatorio
 
-ToolTip -- falta css e delay ao sair de on hover
 
-
-
-Fazer POST/GET para noticias --- medio import 
 
 aplicação de extrair strings -- import
 
@@ -45,9 +54,12 @@ Mini-problemas a resolver se der:
     Suportar a existência de palavras com dois significados, por exemplo, swicth em inglês, tanto pode ser "trocar" como "interruptor" em português
     butão de atualização de página quando alguma palavra é alterada ( resolver o problema das duas tabs, mudar numa e nao mudar na outra)
 
+mudar cores para variaveis
 
 Performance:
 Comparar site normal só com strings em ingles e com o carregar de todas, usar extensao de vue
+
+
 
 
 Erros a corrigir:

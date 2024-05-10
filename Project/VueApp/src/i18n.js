@@ -11,7 +11,6 @@ async function fetchIdioms() {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-
     const data = await response.json();
     return data;
   } catch (error) {
@@ -22,6 +21,7 @@ async function fetchIdioms() {
 }
 
 const idioms = await fetchIdioms();
+console.log(idioms)
 
 function loadLocaleMessages() {
   let locales = [];
@@ -44,6 +44,8 @@ const i18n = createI18n({
   legacy: false, // false for Composition API
   messages:  loadLocaleMessages(),  //preenche $i18.availableLocales com as linguagens disponíveis
 });
+
 export default i18n;
 export {idioms};
+console.log(idioms)
  

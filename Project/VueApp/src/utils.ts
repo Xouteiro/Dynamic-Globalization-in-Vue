@@ -173,6 +173,7 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
     popUp.classList.add('pop-up');
 
     let key: string;
+
     if (element.lastElementChild?.tagName === 'INPUT' || element.lastElementChild?.tagName === 'TEXTAREA') {
         key = cleanClasses(element.lastElementChild.classList, locale)//key para o placeholder
     } else {
@@ -249,6 +250,7 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
 
     let newWord: HTMLInputElement | HTMLTextAreaElement;
 
+    console.log(key);
     let keys = key.includes('.') ? key.split('.') : [];
 
     let is_News = false;
