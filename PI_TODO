@@ -1,18 +1,19 @@
 Perguntas:
 
-
-nos exemplos de pedidos, ponho imagens também ou só os pedidos e os dados?
-
-aplicação de extrair strings do documento? do codigo?
+Posso escrever eventListener?
+Posso escrever input quando falo do elemento HTML?
 
 escrevo texto antes do itemize?
 
-requisitos funcionais -- São os requisitos necessários para o funcionamento da solução. escrevo isto?
+ponho titulos dentro das sections?
+
+Digo que a solução da tabela também foi implementada para as notícias mas não totalmente?
+
+aplicação de extrair strings do documento? do codigo?
 
 
-autenticação, talvez mas nao muito importante
 
-
+imagens no fim
 
 A fazer:
 
@@ -22,17 +23,19 @@ poder mudar main language
 
 erro ao criar idioma?
 
-erro chegar ao edit -- ToolTip -- falta css e delay ao sair de on hover
+erro chegar ao edit -- ToolTip -- falta css e delay ao sair de on hover -- talvez por o delay no js 	
 
 erro ao dar delete idioma, ele continua no dropdown de mudar a lingua availableLocalesate dar refresh
 erro ao adicionar idioma, ele nao aparece logo no dropdown
 
 Fazer POST/GET para noticias e analisar como dar handle à tradução --- medio import 
 
+edit in json format
+
 
 Css cuidado 
 
-mudar o uml do relatorio
+mudar o uml do relatorio -- DONE, perguntar sobre o novo, comentario no relatorio
 
 
 
@@ -64,8 +67,6 @@ Comparar site normal só com strings em ingles e com o carregar de todas, usar e
 
 Erros a corrigir:
 
-search news nao esta a funcionar
-
 
 sendo que alguma palavra qundo não tem tradução fica com a tradução em inglês, ao mudar a tradução em ingles não muda a tradução em portugues da palavra sem tradução
 
@@ -80,19 +81,20 @@ verificar se a falha no fetch da sempre
 Documentar:
 	-- script run
 	-- erro de fetch
-	-- Change Words
-	-- o porque de NoSql
-	-- o porque da estrutura da DB
-	-- a API ??
+	
+	-- Change Words -- in progress
+	
+	-- o porque de NoSql --DONE
+	-- o porque da estrutura da DB--DONE
+	-- a API ?? --DONE
 	
 
-	-explicar que o edit tem que ser em sitios com o div à volta
-	-- Tudo o resto !!!
+	-explicar que para o edit funcionar é preciso que o elemento tenha a class: currentlocale + key --DONE
 	
 	
-  --- Mudança de Idioma:
+  --- Mudança de Idioma: ---  DONE
 	-- falar da base de dados	
-  -- *para melhorar, ver o $t, passar o rato por cima e ver documentação
+  	-- *para melhorar, ver o $t, passar o rato por cima e ver documentação
 
 
 Backend:

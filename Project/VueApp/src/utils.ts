@@ -76,7 +76,7 @@ function updateIdioms(key: string, word: string, locale: string, idioms: any, is
     }
 }
 
-function changeWord(key: string, word: string, locale: string, currentMessages: CurrentMessages, currentMessages_locale: string, idioms: any, is_News: boolean) {
+function changeWord(key: string, word: string, locale: string, currentMessages: CurrentMessages, currentMessages_locale: string, idioms:any, is_News: boolean) {
     let url: string;
 
     if (word === '' && !is_News) {
@@ -166,8 +166,8 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
     overlay.style.left = '0';
     overlay.style.width = '100%';
     overlay.style.height = '100%';
-    overlay.style.backgroundColor = 'rgba(0,0,0,0.5)'; // semi-transparent
-    overlay.style.zIndex = '1000'; // high value to be on top of other elements
+    overlay.style.backgroundColor = 'rgba(0,0,0,0.5)';
+    overlay.style.zIndex = '1000'; 
     document.body.appendChild(overlay);
     const popUp = document.createElement('div');
     popUp.classList.add('pop-up');
@@ -175,7 +175,7 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
     let key: string;
 
     if (element.lastElementChild?.tagName === 'INPUT' || element.lastElementChild?.tagName === 'TEXTAREA') {
-        key = cleanClasses(element.lastElementChild.classList, locale)//key para o placeholder
+        key = cleanClasses(element.lastElementChild.classList, locale) //key para o placeholder
     } else {
         key = cleanClasses(classes, locale);
     }
@@ -250,17 +250,20 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
 
     let newWord: HTMLInputElement | HTMLTextAreaElement;
 
-    console.log(key);
     let keys = key.includes('.') ? key.split('.') : [];
 
     let is_News = false;
+    let actualWord;
     if (keys.length > 1) {
         newWord = document.createElement('textarea');
         is_News = true;
-        newWord.value = getCurrentKey(key, locale, currentMessages);
+        actualWord = getCurrentKey(key, locale, currentMessages);
+        newWord.value = actualWord
     } else {
         newWord = document.createElement('input');
-        newWord.value = currentMessages[key];
+        actualWord = currentMessages[key];
+        newWord.value = actualWord;
+
     }
 
     newWord.classList.add('input');
@@ -275,7 +278,7 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
 
 
     saveButton.addEventListener('click', () => {
-        utils.updateElement(key, newWord.value, locale, currentMessages, is_News, locale, idioms);
+        if(newWord.value != actualWord) utils.updateElement(key, newWord.value, locale, currentMessages, is_News, locale, idioms);
         removePopUp(popUp);
         document.body.removeChild(overlay);
     });

@@ -21,7 +21,6 @@ async function fetchIdioms() {
 }
 
 const idioms = await fetchIdioms();
-console.log(idioms)
 
 function loadLocaleMessages() {
   let locales = [];
@@ -47,5 +46,4 @@ const i18n = createI18n({
 
 export default i18n;
 export {idioms};
-console.log(idioms)
  

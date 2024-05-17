@@ -30,10 +30,7 @@ let new_value = ref('');
 const filteredIdioms = computed(() => getFilteredIdioms());
 
 const vocabulary = computed(() => {
-  // Get all idiom names
   const idiomNames = idioms.map((idiom: { name: any; }) => idiom.name);
-  
-  // For each idiom name, compute the vocabulary
   return idiomNames.map((name: string) => getVocabulary(name));
 });
 
@@ -182,9 +179,9 @@ function updateElement(key_to_change: string, word_to_change: string, locale_: s
   }
 
   utils.updateElement(key_to_change, word_to_change, locale_, currentMessages, is_News, currentMessages_locale, idioms);
+
   for (let i = 0; i < idioms.length; i++) {
     if (idioms[i].name === locale_) {
-      console.log(word_to_change);
       if (word_to_change == '') {
         delete idioms[i].vocabulary[key_to_change]
       } else {
@@ -192,8 +189,8 @@ function updateElement(key_to_change: string, word_to_change: string, locale_: s
       }
     }
   }
+  
   if(new_pair){
-    console.log(vocabulary.value[0])
     vocabulary.value[0][key_to_change] = word_to_change;
     currentInput[locale_ + '.' + key_to_change] = word_to_change;
     for(let i = 0; i < vocabulary.value.length; i++){

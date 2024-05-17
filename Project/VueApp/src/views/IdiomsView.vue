@@ -27,19 +27,10 @@ watch(locale, (newLocale) => {
 
 
 onMounted(() => {
-  if (window.location.pathname === '/table') {
-    return;
-  }
   utils.populateEditableElements(locale.value, currentMessages);
 });
 
-onUpdated(() => {
-  if (window.location.pathname === '/table') {
-    return;
-  }
-  currentMessages = i18n.global.getLocaleMessage(locale.value);
-  utils.populateEditableElements(locale.value, currentMessages);
-});
+
 
 
 
