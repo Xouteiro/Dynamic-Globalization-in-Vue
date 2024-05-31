@@ -150,6 +150,10 @@ button.edit-button{
   opacity: 1;
 }
 
+table tr.highlight td{ 
+  background-color: yellow;
+}
+
 
 @media (hover: hover) {
   a:hover {

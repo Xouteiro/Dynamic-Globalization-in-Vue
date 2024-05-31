@@ -14,25 +14,23 @@ aplicação de extrair strings do documento? do codigo?
 imagens no fim
 
 
-A fazer:
 
-carregar todos os idiomas só quando se vai para a tabela -- o problema é que o i18n carrega logo todos os idiomas
+A fazer:
 
 
 link ir para a palavra
 
 poder mudar main language
 
-erro ao criar idioma?
-
 erro chegar ao edit -- ToolTip -- falta css e delay ao sair de on hover -- talvez por o delay no js 	
 
-erro ao dar delete idioma, ele continua no dropdown de mudar a lingua availableLocalesate dar refresh
+erro ao dar delete idioma, ele continua no dropdown de mudar a lingua availableLocales ate dar refresh
 erro ao adicionar idioma, ele nao aparece logo no dropdown
+
 
 Fazer POST/GET para noticias e analisar como dar handle à tradução --- medio import 
 
-edit in json format
+edit in json format -- outra opção para edit texto
 
 
 Css cuidado 
@@ -88,16 +86,19 @@ Documentar:
 	-- script run
 	-- erro de fetch
 	
-	-- Change Words -- in progress
+	-- falar sobre alteração do load do idiomas, todos na table e no idioms, load à medida que forem necessários normalmente.
 	
+	
+	
+	
+	
+	
+	
+	-- Change Words -- in progress -- DONE
 	-- o porque de NoSql --DONE
 	-- o porque da estrutura da DB--DONE
 	-- a API ?? --DONE
-	
-
 	-explicar que para o edit funcionar é preciso que o elemento tenha a class: currentlocale + key --DONE
-	
-	
   --- Mudança de Idioma: ---  DONE
 	-- falar da base de dados	
   	-- *para melhorar, ver o $t, passar o rato por cima e ver documentação
@@ -115,6 +116,8 @@ API e aplicação de extrair strings e Autenticação é para por nos objetivos?
 
 
 DONE:
+
+DONE --- carregar todos os idiomas só quando se vai para a tabela -- o problema é que o i18n carrega logo todos os idiomas -- resolvido -- DONE
 
 DONE --- Dar para adicionar palavras à main language --- DONE
 

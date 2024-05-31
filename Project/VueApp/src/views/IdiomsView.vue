@@ -1,11 +1,11 @@
 <script setup>
 
-import { onMounted, onUpdated } from 'vue';
+import { onMounted } from 'vue';
 import { i18nFunctions } from '@/i18n.js';
 import utils from '@/utils.ts';
 import i18n from '@/i18n.js';
 import { useI18n } from "vue-i18n";
-import { watch } from 'vue';
+import { watch,ref } from 'vue';
 
 if (i18nFunctions.idioms == null) {
   i18nFunctions.idioms = await i18nFunctions.fetchAllIdioms();
@@ -13,7 +13,7 @@ if (i18nFunctions.idioms == null) {
 
 let idioms = i18nFunctions.idioms;
 
-
+let name = ref('');
 
 let { locale } = useI18n();
 let currentMessages = i18n.global.getLocaleMessage(locale.value);
@@ -170,6 +170,8 @@ function addIdiom() {
 
   idiomsDiv.appendChild(manageDiv);
 
+  i18nFunctions.idiom_names.push(newIdiom.name);
+
 
 }
 
@@ -192,7 +194,9 @@ function deleteIdiom(idiom, event) {
 
   event.target.parentElement.remove();
 
-  console.log(i18n);
+  i18n.global.setLocaleMessage(idiom.name, {});
+
+  i18nFunctions.idiom_names = i18nFunctions.idiom_names.filter((idiom) => idiom !== idiom.name);
 
 }
 

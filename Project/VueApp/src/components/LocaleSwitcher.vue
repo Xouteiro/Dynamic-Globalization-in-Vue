@@ -1,7 +1,7 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
-import { watchEffect } from 'vue'
+import { watchEffect, ref, watch } from 'vue'
 import utils from '@/utils';
 import { i18nFunctions } from '@/i18n.js'
 
@@ -18,7 +18,8 @@ if(i18nFunctions.idiom_names == null){
   i18nFunctions.idiom_names = await i18nFunctions.fetchIdiomNames();
 }
 
-let idiom_names= i18nFunctions.idiom_names;
+
+
 
 
 </script>
@@ -29,7 +30,7 @@ let idiom_names= i18nFunctions.idiom_names;
       
       <select v-model="$i18n.locale">
         <option   
-          v-for="locale in idiom_names"
+          v-for="locale in i18nFunctions.idiom_names"
           :key="`locale-${locale}`"
           :value="locale"
         >

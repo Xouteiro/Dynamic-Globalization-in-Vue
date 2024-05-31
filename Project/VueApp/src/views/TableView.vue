@@ -168,7 +168,7 @@ function getNews(idioms_vocab: any, idiom: string) {
 
 function getFilteredIdioms() {
   vocabulary_empty = 1;
-  let filteredIdioms: never[] = [];
+  let filteredIdioms: any = [];
 
   if (idiomChoice.value.length === 0) {
     return idioms;
@@ -333,7 +333,7 @@ onMounted(() => {
           </td>
         </tr>
       </template>
-      <tr v-for="(word, key) in vocabulary[index]" :key="key" class="">
+      <tr v-for="(word, key) in vocabulary[index]" :key="key" :class="key + ' ' + item.name">
         <td class="idiom"> {{ item.name + ' ' + utils.getFlag(item.name) }} </td>
         <td class="identifier"> {{ key }}</td>
         <td class="text"><input type="text" class="input" v-model="currentInput[item.name + '.' + key]"

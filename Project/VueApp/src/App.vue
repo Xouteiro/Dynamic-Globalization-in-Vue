@@ -74,7 +74,6 @@ async function updateLocale(newLocale: string) {
 
 
       <Suspense>
-
         <LocaleSwitcher v-if="!errorOnFetch" @update:locale="updateLocale" />
       </Suspense>
 

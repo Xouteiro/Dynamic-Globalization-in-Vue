@@ -320,6 +320,25 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
         popUp_open = false;
         document.getElementById('overlay')?.remove();
         removePopUp(popUp);
+
+        let time = 10;
+        if(i18nFunctions.idioms == null){
+            time = 200;
+        }
+
+        setTimeout(async () => {
+            const selector = 'tr.' + key + '.' + locale;
+            const elementToScrollTo = document.querySelector(selector);
+            console.log(elementToScrollTo);
+            if (elementToScrollTo) {
+                elementToScrollTo.classList.add('highlight');
+                elementToScrollTo.scrollIntoView({ behavior: 'smooth', block: 'center'});
+            }
+            setTimeout(() => {
+                if (elementToScrollTo) elementToScrollTo.classList.remove('highlight');
+            }, 2000);
+        }, time); 
+
     });
 
 

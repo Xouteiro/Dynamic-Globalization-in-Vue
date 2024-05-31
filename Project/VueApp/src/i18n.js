@@ -1,5 +1,3 @@
-// src/i18n.js
-
 import { createI18n } from "vue-i18n";
 
 let fetchError = false;

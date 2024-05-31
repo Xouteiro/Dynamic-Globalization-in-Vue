@@ -1,28 +1,23 @@
 <script setup>
 
-//import { i18nFunctions } from '@/i18n.js';
-import { onMounted, onUpdated } from 'vue';
+import { i18nFunctions } from '@/i18n.js';
+import { onMounted } from 'vue';
 import utils from '@/utils.ts';
 import i18n from '@/i18n.js';
 import { useI18n } from "vue-i18n";
-import { ref, watch } from 'vue';
+import { watch } from 'vue';
+import { onUpdated } from 'vue';
 
 
 
 
 let { locale } = useI18n();
 let currentMessages = i18n.global.getLocaleMessage(locale.value);
-//let idioms = i18nFunctions.getIdioms();
+let idioms = i18nFunctions.idioms
 
 
 watch(locale, (newLocale) => {
-  for (let i = 0; i < idioms.length; i++) {
-    if (idioms[i].name === newLocale) {
-      currentMessages = i18n.global.getLocaleMessage(newLocale);
-      Object.assign(currentMessages, idioms[i].vocabulary);
-    }
-  }
-
+  currentMessages = i18n.global.getLocaleMessage(newLocale);
 });
 
 
