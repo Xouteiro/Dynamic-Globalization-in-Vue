@@ -244,7 +244,6 @@ app.put('/Idioms/:name/news/', async (request, response) => {
         keys = key.split('.');
         let current = newNews;
         for (let i = 0; i < keys.length; i++) {
-            console.log('current[keys[i]]', current[keys[i]]);
             if (i === keys.length - 1) {
                 current[keys[i]] = request.body.value;
             } else {

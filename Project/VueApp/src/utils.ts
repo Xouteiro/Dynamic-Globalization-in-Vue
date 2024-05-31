@@ -1,5 +1,5 @@
-import { idioms } from '@/i18n.js';
-import router from './router'; 
+import { i18nFunctions } from '@/i18n.js';
+import router from './router';
 
 interface CurrentMessages {
     [key: string]: string | any;
@@ -7,6 +7,9 @@ interface CurrentMessages {
 
 
 let popUp_open = false;
+let idioms = i18nFunctions.idioms;
+
+
 
 function getCurrentKey(key: string, locale: string, currentMessages: CurrentMessages) {
     let keys = key.includes('.') ? key.split('.') : []
@@ -76,7 +79,7 @@ function updateIdioms(key: string, word: string, locale: string, idioms: any, is
     }
 }
 
-function changeWord(key: string, word: string, locale: string, currentMessages: CurrentMessages, currentMessages_locale: string, idioms:any, is_News: boolean) {
+function changeWord(key: string, word: string, locale: string, currentMessages: CurrentMessages, currentMessages_locale: string, idioms: any, is_News: boolean) {
     let url: string;
 
     if (word === '' && !is_News) {
@@ -91,7 +94,9 @@ function changeWord(key: string, word: string, locale: string, currentMessages: 
             updateCurrentMessages(key, word, currentMessages);
         }
 
-        updateIdioms(key, word, locale, idioms, is_News)
+        if (idioms != null) {
+            updateIdioms(key, word, locale, idioms, is_News)
+        }
 
         fetch(url, {
             method: 'DELETE',
@@ -119,8 +124,10 @@ function changeWord(key: string, word: string, locale: string, currentMessages: 
             updateCurrentMessages(key, word, currentMessages);
         }
 
-        updateIdioms(key, word, locale, idioms, is_News)
-        
+        if (idioms != null) {
+            updateIdioms(key, word, locale, idioms, is_News)
+        }
+
 
         fetch(url, {
             method: 'PUT',
@@ -167,7 +174,7 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
     overlay.style.width = '100%';
     overlay.style.height = '100%';
     overlay.style.backgroundColor = 'rgba(0,0,0,0.5)';
-    overlay.style.zIndex = '1000'; 
+    overlay.style.zIndex = '1000';
     document.body.appendChild(overlay);
     const popUp = document.createElement('div');
     popUp.classList.add('pop-up');
@@ -278,7 +285,7 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
 
 
     saveButton.addEventListener('click', () => {
-        if(newWord.value != actualWord) utils.updateElement(key, newWord.value, locale, currentMessages, is_News, locale, idioms);
+        if (newWord.value != actualWord) utils.updateElement(key, newWord.value, locale, currentMessages, is_News, locale, idioms);
         removePopUp(popUp);
         document.body.removeChild(overlay);
     });
@@ -307,13 +314,13 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
     const link = document.createElement('a');
     link.href = '#';
     link.textContent = 'See in the table';
-    link.classList.add('link');link.addEventListener('click', (event) => {
+    link.classList.add('link'); link.addEventListener('click', (event) => {
         event.preventDefault();
         router.push('/table');
         popUp_open = false;
         document.getElementById('overlay')?.remove();
         removePopUp(popUp);
-      });
+    });
 
 
     popUp.appendChild(link);

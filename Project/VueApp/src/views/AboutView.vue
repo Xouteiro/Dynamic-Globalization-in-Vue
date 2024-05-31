@@ -2,7 +2,7 @@
 
 <script setup>
 
-import { idioms } from '@/i18n.js';
+//import { i18nFunctions } from '@/i18n.js';
 import { onMounted,onUpdated } from 'vue';
 import  utils  from '@/utils.ts';
 import i18n from '@/i18n.js';
@@ -11,9 +11,10 @@ import { ref, watch } from 'vue';
 
 
 
+
 let { locale } = useI18n();
 let currentMessages = i18n.global.getLocaleMessage(locale.value);
-
+//let idioms = i18nFunctions.getIdioms();
 
 
 watch(locale, (newLocale) => {

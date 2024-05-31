@@ -1,6 +1,6 @@
 <script setup>
 
-import { idioms } from '@/i18n.js';
+//import { idiom } from '@/i18n.js';
 import { onMounted, onUpdated } from 'vue';
 import utils from '@/utils.ts';
 import i18n from '@/i18n.js';

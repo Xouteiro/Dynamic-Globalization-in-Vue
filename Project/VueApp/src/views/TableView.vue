@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
-import { idioms } from '@/i18n.js';
 import i18n from '@/i18n.js';
+import {i18nFunctions} from '@/i18n.js';
 import utils from '@/utils.js';
 import { ref } from 'vue';
 import { watch } from 'vue';
@@ -27,7 +27,21 @@ let vocabulary_empty = 1;
 let new_key = ref('');
 let new_value = ref('');
 
+
+
+if(i18nFunctions.idioms == null){
+  i18nFunctions.idioms = await i18nFunctions.fetchAllIdioms();
+}
+
+let idioms = i18nFunctions.idioms;
+
+
 const filteredIdioms = computed(() => getFilteredIdioms());
+
+
+
+
+
 
 const vocabulary = computed(() => {
   const idiomNames = idioms.map((idiom: { name: any; }) => idiom.name);
@@ -154,7 +168,7 @@ function getNews(idioms_vocab: any, idiom: string) {
 
 function getFilteredIdioms() {
   vocabulary_empty = 1;
-  let filteredIdioms = [];
+  let filteredIdioms: never[] = [];
 
   if (idiomChoice.value.length === 0) {
     return idioms;
@@ -322,7 +336,7 @@ onMounted(() => {
           </td>
         </tr>
       </template>
-      <tr v-for="(word, key) in vocabulary[index]" :key="key">
+      <tr v-for="(word, key) in vocabulary[index]" :key="key" class="">
         <td class="idiom"> {{ item.name + ' ' + utils.getFlag(item.name) }} </td>
         <td class="identifier"> {{ key }}</td>
         <td class="text"><input type="text" class="input" v-model="currentInput[item.name + '.' + key]"

@@ -4,12 +4,16 @@ import { useI18n } from "vue-i18n";
 import { ref, onMounted, onUpdated } from "vue";
 import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 import i18n from './i18n.js';
-import utils from './utils.js';
+import utils from './utils.ts';
 
 
 let { locale } = useI18n()
 let currentMessages = i18n.global.getLocaleMessage(locale.value);
 let errorOnFetch = Object.keys(currentMessages).length === 0;
+
+
+
+
 
 
 let isLoading = ref(false);
@@ -70,9 +74,15 @@ async function updateLocale(newLocale: string) {
   </header>
 
 
+  <Suspense>
+    <template #default>
+      <RouterView />
+    </template>
+    <template #fallback>
+      <div>Loading...</div>
+    </template>
+  </Suspense>
 
-
-  <RouterView />
 
 
 

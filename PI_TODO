@@ -11,11 +11,13 @@ Digo que a solução da tabela também foi implementada para as notícias mas n�
 
 aplicação de extrair strings do documento? do codigo?
 
-
-
 imagens no fim
 
+
 A fazer:
+
+carregar todos os idiomas só quando se vai para a tabela -- o problema é que o i18n carrega logo todos os idiomas
+
 
 link ir para a palavra
 
@@ -59,8 +61,12 @@ Mini-problemas a resolver se der:
 
 mudar cores para variaveis
 
+
 Performance:
+
 Comparar site normal só com strings em ingles e com o carregar de todas, usar extensao de vue
+
+comparar tempos de dar load a um só um idioma ou a todos, por muitas strings na base de dados de forma a ser notavel, comparar o efeito da filtragem em redes lentas comparado com rapidas
 
 
 
