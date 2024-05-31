@@ -3,6 +3,7 @@
 import { useI18n } from 'vue-i18n'
 import { watchEffect } from 'vue'
 import utils from '@/utils';
+import { i18nFunctions } from '@/i18n.js'
 
 const { locale } = useI18n() // Get the current locale
 
@@ -13,6 +14,11 @@ watchEffect(() => {
 })
 
 
+if(i18nFunctions.idiom_names == null){
+  i18nFunctions.idiom_names = await i18nFunctions.fetchIdiomNames();
+}
+
+let idiom_names= i18nFunctions.idiom_names;
 
 
 </script>
@@ -23,7 +29,7 @@ watchEffect(() => {
       
       <select v-model="$i18n.locale">
         <option   
-          v-for="locale in $i18n.availableLocales"
+          v-for="locale in idiom_names"
           :key="`locale-${locale}`"
           :value="locale"
         >

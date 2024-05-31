@@ -1,10 +1,8 @@
-
-
 <script setup>
 
 //import { i18nFunctions } from '@/i18n.js';
-import { onMounted,onUpdated } from 'vue';
-import  utils  from '@/utils.ts';
+import { onMounted, onUpdated } from 'vue';
+import utils from '@/utils.ts';
 import i18n from '@/i18n.js';
 import { useI18n } from "vue-i18n";
 import { ref, watch } from 'vue';
@@ -18,8 +16,8 @@ let currentMessages = i18n.global.getLocaleMessage(locale.value);
 
 
 watch(locale, (newLocale) => {
-  for(let i = 0; i < idioms.length; i++) {
-    if(idioms[i].name === newLocale) {
+  for (let i = 0; i < idioms.length; i++) {
+    if (idioms[i].name === newLocale) {
       currentMessages = i18n.global.getLocaleMessage(newLocale);
       Object.assign(currentMessages, idioms[i].vocabulary);
     }
@@ -37,8 +35,8 @@ onMounted(() => {
 </script>
 <template>
   <div class="about">
-    <h1 class="about-h1" :class="locale">{{ $t("about-h1")}}</h1>
-    <button class="about-button" :class="locale" @click="debug">{{$t("about-button")}}</button>
+    <h1 class="about-h1" :class="locale">{{ $t("about-h1") }}</h1>
+    <button class="about-button" :class="locale" @click="debug">{{ $t("about-button") }}</button>
     <input class="test-placeholder" :placeholder="$t('test-placeholder')" :class="locale" />
     <input class="test-placeholder2" :placeholder="$t('test-placeholder2')" :class="locale" />
 

@@ -1,11 +1,17 @@
 <script setup>
 
-//import { idiom } from '@/i18n.js';
 import { onMounted, onUpdated } from 'vue';
+import { i18nFunctions } from '@/i18n.js';
 import utils from '@/utils.ts';
 import i18n from '@/i18n.js';
 import { useI18n } from "vue-i18n";
 import { watch } from 'vue';
+
+if (i18nFunctions.idioms == null) {
+  i18nFunctions.idioms = await i18nFunctions.fetchAllIdioms();
+}
+
+let idioms = i18nFunctions.idioms;
 
 
 
@@ -279,7 +285,7 @@ function exportJson(idiom) {
   <h1>Manage idioms</h1>
   <h2>Add a new Idiom</h2>
   <div class="full-form">
-    
+
 
     <h4>Fill in the form below to add a new idiom</h4>
 
@@ -301,25 +307,25 @@ function exportJson(idiom) {
       <button class="right-corner" type="submit" @click.prevent="addIdiom">Add Idiom</button>
     </form>
     <div class="idioms-tip">
-    <p class="idioms-tip" :class="locale">{{ $t("idioms-tip") }}
-      <RouterLink to="/table" class="Table" :class="locale">{{ $t("Table") }}</RouterLink>
-      .
-    </p>
-  </div>
+      <p class="idioms-tip" :class="locale">{{ $t("idioms-tip") }}
+        <RouterLink to="/table" class="Table" :class="locale">{{ $t("Table") }}</RouterLink>
+        .
+      </p>
+    </div>
   </div>
   <h2> Import a Json File </h2>
-  
+
   <div class="full-form input">
-  <h4> Choose a file</h4>
-  <form>
-    <div class="buttons">
-      <input type="file" id="file" name="file" accept=".json">
-      <div class="buttons-file">
-      <input type="reset" id="remove">
-      <button class="import" @click.prevent="importJson">Import</button>
+    <h4> Choose a file</h4>
+    <form>
+      <div class="buttons">
+        <input type="file" id="file" name="file" accept=".json">
+        <div class="buttons-file">
+          <input type="reset" id="remove">
+          <button class="import" @click.prevent="importJson">Import</button>
+        </div>
       </div>
-    </div>
-  </form>
+    </form>
   </div>
 
 
@@ -332,7 +338,7 @@ function exportJson(idiom) {
     <div v-for="(idiom, index) in idioms" :key="index">
       <div class="manage">
         <label>{{ idiom.name + ' ' + utils.getFlag(idiom.name) }}</label>
-        <button  v-if="idiom.name != 'en'" @click.prevent="deleteIdiom(idiom, $event)">Delete Idiom</button>
+        <button v-if="idiom.name != 'en'" @click.prevent="deleteIdiom(idiom, $event)">Delete Idiom</button>
         <button class="export" @click.prevent="exportJson(idiom)">Export Json</button>
       </div>
     </div>
@@ -400,7 +406,7 @@ form {
   width: 100%;
 }
 
-a.Table{
+a.Table {
   color: #148617;
 }
 
@@ -414,7 +420,8 @@ input[type="file"] {
   color: #000;
 }
 
-button,input[type="reset"] {
+button,
+input[type="reset"] {
   font-size: 16px;
   padding: 10px;
   border-radius: 10px;
@@ -473,12 +480,10 @@ button.right-corner {
   width: 30%;
   height: 200px;
 }
-
-
 </style>
 
 <style>
-  .pair {
+.pair {
   width: 80%;
   display: flex;
   flex-direction: row;
@@ -487,13 +492,15 @@ button.right-corner {
   align-content: center;
   align-items: center;
 }
+
 .full-pair {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width:100%;
+  width: 100%;
 }
+
 .full-pair input[type="text"] {
   width: 50%;
   font-size: 16px;
@@ -503,6 +510,7 @@ button.right-corner {
   margin-bottom: 10px;
   text-align: center;
 }
+
 .full-pair button {
   font-size: 16px;
   padding: 10px;
@@ -511,7 +519,7 @@ button.right-corner {
   margin-bottom: 10px;
 }
 
-.full-form label{
+.full-form label {
   color: #000;
   font-size: 17px;
   font-weight: 600;
@@ -519,17 +527,19 @@ button.right-corner {
   margin-right: 15px;
 }
 
-.full-form.idioms label{
+.full-form.idioms label {
   margin-bottom: 0;
   margin-top: 6px;
   margin-right: 10px;
 }
-input.key{
+
+input.key {
   margin-right: 3px;
 }
+
 .full-form.idioms {
   width: 30%;
-  padding-bottom: 20px ;
+  padding-bottom: 20px;
 }
 
 .full-form {
@@ -546,24 +556,26 @@ input.key{
 }
 
 .full-form h2,
-.full-form h4, .full-form h3{
+.full-form h4,
+.full-form h3 {
   margin-top: 20px;
   margin-bottom: 20px;
   color: #000;
 }
 
 
-.full-form label{
+.full-form label {
   color: #000;
 }
 
-.full-form p{
+.full-form p {
   color: #000;
   margin-bottom: 5px;
 }
 
-button.import, button.export{
-  margin-left:3px;
+button.import,
+button.export {
+  margin-left: 3px;
 }
 
 .buttons {
@@ -579,12 +591,10 @@ button.import, button.export{
   margin-bottom: 10px;
 }
 
-.full-form button{
+.full-form button {
   font-size: 16px;
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #41b883;
 }
-
-
 </style>

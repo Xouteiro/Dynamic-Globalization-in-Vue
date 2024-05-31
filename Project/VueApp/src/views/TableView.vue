@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import i18n from '@/i18n.js';
-import {i18nFunctions} from '@/i18n.js';
+import { i18nFunctions } from '@/i18n.js';
 import utils from '@/utils.js';
 import { ref } from 'vue';
 import { watch } from 'vue';
@@ -29,7 +29,7 @@ let new_value = ref('');
 
 
 
-if(i18nFunctions.idioms == null){
+if (i18nFunctions.idioms == null) {
   i18nFunctions.idioms = await i18nFunctions.fetchAllIdioms();
 }
 
@@ -203,35 +203,35 @@ function updateElement(key_to_change: string, word_to_change: string, locale_: s
       }
     }
   }
-  
-  if(new_pair){
+
+  if (new_pair) {
     vocabulary.value[0][key_to_change] = word_to_change;
     currentInput[locale_ + '.' + key_to_change] = word_to_change;
-    for(let i = 0; i < vocabulary.value.length; i++){
-      if(vocabulary.value[i][key_to_change] == undefined){
+    for (let i = 0; i < vocabulary.value.length; i++) {
+      if (vocabulary.value[i][key_to_change] == undefined) {
         vocabulary.value[i][key_to_change] = '';
       }
     }
     new_key.value = '';
     new_value.value = '';
-    }
+  }
 }
 
 function deleteElement(event: any, key_to_change: string, locale_: string, currentMessages: any, is_News: boolean, currentMessages_locale?: string, idioms?: any) {
 
-    utils.deleteElement(key_to_change, locale_, currentMessages, is_News, currentMessages_locale, idioms);
-    for (let i = 0; i < idioms.length; i++) {
-      if (idioms[i].name === locale_) {
-        delete currentMessages[key_to_change];
-        delete idioms[i].vocabulary[key_to_change];
+  utils.deleteElement(key_to_change, locale_, currentMessages, is_News, currentMessages_locale, idioms);
+  for (let i = 0; i < idioms.length; i++) {
+    if (idioms[i].name === locale_) {
+      delete currentMessages[key_to_change];
+      delete idioms[i].vocabulary[key_to_change];
 
-      }
     }
-    event.target.closest('tr').remove();
   }
+  event.target.closest('tr').remove();
+}
 
 
-function clearElement(){
+function clearElement() {
   new_key.value = '';
   new_value.value = '';
 
@@ -327,12 +327,9 @@ onMounted(() => {
           <td class="submit"><button class="submit"
               @click="updateElement(new_key, new_value, item.name, currentMessages, false, locale, idioms, true)">Create</button>
           </td>
-          <td class="submit"><button class="submit"
-              @click="clearElement()">Clear</button>
+          <td class="submit"><button class="submit" @click="clearElement()">Clear</button>
           </td>
-          <td class="warning"> <img class="warning"
-              :src="new_img"
-              :title="getTitle('new_image')" />
+          <td class="warning"> <img class="warning" :src="new_img" :title="getTitle('new_image')" />
           </td>
         </tr>
       </template>
@@ -398,7 +395,6 @@ onMounted(() => {
 
 
 <style scoped>
-
 h2 {
   text-align: center;
   font-size: 45px;
@@ -518,8 +514,8 @@ img.warning {
   border-radius: 3px;
   display: inline-block;
   position: relative;
-  width:25px;
-  height:25px;
+  width: 25px;
+  height: 25px;
 }
 
 .filters div input[type="checkbox"]:checked::before {
@@ -543,12 +539,10 @@ img.warning {
   margin: 0;
 }
 
-.filters div{
-  display:flex;
-  align-items:center;
-  margin-top:10px;
+.filters div {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
 
 }
-
-
 </style>

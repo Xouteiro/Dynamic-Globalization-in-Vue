@@ -4,6 +4,7 @@ import { useI18n } from "vue-i18n";
 import { ref, onMounted, onUpdated } from "vue";
 import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 import i18n from './i18n.js';
+import { i18nFunctions } from './i18n.js';
 import utils from './utils.ts';
 
 
@@ -42,6 +43,12 @@ async function updateLocale(newLocale: string) {
   isLoading.value = true;
   locale.value = newLocale;
   isLoading.value = false;
+  if (!i18n.global.availableLocales.includes(locale.value)) {
+    let new_locale_messages = await i18nFunctions.getNewMessages(locale.value);
+    i18n.global.setLocaleMessage(locale.value, new_locale_messages);
+    currentMessages = i18n.global.getLocaleMessage(locale.value);
+    utils.populateEditableElements(locale.value, currentMessages);
+  }
 }
 
 
@@ -56,18 +63,20 @@ async function updateLocale(newLocale: string) {
 
     <nav>
 
-        <RouterLink to="/" class="Home" :class="locale">{{ $t("Home") }}</RouterLink>
+      <RouterLink to="/" class="Home" :class="locale">{{ $t("Home") }}</RouterLink>
 
-        <RouterLink to="/about" class="About" :class="locale">{{ $t("About") }}</RouterLink>
+      <RouterLink to="/about" class="About" :class="locale">{{ $t("About") }}</RouterLink>
 
-        <RouterLink to="/table" class="Table" :class="locale">{{ $t("Table") }}</RouterLink>
+      <RouterLink to="/table" class="Table" :class="locale">{{ $t("Table") }}</RouterLink>
 
-        <RouterLink to="/idioms" class="Idioms" :class="locale">{{ $t("Idioms") }}</RouterLink>
+      <RouterLink to="/idioms" class="Idioms" :class="locale">{{ $t("Idioms") }}</RouterLink>
 
 
 
+      <Suspense>
 
         <LocaleSwitcher v-if="!errorOnFetch" @update:locale="updateLocale" />
+      </Suspense>
 
     </nav>
 

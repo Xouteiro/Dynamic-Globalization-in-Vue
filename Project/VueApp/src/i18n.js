@@ -20,33 +20,12 @@ async function fetchIdiom(name) {
   }
 }
 
-async function fetchAllIdioms() {
-  try {
-    const response = await fetch('http://localhost:5037/Idioms');
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('There was a problem with the fetch operation: ', error);
-    fetchError = true;
-    return [];  // return a default value
-  }
-}
-
-const idioms = null;
-
-
 
 const idiom = await fetchIdiom('en');
 
 function loadLocaleMessages() {
   let locales = [];
-  //for (const idiom of idioms) {
   locales.push({ [idiom.name]: { ...idiom.vocabulary, ...idiom.News } });
-  //}
   const messages = {};
   locales.forEach((lang) => {
     const key = Object.keys(lang);
@@ -57,8 +36,6 @@ function loadLocaleMessages() {
 
 
 
-
-
 const i18n = createI18n({
   locale: "en",   // set initial locale
   fallbackLocale: "en",
@@ -66,14 +43,16 @@ const i18n = createI18n({
   messages: loadLocaleMessages(),  //preenche $i18.availableLocales com as linguagens disponíveis
 });
 
+
+
 var i18nFunctions = {
-
   idioms: null,
+  idiom_names: null,
 
-  async  fetchAllIdioms() {
+  async fetchAllIdioms() {
     try {
       const response = await fetch('http://localhost:5037/Idioms');
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -89,7 +68,7 @@ var i18nFunctions = {
   async fetchIdiomNames() {
     try {
       const response = await fetch('http://localhost:5037/Idioms/get/names');
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -100,11 +79,12 @@ var i18nFunctions = {
       fetchError = true;
       return [];  // return a default value
     }
-    
-  }
+  },
 
-
-
+async getNewMessages(name) {
+  let idiom = await fetchIdiom(name);
+  return { ...idiom.vocabulary, ...idiom.News };
+}
 }
 
 
