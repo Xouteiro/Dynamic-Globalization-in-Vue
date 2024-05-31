@@ -1,6 +1,7 @@
 import { createI18n } from "vue-i18n";
 
 let fetchError = false;
+let main_language = 'en';
 
 async function fetchIdiom(name) {
   try {
@@ -19,7 +20,7 @@ async function fetchIdiom(name) {
 }
 
 
-const idiom = await fetchIdiom('en');
+const idiom = await fetchIdiom(main_language);
 
 function loadLocaleMessages() {
   let locales = [];
@@ -38,8 +39,8 @@ function loadLocaleMessages() {
 
 
 const i18n = createI18n({
-  locale: "en",   // set initial locale
-  fallbackLocale: "en",
+  locale: main_language,   // set initial locale
+  fallbackLocale: main_language, // set fallback locale
   legacy: false, // false for Composition API
   messages: loadLocaleMessages(),  //preenche $i18.availableLocales com as linguagens disponíveis
 });
@@ -49,6 +50,8 @@ const i18n = createI18n({
 var i18nFunctions = {
   idioms: null,
   idiom_names: null,
+  main_language: 'en',
+  
 
   async fetchAllIdioms() {
     try {

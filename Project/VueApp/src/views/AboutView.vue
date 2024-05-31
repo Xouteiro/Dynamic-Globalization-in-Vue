@@ -35,8 +35,7 @@ onMounted(() => {
     <input class="test-placeholder" :placeholder="$t('test-placeholder')" :class="locale" />
     <input class="test-placeholder2" :placeholder="$t('test-placeholder2')" :class="locale" />
 
-    <button @click="console.log(idioms)">debug</button>
-    <button @click="console.log(currentMessages)">debug</button>
+    <button @click="console.log(i18nFunctions.main_language)">debug</button>
 
 
 

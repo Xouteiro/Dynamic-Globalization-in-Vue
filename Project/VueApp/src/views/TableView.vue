@@ -29,6 +29,7 @@ let new_value = ref('');
 
 
 
+
 if (i18nFunctions.idioms == null) {
   i18nFunctions.idioms = await i18nFunctions.fetchAllIdioms();
   for(let i = 0; i < i18nFunctions.idioms.length; i++){
@@ -101,7 +102,7 @@ function filterSearch(vocabulary: Object, search: string) {
 function getVocabulary(idiom: string) {
   let valueLessVocabulary;
   for (let i = 0; i < idioms.length; i++) {
-    if (idioms[i].name === "en") {
+    if (idioms[i].name === i18nFunctions.main_language) {
       valueLessVocabulary = Object.assign({}, idioms[i].vocabulary);
       for (let key in valueLessVocabulary) {
         valueLessVocabulary[key] = "";
@@ -182,7 +183,7 @@ function getFilteredIdioms() {
 
 
 function updateElement(key_to_change: string, word_to_change: string, locale_: string, currentMessages: any, is_News: boolean, currentMessages_locale?: string, idioms?: any, new_pair?: boolean) {
-  if (locale_ == 'en' && word_to_change == '') {
+  if (locale_ == i18nFunctions.main_language && word_to_change == '') {
 
     error_message.value = "Use delete to delete the value";
     setTimeout(() => {
@@ -237,7 +238,14 @@ function clearElement() {
 }
 
 function getUsage(key: string, idiom: string, currentInput: string) {
-  if (key in idioms[0].vocabulary) {
+  let main_idiom = null
+  for(let i = 0; i < idioms.length; i++){
+    if(idioms[i].name == i18nFunctions.main_language){
+      main_idiom = idioms[i].vocabulary;
+    } 
+  }
+
+  if (key in main_idiom) {
     if (currentInput == undefined || currentInput == '') {
       return missing;
     }
@@ -275,13 +283,6 @@ onMounted(() => {
 
 <template>
 
-  <!-- <select class="order" v-model="orderFilter">
-    <option value="asc">&#8593; Alphabetical </option>
-    <option value="desc">&#8595; Alphabetical</option>
-  </select> -->
-
-
-
   <div class="filters">
     <div v-for="idiom in idioms" :key="idiom.name">
       <input type="checkbox" :id="idiom.name" :value="idiom.name" v-model="idiomChoice">
@@ -314,7 +315,7 @@ onMounted(() => {
       </tr>
     </thead>
     <tbody v-for="(item, index) in filteredIdioms" :key="index">
-      <template v-if="item.name == 'en'">
+      <template v-if="item.name == i18nFunctions.main_language">
         <tr class="new-word">
           <td class="idiom"> {{ item.name + ' ' + utils.getFlag(item.name) }} </td>
           <td class="identifier"> <input type="text" class="input" v-model="new_key"
@@ -349,7 +350,7 @@ onMounted(() => {
             :title="getTitle(getUsage(key.toString(), item.name, currentInput[item.name + '.' + key]))" /></td>
       </tr>
     </tbody>
-    <template v-if="vocabulary_empty == 1 && (!idiomChoice.includes('en') && idiomChoice.length != 0)">
+    <template v-if="vocabulary_empty == 1 && (!idiomChoice.includes(i18nFunctions.main_language) && idiomChoice.length != 0)">
       <p class="error">No results found</p>
     </template>
   </table>

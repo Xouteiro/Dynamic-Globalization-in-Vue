@@ -5,12 +5,13 @@ import { i18nFunctions } from '@/i18n.js';
 import utils from '@/utils.ts';
 import i18n from '@/i18n.js';
 import { useI18n } from "vue-i18n";
-import { watch,ref } from 'vue';
+import { watch, ref } from 'vue';
+import { reactive, computed } from 'vue';
 
 if (i18nFunctions.idioms == null) {
   i18nFunctions.idioms = await i18nFunctions.fetchAllIdioms();
-  for(let i = 0; i < i18nFunctions.idioms.length; i++){
-    i18n.global.setLocaleMessage(i18nFunctions.idioms[i].name, {...i18nFunctions.idioms[i].vocabulary, ...i18nFunctions.idioms[i].News});
+  for (let i = 0; i < i18nFunctions.idioms.length; i++) {
+    i18n.global.setLocaleMessage(i18nFunctions.idioms[i].name, { ...i18nFunctions.idioms[i].vocabulary, ...i18nFunctions.idioms[i].News });
   }
 }
 
@@ -31,6 +32,28 @@ watch(locale, (newLocale) => {
     }
   }
 });
+
+let main_language = ref(i18nFunctions.main_language);
+
+
+watch(main_language, (newMainLanguage) => {
+  i18nFunctions.main_language = newMainLanguage;
+});
+
+
+let idioms_not_main = computed(() => {
+  let result = [];
+  for (let i = 0; i < idioms.length; i++) {
+    if (idioms[i].name != main_language.value) {
+      result.push(idioms[i]);
+    }
+  }
+  return result;
+});
+
+
+
+
 
 
 
@@ -342,11 +365,25 @@ function exportJson(idiom) {
   <h2>Delete/Export Idioms</h2>
   <div class="full-form idioms">
     <h4>Delete or export an idiom</h4>
-    <div v-for="(idiom, index) in idioms" :key="index">
-      <div class="manage">
-        <label>{{ idiom.name + ' ' + utils.getFlag(idiom.name) }}</label>
-        <button v-if="idiom.name != 'en'" @click.prevent="deleteIdiom(idiom, $event)">Delete Idiom</button>
-        <button class="export" @click.prevent="exportJson(idiom)">Export Json</button>
+    <div class="main_language">
+      <label>Main Idiom </label>
+      <select v-model="main_language">
+        <option v-for="locale in i18nFunctions.idiom_names" :key="`locale-${locale}`" :value="locale">
+          {{ utils.getFlag(locale) + ' ' + locale }}
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <label class="main">{{ main_language + ' ' + utils.getFlag(main_language) }}</label>
+      <button class="export" @click.prevent="exportJson(idiom)">Export Json</button>
+      <div v-for="(idiom, index) in idioms_not_main" :key="index">
+        <div class="manage">
+          <label>{{ idiom.name + ' ' + utils.getFlag(idiom.name) }}</label>
+          <button v-if="idiom.name != main_language" @click.prevent="deleteIdiom(idiom, $event)">Delete
+            Idiom</button>
+          <button class="export" @click.prevent="exportJson(idiom)">Export Json</button>
+        </div>
       </div>
     </div>
   </div>
@@ -596,7 +633,28 @@ button.export {
   width: 100%;
   justify-content: center;
   margin-bottom: 10px;
+  margin-top: 10px;
 }
+
+.main_language {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.main_language select {
+  font-size: 16px;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid #41b883;
+  margin-left: 10px;
+}
+
+/* label.main{
+} ajustar no centro a main language export json*/
+
 
 .full-form button {
   font-size: 16px;
