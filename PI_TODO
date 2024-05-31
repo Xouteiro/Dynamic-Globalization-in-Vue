@@ -17,8 +17,7 @@ imagens no fim
 
 A fazer:
 
-
-link ir para a palavra
+quando ja se tem os idioms nao dar load aos idiomas
 
 poder mudar main language
 
@@ -116,6 +115,8 @@ API e aplicação de extrair strings e Autenticação é para por nos objetivos?
 
 
 DONE:
+
+DONE --- link ir para a palavra -- DONE
 
 DONE --- carregar todos os idiomas só quando se vai para a tabela -- o problema é que o i18n carrega logo todos os idiomas -- resolvido -- DONE
 

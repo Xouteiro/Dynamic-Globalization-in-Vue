@@ -6,12 +6,16 @@ import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 import i18n from './i18n.js';
 import { i18nFunctions } from './i18n.js';
 import utils from './utils.ts';
+import { useRoute } from 'vue-router';
+
 
 
 let { locale } = useI18n()
 let currentMessages = i18n.global.getLocaleMessage(locale.value);
 let errorOnFetch = Object.keys(currentMessages).length === 0;
 
+const route = useRoute();
+const isAtTable = window.location.pathname === '/table';
 
 
 
@@ -25,13 +29,13 @@ function debug() {
 
 
 onMounted(() => {
-  utils.populateEditableElements(locale.value, currentMessages);
+  if (!isAtTable) utils.populateEditableElements(locale.value, currentMessages);
 });
 
 
 onUpdated(() => {
   currentMessages = i18n.global.getLocaleMessage(locale.value);
-  utils.populateEditableElements(locale.value, currentMessages);
+  if (!isAtTable) utils.populateEditableElements(locale.value, currentMessages);
 });
 
 
@@ -43,11 +47,13 @@ async function updateLocale(newLocale: string) {
   isLoading.value = true;
   locale.value = newLocale;
   isLoading.value = false;
-  if (!i18n.global.availableLocales.includes(locale.value)) {
+
+  if (!i18n.global.availableLocales.includes(locale.value) /*&& i18nFunctions.idioms == null*/) { // isto dá erro porque idioms é null
     let new_locale_messages = await i18nFunctions.getNewMessages(locale.value);
     i18n.global.setLocaleMessage(locale.value, new_locale_messages);
     currentMessages = i18n.global.getLocaleMessage(locale.value);
-    utils.populateEditableElements(locale.value, currentMessages);
+
+    if (!isAtTable) utils.populateEditableElements(locale.value, currentMessages);
   }
 }
 
