@@ -34,6 +34,9 @@ function loadLocaleMessages() {
 
 
 
+
+
+
 const i18n = createI18n({
   locale: "en",   // set initial locale
   fallbackLocale: "en",
@@ -79,10 +82,10 @@ var i18nFunctions = {
     }
   },
 
-async getNewMessages(name) {
-  let idiom = await fetchIdiom(name);
-  return { ...idiom.vocabulary, ...idiom.News };
-}
+  async getNewMessages(name) {
+    let idiom = await fetchIdiom(name);
+    return { ...idiom.vocabulary, ...idiom.News };
+  },
 }
 
 

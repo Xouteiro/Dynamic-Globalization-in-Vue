@@ -48,7 +48,7 @@ async function updateLocale(newLocale: string) {
   locale.value = newLocale;
   isLoading.value = false;
 
-  if (!i18n.global.availableLocales.includes(locale.value) /*&& i18nFunctions.idioms == null*/) { // isto dá erro porque idioms é null
+  if (!i18n.global.availableLocales.includes(locale.value) && i18nFunctions.idioms == null) {
     let new_locale_messages = await i18nFunctions.getNewMessages(locale.value);
     i18n.global.setLocaleMessage(locale.value, new_locale_messages);
     currentMessages = i18n.global.getLocaleMessage(locale.value);

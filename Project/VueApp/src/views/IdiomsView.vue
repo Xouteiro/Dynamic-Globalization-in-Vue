@@ -9,6 +9,9 @@ import { watch,ref } from 'vue';
 
 if (i18nFunctions.idioms == null) {
   i18nFunctions.idioms = await i18nFunctions.fetchAllIdioms();
+  for(let i = 0; i < i18nFunctions.idioms.length; i++){
+    i18n.global.setLocaleMessage(i18nFunctions.idioms[i].name, {...i18nFunctions.idioms[i].vocabulary, ...i18nFunctions.idioms[i].News});
+  }
 }
 
 let idioms = i18nFunctions.idioms;
