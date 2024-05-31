@@ -42,10 +42,6 @@ let idioms = i18nFunctions.idioms;
 const filteredIdioms = computed(() => getFilteredIdioms());
 
 
-
-
-
-
 const vocabulary = computed(() => {
   const idiomNames = idioms.map((idiom: { name: any; }) => idiom.name);
   return idiomNames.map((name: string) => getVocabulary(name));
