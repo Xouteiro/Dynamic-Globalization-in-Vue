@@ -2,12 +2,9 @@ import { createI18n } from "vue-i18n";
 
 let fetchError = false;
 
-
 async function fetchMainLanguage() {
   try {
-
     const response = await fetch('http://localhost:5037/mainLanguage');
-
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -26,7 +23,6 @@ let main_language = await fetchMainLanguage();
 async function fetchIdiom(name) {
   try {
     const response = await fetch('http://localhost:5037/Idioms/' + name);
-
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

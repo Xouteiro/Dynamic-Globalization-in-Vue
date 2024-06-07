@@ -9,22 +9,16 @@ import utils from './utils.ts';
 import RouterMiddleware from '@/components/RouterMiddleware.vue';
 
 
-
 let { locale } = useI18n()
 let currentMessages = i18n.global.getLocaleMessage(locale.value);
 let errorOnFetch = Object.keys(currentMessages).length === 0;
-
-
 let isLoading = ref(false);
-
-function debug() {
-  console.log(currentMessages);
-}
 
 
 onMounted(() => {
   if (window.location.pathname !== '/table') utils.populateEditableElements(locale.value, currentMessages);
 });
+
 
 
 onUpdated(() => {
@@ -151,4 +145,5 @@ div.locale-switcher {
   height: fit-content;
   align-self: center;
 }
+
 </style>

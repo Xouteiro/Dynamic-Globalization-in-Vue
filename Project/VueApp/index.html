@@ -1,13 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vite App</title>
+  <style>
+    @keyframes l3 {
+      100% {
+        background-position: right -30px top 0
+      }
+    }
+
+    .loading-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #181818;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      flex-direction: column;
+    }
+
+    .loading {
+      width: 240px;
+      height: 40px;
+      transform: skewX(-45deg);
+      background: linear-gradient(#41b883 0 0) left -40px top 0/50px 40px no-repeat #34495e;
+      animation: l3 1s infinite linear;
+    }
+
+    h2 {
+      color: #fff;
+      padding-left: 40px;
+      font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="loading-container" id="loading">
+    <h2>We are loading your news...</h2>
+    <div class="loading"></div>
+
+  </div>
+  <div id="app">
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>

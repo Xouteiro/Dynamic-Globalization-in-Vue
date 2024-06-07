@@ -79,9 +79,7 @@ function populateCurrentInput() {
   }
 }
 
-function debug() {
-  console.log(currentInput);
-}
+
 
 function filterSearch(vocabulary: Object, search: string) {
   let filteredVocabulary = Object.assign({}, vocabulary);

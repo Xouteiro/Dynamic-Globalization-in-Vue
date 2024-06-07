@@ -6,7 +6,7 @@ import utils from '@/utils.ts';
 import i18n from '@/i18n.js';
 import { useI18n } from "vue-i18n";
 import { watch, ref } from 'vue';
-import { reactive, computed } from 'vue';
+import { computed } from 'vue';
 
 if (i18nFunctions.idioms == null) {
   i18nFunctions.idioms = await i18nFunctions.fetchAllIdioms();
