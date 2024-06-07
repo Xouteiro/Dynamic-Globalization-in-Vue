@@ -1,7 +1,26 @@
 import { createI18n } from "vue-i18n";
 
 let fetchError = false;
-let main_language = 'en';
+
+
+async function fetchMainLanguage() {
+  try {
+    const response = await fetch('http://localhost:5037/mainLanguage');
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data.main_language;
+  }
+  catch (error) {
+    console.error('There was a problem with the fetch operation: ', error);
+    return 'en';  // return a default value
+  }
+}
+
+let main_language = await fetchMainLanguage();
+
 
 async function fetchIdiom(name) {
   try {
@@ -33,6 +52,21 @@ function loadLocaleMessages() {
   return messages;
 }
 
+function changeMainLanguage(language) {
+  try {
+    fetch('http://localhost:5037/mainLanguage', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ main_language: language })
+    });
+  }
+  catch (error) {
+    console.error('There was a problem with the fetch operation: ', error);
+  }
+}
+
 
 
 
@@ -50,7 +84,7 @@ const i18n = createI18n({
 var i18nFunctions = {
   idioms: null,
   idiom_names: null,
-  main_language: 'en',
+  main_language: main_language,
   
 
   async fetchAllIdioms() {
@@ -89,6 +123,19 @@ var i18nFunctions = {
     let idiom = await fetchIdiom(name);
     return { ...idiom.vocabulary, ...idiom.News };
   },
+
+  updateMainLanguage(language) {
+    try{
+      changeMainLanguage(language);
+      main_language = language;
+      i18n.fallbackLocale = language;
+    }
+    catch (error) {
+      console.error('There was a problem changing the main language: ', error);
+      main_language = 'en'; 
+      i18n.fallbackLocale = 'en';
+    }
+  }
 }
 
 

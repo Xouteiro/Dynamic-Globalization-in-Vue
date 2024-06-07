@@ -38,6 +38,7 @@ let main_language = ref(i18nFunctions.main_language);
 
 watch(main_language, (newMainLanguage) => {
   i18nFunctions.main_language = newMainLanguage;
+  i18nFunctions.updateMainLanguage(newMainLanguage);
 });
 
 

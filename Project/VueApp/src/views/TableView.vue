@@ -80,7 +80,7 @@ function populateCurrentInput() {
 }
 
 function debug() {
-  console.log(Object.keys(getVocabulary("en")).length == 1);
+  console.log(currentInput);
 }
 
 function filterSearch(vocabulary: Object, search: string) {
@@ -168,10 +168,22 @@ function getNews(idioms_vocab: any, idiom: string) {
 
 function getFilteredIdioms() {
   vocabulary_empty = 1;
+  let main_idiom = null;
   let filteredIdioms: any = [];
 
   if (idiomChoice.value.length === 0) {
-    return idioms;
+    for (let i = 0; i < idioms.length; i++) {
+    if (idioms[i].name === i18nFunctions.main_language) {
+      main_idiom = idioms[i];
+    }
+  }
+  filteredIdioms.push(main_idiom);
+  for(let i = 0; i < idioms.length; i++){
+    if(idioms[i].name != i18nFunctions.main_language){
+      filteredIdioms.push(idioms[i]);
+    }
+  }
+  return filteredIdioms;
   }
   for (let i = 0; i < idioms.length; i++) {
     if (idiomChoice.value.includes(idioms[i].name)) {
@@ -254,7 +266,12 @@ function getUsage(key: string, idiom: string, currentInput: string) {
     }
   }
   else {
-    return unused;
+    if(idiom == i18nFunctions.main_language){
+      return missing;
+    }
+    else{
+      return unused;
+    }
   }
 }
 
@@ -274,6 +291,8 @@ function getTitle(usage: string) {
 }
 
 
+
+
 onMounted(() => {
   utils.removeEventListeners();
 });
@@ -291,7 +310,6 @@ onMounted(() => {
   </div>
 
 
-  <!-- <button @click="console.log(filterSearch(getAllNews(currentMessages), 't'))">Debug</button> -->
 
   <template v-if="error_message != undefined">
     <div class="error">
@@ -337,7 +355,7 @@ onMounted(() => {
         <td class="idiom"> {{ item.name + ' ' + utils.getFlag(item.name) }} </td>
         <td class="identifier"> {{ key }}</td>
         <td class="text"><input type="text" class="input" v-model="currentInput[item.name + '.' + key]"
-            :placeholder="currentInput[item.name + '.' + key] == '' ? ' ⚠ Complete this missing value' : currentInput[item.name + '.' + key]" />
+            :placeholder="(currentInput[item.name + '.' + key] == '' || currentInput[item.name + '.' + key] == undefined) ? ' ⚠ Complete this missing value' : currentInput[item.name + '.' + key]" />
         </td>
         <td class="submit"><button class="submit"
             @click="updateElement(key.toString(), currentInput[item.name + '.' + key], item.name, currentMessages, false, locale, idioms)">Submit</button>

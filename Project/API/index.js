@@ -1,7 +1,6 @@
 var Express = require('express');
 var MongoClient = require('mongodb').MongoClient;
 var cors = require('cors');
-const multer = require('multer');
 
 var app = Express();
 app.use(cors());
@@ -43,7 +42,9 @@ app.get('/Idioms', (request, response) => {
             return
         }
         else {
-            response.send(result);
+            // setTimeout(() => {
+                response.send(result);
+            // }, 5000);
         }
     });
 });
@@ -65,7 +66,9 @@ app.get('/Idioms/:name', (request, response) => {
             return
         }
         else {
-            response.send(result);
+            // setTimeout(() => {
+                response.send(result);
+            // }, 5000);
         }
     });
 });
@@ -142,6 +145,17 @@ app.get('/Idioms/get/names', (request, response) => {
     });
 });
 
+
+
+app.get('/mainLanguage', (request, response) => {
+    database.collection('configurations').findOne({}, (err, result) => {
+        if (err) {
+            response.status(500).send(err);
+        } else {
+            response.json({ main_language: result.main_language });
+        }
+    });
+});
 
 //POST
 
@@ -228,8 +242,6 @@ app.put('/Idioms/:name/vocabulary/', async (request, response) => {
 });
 
 
-//PUT
-
 //Update an idiom vocabulary
 //If the idiom doesn't have a vocabulary, it will be created
 //If the idiom has a vocabulary, the new key-value pair will be added
@@ -271,6 +283,53 @@ app.put('/Idioms/:name/news/', async (request, response) => {
         if (error) {
             console.error('Failed to update idiom. Error:', error);
             response.status(500).send('Failed to update idiom');
+            return;
+        }
+        response.send(result);
+    });
+});
+
+
+
+//Update the main language
+
+app.put('/mainLanguage', async (request, response) => {
+
+    idiom_names = null;
+
+    try{
+    idiom_names = await database.collection('Idioms').find({}, { projection: { name: 1, _id: 0 } }).toArray();
+        if (idiom_names == undefined) {
+            response.status(404).send('No idioms found');
+            return;
+        }
+        else {
+            idiom_names = idiom_names.map((idiom) => idiom.name);
+        }
+
+    }catch(error){
+        console.error('Failed to fetch idioms. Error:', error);
+        response.status(500).send('Failed to fetch idiommms'); 
+        return;
+    }
+
+    if (request.body.main_language == undefined) {
+        response.status(400).send('Main language not provided');
+        return;
+    }
+    if(idiom_names == null){
+        response.status(500).send('Failed to fetch idioms');
+        return;
+    }
+    if(!request.body.main_language in idiom_names){
+        response.status(400).send('Main language not found');
+        return;
+    }
+
+    database.collection('configurations').updateOne({}, { $set: { main_language: request.body.main_language } }, (error, result) => {
+        if (error) {
+            console.error('Failed to update main language. Error:', error);
+            response.status(500).send('Failed to update main language');
             return;
         }
         response.send(result);

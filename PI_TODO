@@ -17,9 +17,7 @@ imagens no fim
 
 A fazer:
 
-
-
-poder mudar main language
+loading visivel
 
 erro chegar ao edit -- ToolTip -- falta css e delay ao sair de on hover -- talvez por o delay no js 	
 
@@ -87,6 +85,9 @@ Documentar:
 	
 	-- falar sobre alteração do load do idiomas, todos na table e no idioms, load à medida que forem necessários normalmente. quando ja se tem os idioms nao dar load aos idiomas
 	
+	--link palavra
+	--main language alteravel
+	
 	
 	
 	
@@ -116,19 +117,27 @@ API e aplicação de extrair strings e Autenticação é para por nos objetivos?
 
 DONE:
 
+DONE --- main language ficatr persistente -- DONE
+
+DONE --- poder mudar main language -- DONE - falta main lang aparecer primeiro na tabela -- DONE
+
 DONE --- quando ja se tem os idioms nao dar load aos idiomas -- DONE
 
 DONE --- link ir para a palavra -- DONE
 
 DONE --- carregar todos os idiomas só quando se vai para a tabela -- o problema é que o i18n carrega logo todos os idiomas -- resolvido -- DONE
 
+DONE --- erro de fetch
+
+
+
+------------- RELATORIO FEITO sobre o que está em baixo -------------
+
 DONE --- Dar para adicionar palavras à main language --- DONE
 
 DONE --- Search pelo texto -- falta mensagem quando é vazia --- DONE
 
 DONE --- Por link para a tabela no popUp --- DONE
-
-
 
 DONE --- mostrar palavras que nao têm tradução --- DONE
 
@@ -172,10 +181,6 @@ fiz assim -- update ao current messages quando o locale é o mesmo, update idiom
 -----agora só não muda depois de mudar de locale, talvez porque novo current messages nao é um proxy(era isto)
 
 DONE --- Pagina com tabela de todo o vocabulario
-
-DONE --- erro de fetch
-
-DONE --- fazer script para inicializar site
 
 DONE -- Ter noticias para cada idioma OU arranjar forma de traduzir as noticias 
 
