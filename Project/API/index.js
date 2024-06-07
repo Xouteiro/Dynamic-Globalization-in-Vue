@@ -44,7 +44,7 @@ app.get('/Idioms', (request, response) => {
         else {
             // setTimeout(() => {
                 response.send(result);
-            // }, 5000);
+            // }, 3000);
         }
     });
 });
@@ -68,7 +68,7 @@ app.get('/Idioms/:name', (request, response) => {
         else {
             // setTimeout(() => {
                 response.send(result);
-            // }, 5000);
+            // }, 2000);
         }
     });
 });

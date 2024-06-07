@@ -5,6 +5,7 @@ let fetchError = false;
 
 async function fetchMainLanguage() {
   try {
+
     const response = await fetch('http://localhost:5037/mainLanguage');
 
     if (!response.ok) {
@@ -85,11 +86,13 @@ var i18nFunctions = {
   idioms: null,
   idiom_names: null,
   main_language: main_language,
-  
+  waiting: false,
 
   async fetchAllIdioms() {
     try {
+      this.waiting = true;
       const response = await fetch('http://localhost:5037/Idioms');
+      this.waiting = false;
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -105,7 +108,9 @@ var i18nFunctions = {
 
   async fetchIdiomNames() {
     try {
+      this.waiting = true;
       const response = await fetch('http://localhost:5037/Idioms/get/names');
+      this.waiting = false;
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -120,7 +125,10 @@ var i18nFunctions = {
   },
 
   async getNewMessages(name) {
+    this.waiting = true;
     let idiom = await fetchIdiom(name);
+    this.waiting = false;
+
     return { ...idiom.vocabulary, ...idiom.News };
   },
 

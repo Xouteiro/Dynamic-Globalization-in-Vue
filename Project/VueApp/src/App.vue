@@ -6,15 +6,13 @@ import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 import i18n from './i18n.js';
 import { i18nFunctions } from './i18n.js';
 import utils from './utils.ts';
+import RouterMiddleware from '@/components/RouterMiddleware.vue';
 
 
 
 let { locale } = useI18n()
 let currentMessages = i18n.global.getLocaleMessage(locale.value);
 let errorOnFetch = Object.keys(currentMessages).length === 0;
-
-
-
 
 
 let isLoading = ref(false);
@@ -48,7 +46,7 @@ async function updateLocale(newLocale: string) {
     let new_locale_messages = await i18nFunctions.getNewMessages(locale.value);
     i18n.global.setLocaleMessage(locale.value, new_locale_messages);
     currentMessages = i18n.global.getLocaleMessage(locale.value);
-    
+
     if (window.location.pathname !== '/table') utils.populateEditableElements(locale.value, currentMessages);
   }
 }
@@ -85,12 +83,7 @@ async function updateLocale(newLocale: string) {
 
 
   <Suspense>
-    <template #default>
-      <RouterView />
-    </template>
-    <template #fallback>
-      <div>Loading...</div>
-    </template>
+    <RouterMiddleware />
   </Suspense>
 
 
