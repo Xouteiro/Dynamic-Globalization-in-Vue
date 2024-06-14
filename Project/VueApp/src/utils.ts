@@ -329,7 +329,6 @@ function openPopUp(classes: DOMTokenList, locale: string, currentMessages: Curre
         setTimeout(async () => {
             const selector = 'tr.' + key + '.' + locale;
             const elementToScrollTo = document.querySelector(selector);
-            console.log(elementToScrollTo);
             if (elementToScrollTo) {
                 elementToScrollTo.classList.add('highlight');
                 elementToScrollTo.scrollIntoView({ behavior: 'smooth', block: 'center'});

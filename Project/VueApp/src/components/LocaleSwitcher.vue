@@ -1,7 +1,7 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
-import { watchEffect, ref, watch } from 'vue'
+import { watchEffect } from 'vue'
 import utils from '@/utils';
 import { i18nFunctions } from '@/i18n.js'
 

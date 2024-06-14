@@ -17,7 +17,18 @@ imagens no fim
 
 A fazer:
 
-loading visivel
+HOJE: 
+
+- update relatorio
+- correções relatorio
+- atualizar request table
+- preencher diagrama 
+- começar performance
+
+
+enviar email prof. para ela ver o rel e reuniao final
+
+inquerito satisfação até dia 28
 
 erro chegar ao edit -- ToolTip -- falta css e delay ao sair de on hover -- talvez por o delay no js 	
 
@@ -29,11 +40,9 @@ Fazer POST/GET para noticias e analisar como dar handle à tradução --- medio 
 
 edit in json format -- outra opção para edit texto
 
-
 Css cuidado 
 
 mudar o uml do relatorio -- DONE, perguntar sobre o novo, comentario no relatorio
-
 
 
 aplicação de extrair strings -- import
@@ -119,21 +128,25 @@ API e aplicação de extrair strings e Autenticação é para por nos objetivos?
 
 DONE:
 
-DONE --- main language ficatr persistente -- DONE
-
-DONE --- poder mudar main language -- DONE - falta main lang aparecer primeiro na tabela -- DONE
-
-DONE --- quando ja se tem os idioms nao dar load aos idiomas -- DONE
-
-DONE --- link ir para a palavra -- DONE
-
-DONE --- carregar todos os idiomas só quando se vai para a tabela -- o problema é que o i18n carrega logo todos os idiomas -- resolvido -- DONE
+DONE --- loading -- DONE
 
 DONE --- erro de fetch
 
 
 
 ------------- RELATORIO FEITO sobre o que está em baixo -------------
+
+DONE --- link ir para a palavra -- DONE
+
+DONE -- erro ao mudar main language, main language fica com palavras vazias, vocabulary index estava mal -- DONE
+
+DONE --- main language ficar persistente -- DONE
+
+DONE --- poder mudar main language -- DONE - falta main lang aparecer primeiro na tabela -- DONE
+
+DONE --- quando ja se tem os idioms nao dar load aos idiomas -- DONE
+
+DONE --- carregar todos os idiomas só quando se vai para a tabela -- o problema é que o i18n carrega logo todos os idiomas -- resolvido -- DONE
 
 DONE --- Dar para adicionar palavras à main language --- DONE
 

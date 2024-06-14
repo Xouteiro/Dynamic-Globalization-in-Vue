@@ -39,14 +39,7 @@ async function fetchIdiom(name) {
 const idiom = await fetchIdiom(main_language);
 
 function loadLocaleMessages() {
-  let locales = [];
-  locales.push({ [idiom.name]: { ...idiom.vocabulary, ...idiom.News } });
-  const messages = {};
-  locales.forEach((lang) => {
-    const key = Object.keys(lang);
-    messages[key] = lang[key];
-  });
-  return messages;
+  return { [idiom.name]: { ...idiom.vocabulary, ...idiom.News } };
 }
 
 function changeMainLanguage(language) {

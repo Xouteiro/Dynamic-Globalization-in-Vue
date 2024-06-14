@@ -44,8 +44,9 @@ const filteredIdioms = computed(() => getFilteredIdioms());
 
 
 const vocabulary = computed(() => {
-  const idiomNames = idioms.map((idiom: { name: any; }) => idiom.name);
-  return idiomNames.map((name: string) => getVocabulary(name));
+  const idiomNames = filteredIdioms.value.map((idiom: { name: any; }) => idiom.name);
+  const result = idiomNames.map((name: string) => getVocabulary(name));
+  return result;
 });
 
 populateCurrentInput();
@@ -58,6 +59,8 @@ watch(locale, (newLocale) => {
     }
   }
 });
+
+
 
 
 
@@ -106,6 +109,8 @@ function getVocabulary(idiom: string) {
         valueLessVocabulary[key] = "";
       }
     }
+  }
+  for(let i = 0; i < idioms.length; i++){
     if (idioms[i].name === idiom) {
       let vocabulary = Object.assign({}, idioms[i].vocabulary);
       if (!(search_v.value == '')) {
@@ -125,6 +130,13 @@ function getVocabulary(idiom: string) {
       if (Object.keys(vocabulary).length != 0) {
         vocabulary_empty = 0;
       }
+
+      for(let key in vocabulary){
+        if(vocabulary[key] == '' && idiom == i18nFunctions.main_language){
+          delete vocabulary[key];
+        }
+      }
+
       return vocabulary;
     }
   }
@@ -156,7 +168,6 @@ function getNews(idioms_vocab: any, idiom: string) {
           news.push(newNews);
         }
       }
-      console.log(news);
       return news;
     }
 
@@ -375,9 +386,7 @@ onMounted(() => {
 
 
   <h2>News</h2>
-  <!-- <div class="search">
-    <input type="text" class="search" placeholder="Search for an Article" v-model="search_n" />
-  </div> -->
+
   <table class="table">
     <thead>
       <tr>
