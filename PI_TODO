@@ -1,4 +1,17 @@
+figuras com ref
+
+idioma principal vs preferencial	
+
+diagrama fluxo
+
+enviar email prof. para ela ver o rel e reuniao final
+
+ponto final captions
+
 Perguntas:
+
+
+"ver hoje" no relatorio
 
 Posso escrever eventListener?
 Posso escrever input quando falo do elemento HTML?
@@ -17,16 +30,17 @@ imagens no fim
 
 A fazer:
 
-HOJE: 
+Até segunda/terça: 
 
-- update relatorio
-- correções relatorio
-- atualizar request table
-- preencher diagrama 
 - começar performance
 
+- erro de fetch
 
-enviar email prof. para ela ver o rel e reuniao final
+
+
+titulos latex *
+
+
 
 inquerito satisfação até dia 28
 
@@ -42,9 +56,6 @@ edit in json format -- outra opção para edit texto
 
 Css cuidado 
 
-mudar o uml do relatorio -- DONE, perguntar sobre o novo, comentario no relatorio
-
-
 aplicação de extrair strings -- import
 
 sugestão de tradução ?? 
@@ -57,9 +68,6 @@ animação saved -- mt pouco import
 
 animação jornal load inicial -- pouco import
 
-Tentar que só carregue a linguagem quando necessário
-
-melhorar import se der
 
 Mini-problemas a resolver se der:
     Suportar a existência de palavras com dois significados, por exemplo, swicth em inglês, tanto pode ser "trocar" como "interruptor" em português
@@ -68,11 +76,12 @@ Mini-problemas a resolver se der:
 mudar cores para variaveis
 
 
+
 Performance:
 
-Comparar site normal só com strings em ingles e com o carregar de todas, usar extensao de vue
+Comparar site normal só com strings em ingles e com o carregar de todas, usar extensao de vue, por base de dados com muitas strings(>1000), não só base de dados ter muitas strings mas também dar display a muitas strings.
 
-comparar tempos de dar load a um só um idioma ou a todos, por muitas strings na base de dados de forma a ser notavel, comparar o efeito da filtragem em redes lentas comparado com rapidas
+comparar tempos de dar load a um só um idioma ou a todos, por muitas strings na base de dados de forma a ser notavel, e comparar o efeito da filtragem em redes lentas comparado com rapidas.
 
 
 
@@ -94,17 +103,12 @@ Documentar:
 	-- script run
 	-- erro de fetch
 	
-	-- falar sobre alteração do load do idiomas, todos na table e no idioms, load à medida que forem necessários normalmente. quando ja se tem os idioms nao dar load aos idiomas
-	
-	--link palavra
-	--main language alteravel
 	
 	
-	
-	
-	
-	
-	
+
+	-- falar sobre alteração do load do idiomas, todos na table e no idioms, load à medida que forem necessários normalmente. quando ja se tem os idioms nao dar load aos idiomas -- DONE	
+	--link palavra -- DONE
+	--main language alteravel -- DONE
 	-- Change Words -- in progress -- DONE
 	-- o porque de NoSql --DONE
 	-- o porque da estrutura da DB--DONE
@@ -121,6 +125,7 @@ Backend:
 	Site simples exemplo -- melhorar eventualmente
 
 
+
 API e aplicação de extrair strings e Autenticação é para por nos objetivos?  --trabalho futuro o que nao der para fazer
 
 
@@ -128,13 +133,20 @@ API e aplicação de extrair strings e Autenticação é para por nos objetivos?
 
 DONE:
 
-DONE --- loading -- DONE
+
 
 DONE --- erro de fetch
 
 
-
 ------------- RELATORIO FEITO sobre o que está em baixo -------------
+
+DONE --- loading -- DONE
+
+DONE --- syntax highlight latex -- DONE
+
+DONE --- correções relatorio -- DONE
+DONE --- atualizar request table -- DONE
+DONE --- preencher diagrama -- DONE
 
 DONE --- link ir para a palavra -- DONE
 

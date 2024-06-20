@@ -296,7 +296,11 @@ function importJson() {
   reader.readAsText(file);
 }
 
-function exportJson(idiom) {
+function exportJson(idiom, is_main_language = false) {
+  let main_idiom = idioms.find((idiom) => idiom.name === main_language.value);
+  if(is_main_language){
+    idiom = main_idiom;
+  }
   const json = JSON.stringify(idiom);
   const blob = new Blob([json], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
@@ -377,7 +381,7 @@ function exportJson(idiom) {
 
     <div>
       <label class="main">{{ main_language + ' ' + utils.getFlag(main_language) }}</label>
-      <button class="export" @click.prevent="exportJson(idiom)">Export Json</button>
+      <button class="export" @click.prevent="exportJson(idiom, true)">Export Json</button>
       <div v-for="(idiom, index) in idioms_not_main" :key="index">
         <div class="manage">
           <label>{{ idiom.name + ' ' + utils.getFlag(idiom.name) }}</label>

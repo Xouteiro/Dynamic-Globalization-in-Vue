@@ -35,7 +35,6 @@ async function fetchIdiom(name) {
   }
 }
 
-
 const idiom = await fetchIdiom(main_language);
 
 function loadLocaleMessages() {

@@ -35,7 +35,7 @@ onMounted(() => {
     <input class="test-placeholder" :placeholder="$t('test-placeholder')" :class="locale" />
     <input class="test-placeholder2" :placeholder="$t('test-placeholder2')" :class="locale" />
 
-    <button @click="console.log(i18nFunctions.main_language)">debug</button>
+    <marquee class="about-h1" :class="locale">{{ $t("about-h1") }}</marquee>
 
 
 

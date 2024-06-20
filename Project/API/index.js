@@ -1,14 +1,19 @@
 var Express = require('express');
 var MongoClient = require('mongodb').MongoClient;
 var cors = require('cors');
+const bodyParser = require('body-parser');
 
 var app = Express();
 app.use(cors());
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(Express.json());
 
 var CONNECTION_URL = 'mongodb://localhost:27017';
 var DATABASE_NAME = 'VueLocal';
 var database;
+
+
 
 
 app.listen(5037, () => {
@@ -42,9 +47,7 @@ app.get('/Idioms', (request, response) => {
             return
         }
         else {
-            // setTimeout(() => {
-                response.send(result);
-            // }, 1000);
+            response.send(result);
         }
     });
 });
@@ -66,9 +69,7 @@ app.get('/Idioms/:name', (request, response) => {
             return
         }
         else {
-            // setTimeout(() => {
-                response.send(result);
-            // }, 2000);
+            response.send(result);
         }
     });
 });
@@ -145,6 +146,8 @@ app.get('/Idioms/get/names', (request, response) => {
     });
 });
 
+
+//
 
 
 app.get('/mainLanguage', (request, response) => {

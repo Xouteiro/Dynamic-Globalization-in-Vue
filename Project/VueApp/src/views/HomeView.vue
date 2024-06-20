@@ -2,7 +2,7 @@
 
 import { useI18n } from "vue-i18n";
 import i18n from '@/i18n.js';
-import { ref, onMounted, onUpdated } from "vue";
+import { ref, onMounted } from "vue";
 import ArticleDisplay from '@/components/ArticleDisplay.vue'
 import utils from '@/utils.ts';
 

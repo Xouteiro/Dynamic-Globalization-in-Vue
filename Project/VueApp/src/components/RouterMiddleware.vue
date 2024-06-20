@@ -10,8 +10,8 @@ onMounted(() => {
     intervalId = setInterval(() => {
         waiting.value = i18nFunctions.waiting;
     }, 100);
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
+    
+    document.getElementById('loading').remove();
 });
 
 onUnmounted(() => {
