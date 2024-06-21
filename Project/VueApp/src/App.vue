@@ -36,6 +36,8 @@ async function updateLocale(newLocale: string) {
   locale.value = newLocale;
   isLoading.value = false;
 
+  localStorage.setItem('prefered_language', newLocale);
+
   if (!i18n.global.availableLocales.includes(locale.value) && i18nFunctions.idioms == null) {
     let new_locale_messages = await i18nFunctions.getNewMessages(locale.value);
     i18n.global.setLocaleMessage(locale.value, new_locale_messages);

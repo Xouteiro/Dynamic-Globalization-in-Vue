@@ -2,6 +2,32 @@ import { createI18n } from "vue-i18n";
 
 let fetchError = false;
 
+async function fetchPreferedLanguage() {
+  try {
+    const storedPreferedLanguage = localStorage.getItem('prefered_language');
+    if (storedPreferedLanguage) {
+      return storedPreferedLanguage; 
+    }
+
+    const response = await fetch('http://localhost:5037/mainLanguage');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    const mainLanguage = data.main_language;
+
+    localStorage.setItem('prefered_language', mainLanguage);
+
+    return mainLanguage;
+  }
+  catch (error) {
+    console.error('There was a problem with the fetch operation: ', error);
+    return 'en'; 
+  }
+}
+
+let prefered_language = await fetchPreferedLanguage();
+
 async function fetchMainLanguage() {
   try {
     const response = await fetch('http://localhost:5037/mainLanguage');
@@ -17,7 +43,9 @@ async function fetchMainLanguage() {
   }
 }
 
+
 let main_language = await fetchMainLanguage();
+
 
 
 async function fetchIdiom(name) {
@@ -35,7 +63,7 @@ async function fetchIdiom(name) {
   }
 }
 
-const idiom = await fetchIdiom(main_language);
+const idiom = await fetchIdiom(prefered_language);
 
 function loadLocaleMessages() {
   return { [idiom.name]: { ...idiom.vocabulary, ...idiom.News } };
@@ -62,8 +90,8 @@ function changeMainLanguage(language) {
 
 
 const i18n = createI18n({
-  locale: main_language,   // set initial locale
-  fallbackLocale: main_language, // set fallback locale
+  locale: prefered_language,   // set initial locale
+  fallbackLocale: prefered_language, // set fallback locale
   legacy: false, // false for Composition API
   messages: loadLocaleMessages(),  //preenche $i18.availableLocales com as linguagens disponíveis
 });
