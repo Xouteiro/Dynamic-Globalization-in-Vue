@@ -44,7 +44,7 @@ async function fetchMainLanguage() {
 }
 
 
-let main_language = await fetchMainLanguage();
+// let main_language = await fetchMainLanguage();
 
 
 
@@ -101,11 +101,15 @@ const i18n = createI18n({
 var i18nFunctions = {
   idioms: null,
   idiom_names: null,
-  main_language: main_language,
+  main_language: null,
   waiting: false,
 
   async fetchAllIdioms() {
     try {
+      this.waiting = true;
+      this.main_language = await fetchMainLanguage();
+      this.waiting = false;
+
       this.waiting = true;
       const response = await fetch('http://localhost:5037/Idioms');
       this.waiting = false;
@@ -151,12 +155,12 @@ var i18nFunctions = {
   updateMainLanguage(language) {
     try{
       changeMainLanguage(language);
-      main_language = language;
+      this.main_language = language;
       i18n.fallbackLocale = language;
     }
     catch (error) {
       console.error('There was a problem changing the main language: ', error);
-      main_language = 'en'; 
+      this.main_language = 'en'; 
       i18n.fallbackLocale = 'en';
     }
   }
