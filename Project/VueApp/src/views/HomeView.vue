@@ -9,7 +9,6 @@ import utils from '@/utils.ts';
 let { locale } = useI18n()
 let currentMessages = i18n.global.getLocaleMessage(locale.value);
 let isLoading = ref(false);
-let errorOnFetch = Object.keys(currentMessages).length === 0;
 
 
 
@@ -38,7 +37,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="errorOnFetch" class="Fetch Error">Error fetching data</div>
 
   <div v-if="isLoading">Loading...</div>
   <ArticleDisplay v-else v-for="(item, index) in getNews(currentMessages)" :key="index" :newsContent="item">

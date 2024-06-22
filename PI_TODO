@@ -1,48 +1,39 @@
-figuras com ref
+A fazer !!:
 
-idioma principal vs preferencial	
+conclusões lições aprendidas
+
+estrututra
+
+referencias bibl
+
+performance
+
+erro de fetch
 
 diagrama fluxo
 
-enviar email prof. para ela ver o rel e reuniao final
+descrever eventos -- diag gant -- DONE
 
-ponto final captions
+introduzir e desenvolver tecnologias -- DONE
 
-Perguntas:
+verificar sitios figuras e codigo
 
+melhorar css e prints
 
-"ver hoje" no relatorio
+data
 
-Posso escrever eventListener?
-Posso escrever input quando falo do elemento HTML?
+script video
 
-escrevo texto antes do itemize?
+video
 
-ponho titulos dentro das sections?
-
-Digo que a solução da tabela também foi implementada para as notícias mas não totalmente?
-
-aplicação de extrair strings do documento? do codigo?
-
-imagens no fim
-
-
-
-A fazer:
-
-Até segunda/terça: 
-
-- começar performance
-
-- erro de fetch
-
-
-
-titulos latex *
-
-
-
+ver se há erros relatorio
+ 
 inquerito satisfação até dia 28
+
+
+
+
+A fazer ? ou trabalho futuro:
 
 erro chegar ao edit -- ToolTip -- falta css e delay ao sair de on hover -- talvez por o delay no js 	
 
@@ -54,7 +45,6 @@ Fazer POST/GET para noticias e analisar como dar handle à tradução --- medio 
 
 edit in json format -- outra opção para edit texto
 
-Css cuidado 
 
 aplicação de extrair strings -- import
 
@@ -99,13 +89,12 @@ Error handling a implementar:
 verificar se a falha no fetch da sempre
 
 
+
+
 Documentar:
-	-- script run
 	-- erro de fetch
 	
 	
-	
-
 	-- falar sobre alteração do load do idiomas, todos na table e no idioms, load à medida que forem necessários normalmente. quando ja se tem os idioms nao dar load aos idiomas -- DONE	
 	--link palavra -- DONE
 	--main language alteravel -- DONE
@@ -126,7 +115,10 @@ Backend:
 
 
 
-API e aplicação de extrair strings e Autenticação é para por nos objetivos?  --trabalho futuro o que nao der para fazer
+Trabalho futuro se nao der:
+
+Aplicação de extrair strings 
+Autenticação
 
 
 

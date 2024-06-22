@@ -76,6 +76,9 @@ async function updateLocale(newLocale: string) {
 
   </header>
 
+  <div class="error-container" v-if="errorOnFetch">
+    <div v-if="errorOnFetch" class="error-warning">Error fetching your news. Refresh the page!</div>
+  </div>
 
   <Suspense>
     <RouterMiddleware />
@@ -98,6 +101,7 @@ header {
   max-height: 100vh;
   margin-bottom: 60px;
 }
+
 
 .logo {
   display: block;
@@ -146,5 +150,67 @@ div.locale-switcher {
   height: fit-content;
   align-self: center;
 }
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+
+}
+
+.error-warning {
+      display: inline-block;
+      background: linear-gradient(90deg, #34495e,#41b883);
+      color: white;
+      padding: 20px  30px 20px 60px;
+      border-radius: 10px;
+      font-family: 'Arial', sans-serif;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 0.5s ease-in-out, pulse 2s infinite;
+    }
+
+    .error-warning::before {
+      content: '!';
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      font-size: 24px;
+      background: white;
+      color: #41b883;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 20px #307154;
+      }
+      50% {
+        box-shadow: 0 0 20px #34495e;
+      }
+    }
 
 </style>
