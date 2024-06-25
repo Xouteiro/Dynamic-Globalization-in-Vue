@@ -94,7 +94,7 @@ div.pop-up .close-button:hover{
 }
 
 
-button.edit-button{
+button.edit-button.tooltiptext{
   background-color: hsl(160, 93%, 35%);
   color: black;
   border: none;
@@ -125,10 +125,10 @@ button.edit-button{
   /* Position the tooltip text */
   position: absolute;
   z-index: 1;
-  bottom: 125%;
+  bottom: 110%;
   left: 50%;
   transform: translateX(-50%);
-  
+
   opacity: 0;
 }
 
@@ -141,7 +141,7 @@ button.edit-button{
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: #555 transparent transparent transparent;
+  border-color: hsl(160, 93%, 35%) transparent transparent transparent;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */

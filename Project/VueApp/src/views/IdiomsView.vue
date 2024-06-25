@@ -415,10 +415,11 @@ h1 {
 
 
 
-h2 {
+body h2 {
   text-align: center;
   font-size: 35px;
   margin-bottom: 30px;
+  padding-left: 0;
 }
 
 h3 {
@@ -529,9 +530,7 @@ button.right-corner {
   width: 30%;
   height: 200px;
 }
-</style>
 
-<style>
 .pair {
   width: 80%;
   display: flex;

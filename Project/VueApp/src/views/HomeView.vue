@@ -38,8 +38,24 @@ onMounted(() => {
 
 <template>
 
+  <h1 class="Main_News" :class="locale">{{ $t("Main_News") }} </h1>
+
+
   <div v-if="isLoading">Loading...</div>
   <ArticleDisplay v-else v-for="(item, index) in getNews(currentMessages)" :key="index" :newsContent="item">
   </ArticleDisplay>
 
 </template>
+
+<style scoped>
+
+h1 {
+  display: block; 
+  text-align: center;
+  font-size: 50px;
+  margin: 0 auto; 
+  margin-bottom: 40px;
+  width: 100%
+}
+
+</style>

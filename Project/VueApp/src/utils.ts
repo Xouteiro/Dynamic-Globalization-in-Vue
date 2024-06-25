@@ -158,6 +158,10 @@ function addEditButton(element: HTMLElement, classes: DOMTokenList, locale: stri
     editButton.innerHTML = 'Edit';
     editButton.classList.add('edit-button');
     editButton.classList.add('tooltiptext')
+    if(element.firstElementChild?.tagName === 'H1' || element.firstElementChild?.tagName === 'H2' || element.firstElementChild?.tagName === 'P' ){
+        editButton.style.bottom = '102%';
+    }
+    
     editButton.addEventListener('click', () => {
         openPopUp(classes, locale, currentMessages, element);
     });
@@ -439,6 +443,10 @@ var utils = {
             div.classList.add('tooltip');
             element.parentNode!.replaceChild(div, element);
             div.appendChild(element);
+            if(element.tagName === 'H1'){
+                div.style.textAlign = 'center';
+                div.style.width = '100%';
+            }
 
             // Define the event handlers
             const mouseOverHandler = (e: Event) => {
