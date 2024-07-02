@@ -1,0 +1,140 @@
+{
+  "_id": "662bd33018e1e450ade1971c",
+  "name": "en",
+  "vocabulary": {
+    "Home": "Home",
+    "About": "About",
+    "Table": "Table",
+    "Login": "Login",
+    "about-title": "This is an about page",
+    "about-button": "test-button",
+    "test-placeholder": "change this hhh",
+    "test-placeholder2": "change this2",
+    "idioms-tip": "If you are not sure about what words to add submit the idiom and fill the words in the",
+    "Idioms": "Idioms",
+    "about-h1": "about-h1"
+  },
+  "News": {
+    "Example1": {
+      "Identifier": "Example1",
+      "Title": "Scientific Discovery Revolutionizes Medicine",
+      "Subtitle": "New Research Paves the Way for Innovative Treatments",
+      "Body": "A team of scientists has announced today a discovery that promises to revolutionize the field of medicine. Their research has led to the identification of a new biochemical pathway in the human body, paving the way for innovative treatments for various diseases."
+    },
+    "Example2": {
+      "Identifier": "Example2",
+      "Title": "Global Launch of New Smartphone",
+      "Subtitle": "Technology Company Presents its Latest Product to the World",
+      "Body": "A major technology company unveiled its latest smartphone at a global event held yesterday. The new device promises to revolutionize the market with its advanced technology and innovative features."
+    },
+    "Example3": {
+      "Identifier": "Example3",
+      "Title": "Breakthrough in Renewable Energy",
+      "Subtitle": "New Solar Panel Technology Increases Efficiency",
+      "Body": "Researchers have developed a new type of solar panel that significantly increases energy conversion efficiency. This breakthrough could lead to more widespread adoption of solar energy."
+    },
+    "Example4": {
+      "Identifier": "Example4",
+      "Title": "Historic Peace Agreement Signed",
+      "Subtitle": "Nations Agree to End Decades-Long Conflict",
+      "Body": "In a landmark event, two nations have signed a historic peace agreement, bringing an end to a conflict that has lasted for decades. The agreement includes provisions for cooperation and mutual support."
+    },
+    "Example5": {
+      "Identifier": "Example5",
+      "Title": "Advances in Artificial Intelligence",
+      "Subtitle": "New AI System Can Predict Natural Disasters",
+      "Body": "A new artificial intelligence system has been developed that can accurately predict natural disasters such as earthquakes and hurricanes. This technology has the potential to save countless lives by providing early warnings."
+    },
+    "Example6": {
+      "Identifier": "Example6",
+      "Title": "Revolutionary Cancer Treatment Discovered",
+      "Subtitle": "New Drug Shows Promise in Early Trials",
+      "Body": "Scientists have discovered a new drug that shows great promise in the treatment of cancer. Early trials have shown that the drug can effectively target and destroy cancer cells without harming healthy tissue."
+    },
+    "Example7": {
+      "Identifier": "Example7",
+      "Title": "Breakthrough in Quantum Computing",
+      "Subtitle": "New Quantum Processor Achieves Unprecedented Speeds",
+      "Body": "Researchers have developed a new quantum processor that achieves speeds previously thought impossible. This breakthrough could lead to significant advancements in fields such as cryptography and complex simulations."
+    },
+    "Example8": {
+      "Identifier": "Example8",
+      "Title": "Major Advances in Space Exploration",
+      "Subtitle": "New Spacecraft Set to Explore Outer Planets",
+      "Body": "A new spacecraft designed to explore the outer planets of our solar system has been unveiled. This mission aims to gather unprecedented data about the outer reaches of our solar system."
+    },
+    "Example9": {
+      "Identifier": "Example9",
+      "Title": "Innovations in Agricultural Technology",
+      "Subtitle": "New Farming Techniques Increase Crop Yields",
+      "Body": "Scientists have developed new farming techniques that significantly increase crop yields. These innovations could help address global food shortages and improve food security."
+    },
+    "Example10": {
+      "Identifier": "Example10",
+      "Title": "Groundbreaking Climate Change Study Released",
+      "Subtitle": "New Data Provides Insight into Global Warming",
+      "Body": "A groundbreaking study on climate change has been released, providing new insights into the causes and effects of global warming. The study calls for immediate action to mitigate the impact of climate change."
+    },
+    "Example11": {
+      "Identifier": "Example11",
+      "Title": "Advancements in Electric Vehicles",
+      "Subtitle": "New Battery Technology Extends Range",
+      "Body": "A new battery technology has been developed that significantly extends the range of electric vehicles. This advancement could make electric cars more practical and accessible to a wider audience."
+    },
+    "Example12": {
+      "Identifier": "Example12",
+      "Title": "Revolution in Biotechnology",
+      "Subtitle": "New Gene Editing Tool Promises Medical Breakthroughs",
+      "Body": "Scientists have unveiled a new gene editing tool that promises to revolutionize the field of biotechnology. This tool allows for precise modifications to DNA, opening up new possibilities for treating genetic disorders."
+    },
+    "Example13": {
+      "Identifier": "Example13",
+      "Title": "Innovative Water Purification System Developed",
+      "Subtitle": "New Technology Provides Clean Water in Remote Areas",
+      "Body": "A new water purification system has been developed that can provide clean drinking water in remote areas. This technology has the potential to improve the quality of life for millions of people around the world."
+    },
+    "Example14": {
+      "Identifier": "Example14",
+      "Title": "Significant Advances in Robotics",
+      "Subtitle": "New Robots Can Perform Complex Surgeries",
+      "Body": "Researchers have developed new robots capable of performing complex surgeries with high precision. These advancements could lead to less invasive surgical procedures and faster recovery times for patients."
+    },
+    "Example15": {
+      "Identifier": "Example15",
+      "Title": "Breakthrough in Fusion Energy",
+      "Subtitle": "New Reactor Design Achieves Positive Energy Output",
+      "Body": "A new fusion reactor design has achieved positive energy output for the first time. This breakthrough brings us closer to the dream of unlimited, clean energy from fusion."
+    },
+    "Example16": {
+      "Identifier": "Example16",
+      "Title": "Innovative Transportation System Unveiled",
+      "Subtitle": "New Hyperloop Technology Promises Faster Travel",
+      "Body": "A major technology company has unveiled a new hyperloop transportation system that promises to significantly reduce travel times between cities. This technology could revolutionize the way we travel."
+    },
+    "Example17": {
+      "Identifier": "Example17",
+      "Title": "New Breakthrough in Immunotherapy",
+      "Subtitle": "Advanced Treatment Shows Promise for Autoimmune Diseases",
+      "Body": "Scientists have developed a new form of immunotherapy that shows promise in treating autoimmune diseases. This treatment could offer new hope for patients suffering from conditions such as rheumatoid arthritis and multiple sclerosis."
+    },
+    "Example18": {
+      "Identifier": "Example18",
+      "Title": "Major Development in Renewable Energy Storage",
+      "Subtitle": "New Battery Technology Stores Energy More Efficiently",
+      "Body": "Researchers have developed a new battery technology that stores renewable energy more efficiently. This advancement could help overcome one of the biggest challenges facing renewable energy adoption."
+    },
+    "Example19": {
+      "Identifier": "Example19",
+      "Title": "Breakthrough in Nanotechnology",
+      "Subtitle": "New Materials with Unprecedented Properties Created",
+      "Body": "Scientists have created new nanomaterials with unprecedented properties. These materials could have a wide range of applications, from medicine to electronics."
+    },
+    "Example20": {
+      "Identifier": "Example20",
+      "Title": "Historic Preservation Efforts Succeed",
+      "Subtitle": "Ancient Ruins Restored to Former Glory",
+      "Body": "A major effort to preserve and restore ancient ruins has succeeded, bringing these historical sites back to their former glory. This project has not only protected cultural heritage but also boosted local tourism."
+    }
+  }
+}
+

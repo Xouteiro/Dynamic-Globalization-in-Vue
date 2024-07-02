@@ -32,7 +32,6 @@ function updateCurrentMessages(key: string, word: string, currentMessages: Curre
     }
     else {
         let current = currentMessages
-        console.log(current)
         for (let i = 0; i < keys.length; i++) {
             if (i === keys.length - 1) {
                 current[keys[i]] = i === keys.length - 1 ? word : {}

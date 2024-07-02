@@ -489,7 +489,9 @@ input[type="text"] {
 }
 
 
+</style>
 
+<style>
 
 .buttons-file {
   display: flex;
@@ -584,6 +586,8 @@ button.right-corner {
 input.key {
   margin-right: 3px;
 }
+
+
 
 .full-form.idioms {
   width: 30%;

@@ -21,7 +21,6 @@ let currentMessages = i18n.global.getLocaleMessage(locale.value);
 let currentInput: any = reactive([]);
 let idiomChoice = ref<string[]>([]);
 let search_v = ref('');
-let search_n = ref('');
 let error_message = ref('');
 let vocabulary_empty = 1;
 let new_key = ref('');
