@@ -1,6 +1,7 @@
 # Dynamic Globalization in Vue
 
-This project investigates how Vue handles globalization, specifically how it supports the implementation of a multilingual application and implements this globalization dynamically, so that users can easily edit and customize the texts displayed in the application.
+This project investigates how Vue handles globalization, specifically how it supports the implementation of a multilingual application and implements this globalization dynamically, so that users can easily edit and customize the texts displayed in the application.<br>
+Full report of the project can be read ![here](https://github.com/Xouteiro/Dynamic-Globalization-in-Vue/blob/main/report.pdf).
 
 ## Vue.js + Express.js + MongoDB
 
